@@ -1,0 +1,22 @@
+
+> @tixly/web@0.1.0 build D:\tixly\apps\web
+> next build
+
+   ▲ Next.js 14.1.0
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./src/app/[locale]/matches/[id]/page.tsx:82:37
+Type error: Parameter 'listing' implicitly has an 'any' type.
+
+[0m [90m 80 |[39m                 [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m[0m
+[0m [90m 81 |[39m               ) [33m:[39m ([0m
+[0m[31m[1m>[22m[39m[90m 82 |[39m                 match[33m.[39mlistings[33m.[39mmap((listing) [33m=>[39m ([0m
+[0m [90m    |[39m                                     [31m[1m^[22m[39m[0m
+[0m [90m 83 |[39m                   [33m<[39m[33mdiv[39m key[33m=[39m{listing[33m.[39mid} className[33m=[39m[32m"p-6 flex flex-col sm:flex-row justify-between items-center hover:bg-blue-50/50 transition-colors"[39m[33m>[39m[0m
+[0m [90m 84 |[39m                     [33m<[39m[33mdiv[39m className[33m=[39m[32m"w-full sm:w-1/2 mb-4 sm:mb-0"[39m[33m>[39m[0m
+[0m [90m 85 |[39m                       [33m<[39m[33mdiv[39m className[33m=[39m[32m"flex items-center mb-2"[39m[33m>[39m[0m
+ ELIFECYCLE  Command failed with exit code 1.

@@ -1,0 +1,148 @@
+const config = {
+  darkMode: ["class"],
+  content: [
+    './pages/**/*.{ts,tsx,js,jsx}',
+    './components/**/*.{ts,tsx,js,jsx}',
+    './app/**/*.{ts,tsx,js,jsx}',
+    './src/**/*.{ts,tsx,js,jsx}',
+  ],
+  prefix: "",
+  theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1280px",
+      },
+    },
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+      },
+      fontSize: {
+        'xs': ['12px', { lineHeight: '1.5' }],
+        'sm': ['14px', { lineHeight: '1.5' }],
+        'base': ['16px', { lineHeight: '1.5' }],
+        'lg': ['18px', { lineHeight: '1.5' }],
+        'xl': ['20px', { lineHeight: '1.5' }],
+        '2xl': ['24px', { lineHeight: '1.2' }],
+        '3xl': ['28px', { lineHeight: '1.2' }],
+        '4xl': ['32px', { lineHeight: '1.2' }],
+        '5xl': ['40px', { lineHeight: '1.2' }],
+        '6xl': ['48px', { lineHeight: '1.2' }],
+        '7xl': ['64px', { lineHeight: '1.2' }],
+      },
+      spacing: {
+        '0.5': '2px',
+        '1': '4px',
+        '1.5': '6px',
+        '2': '8px',
+        '2.5': '10px',
+        '3': '12px',
+        '3.5': '14px',
+        '4': '16px',
+        '5': '20px',
+        '6': '24px',
+        '7': '28px',
+        '8': '32px',
+        '9': '36px',
+        '10': '40px',
+        '11': '44px',
+        '12': '48px',
+        '14': '56px',
+        '16': '64px',
+        '20': '80px',
+        '24': '96px',
+        '28': '112px',
+        '32': '128px',
+        '36': '144px',
+        '40': '160px',
+      },
+      maxWidth: {
+        'content': '1280px',
+      },
+      colors: {
+        brand: {
+          navy: "#0D2137",
+          orange: "#E8532A",
+          midblue: "#2F6B9A",
+          paleblue: "#EAF1F8",
+          warmgold: "#C8982A",
+          success: "#22863A",
+          error: "#D73A3A",
+          textblack: "#1A1A1A",
+          mutedgrey: "#555555",
+        },
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+        xl: "12px",
+        "2xl": "1.25rem",
+        "3xl": "1.5rem",
+        "4xl": "2rem",
+        button: "8px",
+        badge: "4px",
+      },
+      boxShadow: {
+        soft: "0 2px 12px 0 rgba(26,60,94,0.06)",
+        "soft-hover": "0 8px 30px 0 rgba(26,60,94,0.12)",
+        card: "0 1px 3px 0 rgba(26,60,94,0.08), 0 1px 2px -1px rgba(26,60,94,0.08)",
+        "card-hover": "0 10px 40px -8px rgba(26,60,94,0.18)",
+        hero: "0 4px 40px 0 rgba(0,0,0,0.3)",
+        modal: "0 20px 60px -12px rgba(26,60,94,0.25), 0 0 0 1px rgba(26,60,94,0.05)",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
+    },
+  },
+  plugins: [require("tailwindcss-animate")],
+};
+
+module.exports = config;
