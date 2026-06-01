@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from '@/navigation';
 import { ListingRow } from './ListingRow';
 import { Loader2 } from 'lucide-react';
 

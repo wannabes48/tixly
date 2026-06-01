@@ -8,12 +8,13 @@ import { format } from 'date-fns';
 import { stadiumInsights } from '@/data/stadium-insights';
 
 import Image from 'next/image';
-export default async function StadiumDetailPage({ params }: { params: { locale: string; stadiumSlug: string } }) {
-  let stadium: any = null;
-  
+import { cache } from 'react';
+import { Metadata } from 'next';
+
+const getStadium = cache(async (stadiumSlug: string) => {
   try {
-    stadium = await prisma.stadium.findUnique({
-      where: { slug: params.stadiumSlug },
+    return await prisma.stadium.findUnique({
+      where: { slug: stadiumSlug },
       include: {
         matches: {
           include: { homeTeam: true, awayTeam: true },
@@ -22,8 +23,25 @@ export default async function StadiumDetailPage({ params }: { params: { locale: 
       }
     });
   } catch (e) {
-    console.error(e);
+    return null;
   }
+});
+
+export async function generateMetadata({ params }: { params: { stadiumSlug: string } }): Promise<Metadata> {
+  const stadium = await getStadium(params.stadiumSlug);
+  if (!stadium) return {};
+
+  return {
+    title: `${stadium.name} Tickets & Information — World Cup 2026`,
+    description: `Experience the incredible atmosphere at ${stadium.name} in ${stadium.city}. Buy World Cup 2026 tickets for matches at this venue.`,
+    alternates: {
+      canonical: `/stadiums/${stadium.slug}`,
+    }
+  };
+}
+
+export default async function StadiumDetailPage({ params }: { params: { locale: string; stadiumSlug: string } }) {
+  let stadium: any = await getStadium(params.stadiumSlug);
 
   if (!stadium) {
     notFound();
@@ -36,12 +54,27 @@ export default async function StadiumDetailPage({ params }: { params: { locale: 
   const displayMatches = stadium.matches || [];
   const insights = stadiumInsights[stadium.slug];
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.tixlyonline.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Stadiums", "item": "https://www.tixlyonline.com/stadiums" },
+      { "@type": "ListItem", "position": 3, "name": stadium.name }
+    ]
+  };
+
   return (
     <main className="min-h-screen bg-slate-50 pb-12">
+      <script
+        id="breadcrumb-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       {/* Hero */}
       <div className="relative h-[50vh] min-h-[400px] flex items-end pb-16 px-4 sm:px-6 lg:px-8">
         <div className="absolute inset-0 z-0">
-          <Image src={stadium.imageUrl} alt={stadium.name} className="w-full h-full object-cover" width={800} height={600} />
+          <Image src={stadium.imageUrl} alt={stadium.name} className="w-full h-full object-cover" width={800} height={600} priority />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a192f] via-[#0a192f]/60 to-transparent" />
         </div>
         

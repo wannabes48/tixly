@@ -26,20 +26,40 @@ const MOCK_MATCHES = [
   }
 ];
 
-export default async function TeamDetailPage({ params }: { params: { locale: string; teamSlug: string } }) {
-  let team: any = null;
-  
+import { cache } from 'react';
+import { Metadata } from 'next';
+
+const getTeam = cache(async (teamSlug: string) => {
   try {
-    team = await prisma.team.findUnique({
-      where: { slug: params.teamSlug },
+    return await prisma.team.findUnique({
+      where: { slug: teamSlug },
       include: {
         homeMatches: { include: { awayTeam: true, stadium: true } },
         awayMatches: { include: { homeTeam: true, stadium: true } },
       }
     });
   } catch (e) {
-    console.error(e);
+    return null;
   }
+});
+
+export async function generateMetadata({ params }: { params: { teamSlug: string } }): Promise<Metadata> {
+  let team = await getTeam(params.teamSlug);
+  if (!team) team = MOCK_TEAMS[params.teamSlug];
+  
+  if (!team) return {};
+
+  return {
+    title: `${team.name} Tickets — World Cup 2026`,
+    description: `Follow ${team.name}'s journey in the 2026 World Cup. Secure your tickets now and be part of history.`,
+    alternates: {
+      canonical: `/teams/${team.slug}`,
+    }
+  };
+}
+
+export default async function TeamDetailPage({ params }: { params: { locale: string; teamSlug: string } }) {
+  let team: any = await getTeam(params.teamSlug);
 
   if (!team) {
     team = MOCK_TEAMS[params.teamSlug];
@@ -63,8 +83,23 @@ export default async function TeamDetailPage({ params }: { params: { locale: str
     isHome: Math.random() > 0.5
   }));
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.tixlyonline.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Teams", "item": "https://www.tixlyonline.com/teams" },
+      { "@type": "ListItem", "position": 3, "name": team.name }
+    ]
+  };
+
   return (
     <main className="min-h-screen bg-gray-50 pb-12">
+      <script
+        id="breadcrumb-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       {/* Hero Section */}
       <div className="bg-brand-navy text-white pt-24 pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[url('/pattern.svg')]"></div>
@@ -77,7 +112,7 @@ export default async function TeamDetailPage({ params }: { params: { locale: str
           <div className="flex flex-col md:flex-row items-center md:items-end gap-8">
             <div className="w-40 h-28 md:w-56 md:h-36 relative rounded-xl overflow-hidden shadow-2xl border-4 border-white/10 flex-shrink-0 bg-white">
               {team.flagUrl ? (
-                <Image src={team.flagUrl} alt={`${team.name} flag`} className="w-full h-full object-cover" width={120} height={80} />
+                <Image src={team.flagUrl} alt={`${team.name} flag`} className="w-full h-full object-cover" width={120} height={80} priority />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-brand-navy font-bold text-3xl">
                   {team.countryCode}

@@ -3,20 +3,21 @@
 > next build
 
    ▲ Next.js 14.1.0
+   - Environments: .env.local
 
    Creating an optimized production build ...
  ✓ Compiled successfully
    Linting and checking validity of types ...
 Failed to compile.
 
-./src/app/[locale]/matches/[id]/page.tsx:82:37
-Type error: Parameter 'listing' implicitly has an 'any' type.
+./src/app/[locale]/stadiums/[stadiumSlug]/page.tsx:52:11
+Type error: Property 'description' does not exist on type '{ matches: ({ homeTeam: { id: string; name: string; slug: string; countryCode: string; flagUrl: string | null; confederation: string; }; awayTeam: { id: string; name: string; slug: string; countryCode: string; flagUrl: string | null; confederation: string; }; } & { ...; })[]; } & { ...; }'.
 
-[0m [90m 80 |[39m                 [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m[0m
-[0m [90m 81 |[39m               ) [33m:[39m ([0m
-[0m[31m[1m>[22m[39m[90m 82 |[39m                 match[33m.[39mlistings[33m.[39mmap((listing) [33m=>[39m ([0m
-[0m [90m    |[39m                                     [31m[1m^[22m[39m[0m
-[0m [90m 83 |[39m                   [33m<[39m[33mdiv[39m key[33m=[39m{listing[33m.[39mid} className[33m=[39m[32m"p-6 flex flex-col sm:flex-row justify-between items-center hover:bg-blue-50/50 transition-colors"[39m[33m>[39m[0m
-[0m [90m 84 |[39m                     [33m<[39m[33mdiv[39m className[33m=[39m[32m"w-full sm:w-1/2 mb-4 sm:mb-0"[39m[33m>[39m[0m
-[0m [90m 85 |[39m                       [33m<[39m[33mdiv[39m className[33m=[39m[32m"flex items-center mb-2"[39m[33m>[39m[0m
+[0m [90m 50 |[39m   [90m// Fallback image since we haven't added stadium images to the DB yet[39m[0m
+[0m [90m 51 |[39m   stadium[33m.[39mimageUrl [33m=[39m stadium[33m.[39mimageUrl [33m||[39m [32m'https://images.unsplash.com/photo-1577223625816-7546f13df25d?auto=format&fit=crop&q=80&w=1200'[39m[33m;[39m[0m
+[0m[31m[1m>[22m[39m[90m 52 |[39m   stadium[33m.[39mdescription [33m=[39m stadium[33m.[39mdescription [33m||[39m [32m`Experience the incredible atmosphere at ${stadium.name} in ${stadium.city}.`[39m[33m;[39m[0m
+[0m [90m    |[39m           [31m[1m^[22m[39m[0m
+[0m [90m 53 |[39m[0m
+[0m [90m 54 |[39m   [36mconst[39m displayMatches [33m=[39m stadium[33m.[39mmatches [33m||[39m [][33m;[39m[0m
+[0m [90m 55 |[39m   [36mconst[39m insights [33m=[39m stadiumInsights[stadium[33m.[39mslug][33m;[39m[0m
  ELIFECYCLE  Command failed with exit code 1.

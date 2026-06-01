@@ -5,6 +5,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { Search, ChevronRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Link } from '@/navigation';
+import Image from 'next/image';
 
 const WORLD_CUP_START = new Date('2026-06-11T00:00:00Z').getTime();
 
@@ -139,12 +140,15 @@ export default function Hero() {
       `}</style>
 
       {/* Background Image — packed stadium */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: 'url("https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1920&q=80")',
-        }}
-      />
+      <div className="absolute inset-0">
+        <Image
+          src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1920&q=80"
+          alt="Packed Stadium Hero"
+          fill
+          priority
+          className="object-cover object-center"
+        />
+      </div>
 
       {/* Gradient overlay: dark navy top to slightly lighter bottom */}
       <div

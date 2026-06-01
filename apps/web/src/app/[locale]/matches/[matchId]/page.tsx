@@ -12,7 +12,9 @@ import { LocalTime } from '@/components/LocalTime';
 import { cache } from 'react';
 import { ListingsTable } from '@/components/match/ListingsTable';
 import Script from 'next/script';
-import StadiumChartModal from '@/components/matches/StadiumChartModal';
+import dynamic from 'next/dynamic';
+
+const StadiumChartModal = dynamic(() => import('@/components/matches/StadiumChartModal'), { ssr: false });
 
 import Image from 'next/image';
 // Cache the match query so metadata and page components don't trigger duplicate DB calls
@@ -50,6 +52,7 @@ export async function generateMetadata({
       type: 'website',
       title: `${match.homeTeam.name} vs ${match.awayTeam.name} Tickets`,
       description: `Get your tickets for the World Cup 2026 ${match.round} match.`,
+      images: match.stadium.imageUrl ? [{ url: match.stadium.imageUrl, width: 1200, height: 630 }] : [],
     },
     other: {
       // Ticombo-style custom open graph price properties
@@ -58,6 +61,9 @@ export async function generateMetadata({
         'og:price:currency': 'USD',
       } : {}),
     },
+    alternates: {
+      canonical: `/matches/${match.id}`,
+    }
   };
 }
 
@@ -86,7 +92,11 @@ export default async function MatchDetailPage({
     "location": {
       "@type": "Place",
       "name": match.stadium.name,
-      "address": `${match.stadium.city}, ${match.stadium.countryCode}`
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": match.stadium.city,
+        "addressCountry": match.stadium.countryCode
+      }
     },
     ...(match.listings.length > 0 && {
       "offers": {
@@ -95,9 +105,22 @@ export default async function MatchDetailPage({
         "highPrice": match.listings[match.listings.length - 1].pricePerTicket.toString(),
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
+        "url": `https://www.tixlyonline.com/en/matches/${match.id}`
       }
     }),
     "organizer": { "@type": "Organization", "name": "FIFA" }
+  };
+
+  // JSON-LD Breadcrumb
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.tixlyonline.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Matches", "item": "https://www.tixlyonline.com/matches" },
+      { "@type": "ListItem", "position": 3, "name": match.round, "item": `https://www.tixlyonline.com/matches?round=${encodeURIComponent(match.round)}` },
+      { "@type": "ListItem", "position": 4, "name": `${match.homeTeam.name} vs ${match.awayTeam.name}` }
+    ]
   };
 
   const prices = match.listings.map((l) => Number(l.pricePerTicket));
@@ -110,6 +133,11 @@ export default async function MatchDetailPage({
         id="event-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
+      />
+      <script
+        id="breadcrumb-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       {/* ──────────────── Hero Header ──────────────── */}
       <div className="bg-brand-navy text-white pt-24 pb-14 relative overflow-hidden">
@@ -137,7 +165,7 @@ export default async function MatchDetailPage({
           <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 mb-8">
             <div className="text-center">
               <div className="text-7xl mb-4 h-28 flex justify-center items-center">
-                {match.homeTeam.flagUrl ? <Image src={match.homeTeam.flagUrl} alt="flag" className="h-full w-auto object-contain rounded-md shadow-lg border border-white/10" width={160} height={112} /> : '🏳️'}
+                {match.homeTeam.flagUrl ? <Image src={match.homeTeam.flagUrl} alt="flag" className="h-full w-auto object-contain rounded-md shadow-lg border border-white/10" width={160} height={112} priority /> : '🏳️'}
               </div>
               <h1 className="text-3xl md:text-4xl font-black tracking-tight">{match.homeTeam.name}</h1>
             </div>
@@ -146,7 +174,7 @@ export default async function MatchDetailPage({
             </div>
             <div className="text-center">
               <div className="text-7xl mb-4 h-28 flex justify-center items-center">
-                {match.awayTeam.flagUrl ? <Image src={match.awayTeam.flagUrl} alt="flag" className="h-full w-auto object-contain rounded-md shadow-lg border border-white/10" width={160} height={112} /> : '🏳️'}
+                {match.awayTeam.flagUrl ? <Image src={match.awayTeam.flagUrl} alt="flag" className="h-full w-auto object-contain rounded-md shadow-lg border border-white/10" width={160} height={112} priority /> : '🏳️'}
               </div>
               <h1 className="text-3xl md:text-4xl font-black tracking-tight">{match.awayTeam.name}</h1>
             </div>
@@ -155,7 +183,7 @@ export default async function MatchDetailPage({
           <div className="flex flex-col sm:flex-row justify-center items-center gap-6 text-base text-white/70">
             <div className="flex items-center gap-2">
               <Calendar size={18} className="text-brand-orange" />
-              <span><LocalTime date={match.kickoffUtc} format="date" /> &bull; <LocalTime date={match.kickoffUtc} format="time" /></span>
+              <span><LocalTime date={match.kickoffUtc.toISOString()} format="date" /> &bull; <LocalTime date={match.kickoffUtc.toISOString()} format="time" /></span>
             </div>
             <div className="flex items-center gap-2 hover:text-white transition-colors">
               <MapPin size={18} className="text-brand-orange" />

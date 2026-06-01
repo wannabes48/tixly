@@ -28,21 +28,17 @@ const MOCK_MATCHES = [
   }
 ];
 
-export default async function CityDetailPage({ params }: { params: { locale: string; citySlug: string } }) {
-  let stadiums: any[] = [];
-  let matches: any[] = [];
-  
-  try {
-    // Try to derive city name from slug
-    const possibleCityNames = params.citySlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-    
-    stadiums = await prisma.stadium.findMany({
-      where: {
-        // very naive fuzzy matching for fallback DB
-        city: { contains: possibleCityNames.split(' ')[0] }
-      }
-    });
+import { cache } from 'react';
+import { Metadata } from 'next';
 
+const getCityData = cache(async (citySlug: string) => {
+  try {
+    const possibleCityNames = citySlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    const stadiums = await prisma.stadium.findMany({
+      where: { city: { contains: possibleCityNames.split(' ')[0] } }
+    });
+    
+    let matches: any[] = [];
     if (stadiums.length > 0) {
       matches = await prisma.match.findMany({
         where: { stadiumId: { in: stadiums.map(s => s.id) } },
@@ -50,9 +46,30 @@ export default async function CityDetailPage({ params }: { params: { locale: str
         orderBy: { kickoffUtc: 'asc' }
       });
     }
+    return { stadiums, matches, possibleCityNames };
   } catch (e) {
-    console.error(e);
+    return { stadiums: [], matches: [], possibleCityNames: '' };
   }
+});
+
+export async function generateMetadata({ params }: { params: { citySlug: string } }): Promise<Metadata> {
+  let { stadiums, possibleCityNames } = await getCityData(params.citySlug);
+  
+  let cityName = possibleCityNames || params.citySlug;
+  if (params.citySlug === 'new-york-new-jersey') cityName = 'New York/New Jersey';
+  else if (stadiums.length > 0) cityName = stadiums[0].city;
+
+  return {
+    title: `${cityName} Host City — World Cup 2026 Tickets`,
+    description: `Experience the World Cup in ${cityName}. Find match tickets, stadium guides, and things to do in the host city.`,
+    alternates: {
+      canonical: `/cities/${params.citySlug}`,
+    }
+  };
+}
+
+export default async function CityDetailPage({ params }: { params: { locale: string; citySlug: string } }) {
+  let { stadiums, matches } = await getCityData(params.citySlug);
 
   // Fallback
   let cityDetails = MOCK_CITY;
@@ -69,12 +86,27 @@ export default async function CityDetailPage({ params }: { params: { locale: str
   const displayStadiums = stadiums.length > 0 ? stadiums : MOCK_STADIUMS;
   const displayMatches = matches.length > 0 ? matches : MOCK_MATCHES;
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.tixlyonline.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Cities", "item": "https://www.tixlyonline.com/cities" },
+      { "@type": "ListItem", "position": 3, "name": cityDetails.name }
+    ]
+  };
+
   return (
     <main className="min-h-screen bg-slate-50 pb-12">
+      <script
+        id="breadcrumb-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       {/* Hero */}
       <div className="relative h-[50vh] min-h-[400px] flex items-end pb-16 px-4 sm:px-6 lg:px-8">
         <div className="absolute inset-0 z-0">
-          <Image src={cityDetails.imageUrl} alt={cityDetails.name} className="w-full h-full object-cover" width={800} height={600} />
+          <Image src={cityDetails.imageUrl} alt={cityDetails.name} className="w-full h-full object-cover" width={800} height={600} priority />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a192f] via-[#0a192f]/60 to-transparent" />
         </div>
         
