@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { Link, useRouter } from '@/navigation';
 import { X, User } from 'lucide-react';
 import { signIn } from 'next-auth/react';
 
