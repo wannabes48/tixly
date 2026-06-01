@@ -4,7 +4,13 @@ import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
-export default async function CheckoutPage({ params }: { params: { listingId: string } }) {
+export default async function CheckoutPage({ 
+  params,
+  searchParams,
+}: { 
+  params: { listingId: string },
+  searchParams: { [key: string]: string | string[] | undefined }
+}) {
   let listing = null;
   try {
     listing = await prisma.ticketListing.findUnique({
@@ -40,11 +46,18 @@ export default async function CheckoutPage({ params }: { params: { listingId: st
     stadiumName: listing.match.stadium.name
   };
 
+  const initialData = {
+    qty: typeof searchParams.qty === 'string' ? parseInt(searchParams.qty) : 1,
+    firstName: typeof searchParams.fn === 'string' ? searchParams.fn : '',
+    lastName: typeof searchParams.ln === 'string' ? searchParams.ln : '',
+    email: typeof searchParams.em === 'string' ? searchParams.em : '',
+  };
+
   return (
     <main className="min-h-screen bg-gray-50 pt-32 pb-20">
       <div className="container mx-auto px-4 max-w-6xl">
         <h1 className="text-3xl font-bold text-brand-navy mb-8">Secure Checkout</h1>
-        <CheckoutFlow listing={listingData} />
+        <CheckoutFlow listing={listingData} initialData={initialData} />
       </div>
     </main>
   );

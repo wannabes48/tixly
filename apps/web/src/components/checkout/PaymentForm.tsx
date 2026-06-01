@@ -6,10 +6,16 @@ import { Lock } from 'lucide-react';
 
 export function PaymentForm({ 
   total, 
+  buyerName,
+  buyerEmail,
+  buyerPhone,
   onSuccess, 
   onBack 
 }: { 
-  total: number, 
+  total: number,
+  buyerName: string,
+  buyerEmail: string,
+  buyerPhone: string,
   onSuccess: () => void, 
   onBack: () => void 
 }) {
@@ -71,7 +77,16 @@ export function PaymentForm({
   return (
     <form onSubmit={handleSubmit} className="w-full">
       <div className="mb-8">
-        <PaymentElement options={{ layout: 'tabs' }} />
+        <PaymentElement options={{ 
+          layout: 'tabs',
+          defaultValues: {
+            billingDetails: {
+              name: buyerName,
+              email: buyerEmail,
+              phone: buyerPhone,
+            }
+          }
+        }} />
       </div>
       
       {error && (

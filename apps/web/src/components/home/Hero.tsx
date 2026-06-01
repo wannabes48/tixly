@@ -212,24 +212,24 @@ export default function Hero() {
 
       <div className="relative z-10 container mx-auto px-4 text-center">
         {/* Heading */}
-        <h1 className="text-5xl md:text-7xl font-black leading-tight tracking-tight mb-5">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-tight tracking-tight mb-4 md:mb-5">
           <span className="text-white">FIFA World Cup 2026™</span>
           <br />
           <span className="text-[#E8532A]">Tickets</span>
         </h1>
 
         {/* Sub-heading */}
-        <p className="text-lg text-white/60 max-w-2xl mx-auto mb-10">
+        <p className="text-base sm:text-lg text-white/60 max-w-2xl mx-auto mb-8 md:mb-10 px-2">
           The #1 secondary marketplace for all 104 matches across USA, Mexico &amp; Canada
         </p>
 
         {/* Countdown Timer */}
-        <div className="flex items-center justify-center gap-3 mb-12">
+        <div className="flex items-center justify-center gap-1.5 sm:gap-3 mb-10 md:mb-12">
           {countdownUnits.map((unit, i) => (
-            <div key={unit.label} className="flex items-center gap-3">
+            <div key={unit.label} className="flex items-center gap-1.5 sm:gap-3">
               <div className="flex flex-col items-center">
                 <div
-                  className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center rounded-2xl text-4xl md:text-5xl font-black text-white tabular-nums transition-all duration-500"
+                  className="w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 flex items-center justify-center rounded-xl sm:rounded-2xl text-2xl sm:text-4xl md:text-5xl font-black text-white tabular-nums transition-all duration-500"
                   style={{
                     background: 'rgba(255,255,255,0.1)',
                     backdropFilter: 'blur(12px)',
@@ -242,12 +242,12 @@ export default function Hero() {
                 >
                   {unit.value}
                 </div>
-                <span className="text-[11px] uppercase tracking-widest text-white/50 mt-2 font-semibold">
+                <span className="text-[9px] sm:text-[11px] uppercase tracking-widest text-white/50 mt-1.5 sm:mt-2 font-semibold">
                   {unit.label}
                 </span>
               </div>
               {i < countdownUnits.length - 1 && (
-                <span className="text-2xl md:text-3xl font-bold text-white/30 -mt-6">
+                <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white/30 -mt-5 sm:-mt-6">
                   :
                 </span>
               )}
@@ -256,24 +256,26 @@ export default function Hero() {
         </div>
 
         {/* Search Bar */}
-        <div className="relative max-w-2xl mx-auto mb-8">
-          <form onSubmit={handleSubmit} className="relative">
-            <div className="flex items-center bg-white rounded-2xl shadow-xl shadow-black/10 overflow-hidden ring-2 ring-[#E8532A]/20">
-              <div className="pl-5 pr-3 text-gray-400">
-                <Search className="w-5 h-5" />
+        <div className="relative max-w-2xl mx-auto mb-8 w-full">
+          <form onSubmit={handleSubmit} className="relative w-full">
+            <div className="flex flex-col sm:flex-row items-center bg-transparent sm:bg-white rounded-2xl sm:shadow-xl sm:shadow-black/10 overflow-hidden sm:ring-2 sm:ring-[#E8532A]/20 gap-2 sm:gap-0">
+              <div className="flex items-center bg-white rounded-2xl w-full sm:w-auto flex-1 shadow-xl sm:shadow-none ring-2 ring-[#E8532A]/20 sm:ring-0">
+                <div className="pl-4 sm:pl-5 pr-2 sm:pr-3 text-gray-400">
+                  <Search className="w-5 h-5" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search by team, city, or match…"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                  className="w-full py-3 sm:py-4 pr-2 text-gray-800 placeholder-gray-400 bg-transparent outline-none text-sm sm:text-base"
+                />
               </div>
-              <input
-                type="text"
-                placeholder="Search by team, city, or match…"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                className="flex-1 py-4 pr-2 text-gray-800 placeholder-gray-400 bg-transparent outline-none text-base"
-              />
               <button
                 type="submit"
-                className="flex items-center gap-2 bg-[#E8532A] hover:bg-[#d14a25] text-white font-bold px-6 py-3 mr-2 rounded-xl transition-all duration-200 hover:scale-105"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#E8532A] hover:bg-[#d14a25] text-white font-bold px-6 py-3 sm:mr-2 rounded-xl transition-all duration-200 hover:scale-105 shadow-xl sm:shadow-none"
               >
                 Find Tickets
                 <ChevronRight className="w-4 h-4" />

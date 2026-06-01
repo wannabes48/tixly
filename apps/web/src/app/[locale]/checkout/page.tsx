@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { prisma } from '@tixly/database';
-import Link from 'next/link';
+import { GuestCheckoutForm } from '@/components/checkout/GuestCheckoutForm';
 
 export const dynamic = 'force-dynamic';
 
@@ -37,8 +37,6 @@ export default async function CheckoutPage({
   }
 
   // Create Optimistic Lock
-  // For Guest Checkout, we'll generate a random sessionId or use a cookie. 
-  // For now, we simulate creating a lock in our new TicketHold table.
   const sessionId = 'guest-' + Math.random().toString(36).substring(7);
   
   try {
@@ -52,7 +50,6 @@ export default async function CheckoutPage({
     });
   } catch (error) {
     console.error("Failed to acquire lock:", error);
-    // If we fail to acquire lock, someone else might have bought it just now.
     redirect(`/matches/${matchId}?error=listing_unavailable`);
   }
 
@@ -71,26 +68,7 @@ export default async function CheckoutPage({
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="flex-1 bg-white rounded-3xl p-8 border border-gray-100 shadow-soft">
             <h2 className="text-xl font-bold text-brand-navy mb-6">Guest Information</h2>
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1">First Name</label>
-                  <input type="text" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-brand-midblue" />
-                </div>
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1">Last Name</label>
-                  <input type="text" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-brand-midblue" />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-1">Email Address</label>
-                <input type="email" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-brand-midblue" />
-                <p className="text-xs text-gray-400 mt-1">Your tickets will be transferred to this email.</p>
-              </div>
-              <Link href={`/checkout/${listing.id}`} className="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-3.5 rounded-xl transition-colors mt-4 block text-center">
-                Continue to Payment
-              </Link>
-            </div>
+            <GuestCheckoutForm listingId={listing.id} qty={qty} />
           </div>
 
           <aside className="w-full lg:w-96 shrink-0">

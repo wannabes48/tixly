@@ -163,24 +163,24 @@ export default async function StadiumDetailPage({ params }: { params: { locale: 
                       </span>
                     </div>
 
-                    <div className="flex-1 p-6 flex flex-col justify-center">
-                      <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-3 flex-1 justify-end">
-                          <span className="font-bold text-lg text-[#0a192f]">
+                    <div className="flex-1 p-4 sm:p-6 flex flex-col justify-center w-full">
+                      <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full">
+                        <div className="flex items-center gap-3 w-full sm:flex-1 justify-between sm:justify-end">
+                          <span className="font-bold text-base sm:text-lg text-[#0a192f] truncate">
                             {match.homeTeam?.name}
                           </span>
                           <div className="w-8 h-6 rounded overflow-hidden shadow-sm flex-shrink-0 bg-slate-200">
                             {match.homeTeam?.flagUrl && <Image src={match.homeTeam.flagUrl} alt="flag" className="w-full h-full object-cover" width={120} height={80} />}
                           </div>
                         </div>
-                        <div className="font-bold text-slate-400">VS</div>
-                        <div className="flex items-center gap-3 flex-1 justify-start">
+                        <div className="font-bold text-slate-400 text-xs sm:text-base bg-slate-100 sm:bg-transparent px-3 py-0.5 sm:px-0 sm:py-0 rounded-full">VS</div>
+                        <div className="flex items-center gap-3 w-full sm:flex-1 justify-between sm:justify-start flex-row-reverse sm:flex-row">
+                          <span className="font-bold text-base sm:text-lg text-[#0a192f] truncate">
+                            {match.awayTeam?.name}
+                          </span>
                           <div className="w-8 h-6 rounded overflow-hidden shadow-sm flex-shrink-0 bg-slate-200">
                             {match.awayTeam?.flagUrl && <Image src={match.awayTeam.flagUrl} alt="flag" className="w-full h-full object-cover" width={120} height={80} />}
                           </div>
-                          <span className="font-bold text-lg text-[#0a192f]">
-                            {match.awayTeam?.name}
-                          </span>
                         </div>
                       </div>
                     </div>

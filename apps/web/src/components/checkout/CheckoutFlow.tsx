@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import {
   ShieldCheck, Lock, CreditCard, CheckCircle2, ChevronDown,
-  User, Mail, Phone, Globe, AlertCircle, Ticket, MapPin, Calendar, Download, DownloadCloud
+  User, Mail, Phone, Globe, AlertCircle, Ticket, MapPin, Calendar, Download, DownloadCloud, Timer
 } from 'lucide-react';
 import { Link } from '@/navigation';
 import { Elements } from '@stripe/react-stripe-js';
@@ -247,21 +247,55 @@ const inputCls = (err?: string) =>
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
-export function CheckoutFlow({ listing }: { listing: ListingData }) {
-  const [step, setStep] = useState<Step>('QUANTITY');
-  const [quantity, setQuantity] = useState(1);
+export function CheckoutFlow({ 
+  listing, 
+  initialData 
+}: { 
+  listing: ListingData, 
+  initialData?: { qty: number, firstName: string, lastName: string, email: string } 
+}) {
+  const [step, setStep] = useState<Step>(initialData?.qty ? 'DETAILS' : 'QUANTITY');
+  const [quantity, setQuantity] = useState(initialData?.qty || 1);
   const [refundProtection, setRefundProtection] = useState(true);
   const [orderRef] = useState(() => 'TIX-2026-' + Math.random().toString(36).substring(2, 8).toUpperCase());
 
   const [buyer, setBuyer] = useState<BuyerDetails>({
-    firstName: '', lastName: '', email: '', emailConfirm: '',
+    firstName: initialData?.firstName || '', 
+    lastName: initialData?.lastName || '', 
+    email: initialData?.email || '', 
+    emailConfirm: initialData?.email || '',
     dialCode: '+1', phone: '', country: '', createAccount: false,
-    holders: Array.from({ length: 1 }, () => ({ firstName: '', lastName: '' })),
+    holders: Array.from({ length: initialData?.qty || 1 }, () => ({ firstName: '', lastName: '' })),
   });
   const [errors, setErrors] = useState<Partial<Record<keyof BuyerDetails | string, string>>>({});
   
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [isCreatingIntent, setIsCreatingIntent] = useState(false);
+
+  // 10-minute countdown timer
+  const [timeLeft, setTimeLeft] = useState(600);
+
+  useEffect(() => {
+    if (step === 'CONFIRMATION') return;
+    
+    if (timeLeft <= 0) {
+      alert("Your reservation time has expired. Please try booking again.");
+      window.history.back();
+      return;
+    }
+    
+    const timer = setInterval(() => {
+      setTimeLeft(prev => prev - 1);
+    }, 1000);
+    
+    return () => clearInterval(timer);
+  }, [timeLeft, step]);
+
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
 
   const subtotal = quantity * listing.pricePerTicket;
   const serviceFee = subtotal * SERVICE_FEE_PCT;
@@ -277,7 +311,16 @@ export function CheckoutFlow({ listing }: { listing: ListingData }) {
     }));
   }, []);
 
-  const goTo = (s: Step) => { setStep(s); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  const goTo = (s: Step) => {
+    setStep(s);
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      document.documentElement.scrollTo({ top: 0, behavior: 'auto' });
+      document.body.scrollTo({ top: 0, behavior: 'auto' });
+      const topEl = document.getElementById('checkout-top');
+      if (topEl) topEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  };
 
   // ── Validate Details form ──────────────────────────────────────────────────
   const validateDetails = (): boolean => {
@@ -364,9 +407,19 @@ export function CheckoutFlow({ listing }: { listing: ListingData }) {
   );
 
   return (
-    <div className="flex flex-col lg:flex-row gap-8 items-start">
+    <div id="checkout-top" className="flex flex-col lg:flex-row gap-8 items-start">
       {/* ── Main Panel ──────────────────────────────────────────────────────── */}
       <div className="w-full lg:w-[60%]">
+        {step !== 'CONFIRMATION' && (
+          <div className="bg-orange-50 border border-orange-200 text-brand-orange px-4 py-3 rounded-xl mb-6 flex items-center justify-between font-medium shadow-sm">
+            <div className="flex items-center gap-2 text-sm">
+              <Timer size={16} />
+              Tickets reserved
+            </div>
+            <div className="font-mono font-bold text-lg tracking-wider">{formatTime(timeLeft)}</div>
+          </div>
+        )}
+
         {step !== 'CONFIRMATION' && <StepBar current={step} />}
 
         {/* ── STEP 1: Quantity ──────────────────────────────────────────────── */}
@@ -424,8 +477,20 @@ export function CheckoutFlow({ listing }: { listing: ListingData }) {
             </div>
 
             <button
-              onClick={() => goTo('DETAILS')}
-              className="w-full bg-brand-orange hover:bg-orange-600 text-white py-4 rounded-xl font-bold text-lg transition-all duration-200 shadow-md shadow-orange-100 hover:shadow-lg hover:shadow-orange-200 hover:-translate-y-0.5"
+              onClick={() => {
+                const btn = document.getElementById('continue-btn');
+                if (btn) btn.innerHTML = '<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Processing...';
+                
+                // Ensure scroll is visible on mobile by scrolling a bit higher
+                setTimeout(() => {
+                  goTo('DETAILS');
+                  window.scrollTo({ top: 0, behavior: 'auto' });
+                  document.documentElement.scrollTo({ top: 0, behavior: 'auto' });
+                  document.body.scrollTo({ top: 0, behavior: 'auto' });
+                }, 500);
+              }}
+              id="continue-btn"
+              className="w-full bg-brand-orange hover:bg-orange-600 text-white py-4 rounded-xl font-bold text-lg transition-all duration-200 shadow-md shadow-orange-100 hover:shadow-lg hover:shadow-orange-200 hover:-translate-y-0.5 flex items-center justify-center"
             >
               Continue to Checkout →
             </button>
@@ -551,11 +616,27 @@ export function CheckoutFlow({ listing }: { listing: ListingData }) {
                 <div className="space-y-4">
                   {buyer.holders.map((holder, i) => (
                     <div key={i} className="p-4 bg-gray-50 rounded-xl border border-gray-100">
-                      <p className="text-sm font-semibold text-brand-navy mb-3 flex items-center gap-1.5">
-                        <Ticket size={13} className="text-brand-orange" />
-                        Ticket #{i + 1}
-                        {i === 0 && <span className="text-xs text-gray-400 font-normal ml-1">(can be same as buyer)</span>}
-                      </p>
+                      <div className="flex items-center justify-between mb-3">
+                        <p className="text-sm font-semibold text-brand-navy flex items-center gap-1.5">
+                          <Ticket size={13} className="text-brand-orange" />
+                          Ticket #{i + 1}
+                          {i === 0 && <span className="text-xs text-gray-400 font-normal ml-1 hidden sm:inline">(can be same as buyer)</span>}
+                        </p>
+                        {i === 0 && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const h = [...buyer.holders];
+                              h[0] = { ...h[0], firstName: buyer.firstName, lastName: buyer.lastName };
+                              setBuyer(p => ({ ...p, holders: h }));
+                            }}
+                            className="text-xs font-bold text-brand-midblue hover:text-brand-navy bg-blue-50 hover:bg-blue-100 transition-colors px-2 py-1 rounded-md flex items-center gap-1.5"
+                          >
+                            <User size={12} />
+                            Use my details
+                          </button>
+                        )}
+                      </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                           <input
@@ -673,7 +754,11 @@ export function CheckoutFlow({ listing }: { listing: ListingData }) {
               </button>
               <button onClick={handleProceedToPayment} disabled={isCreatingIntent}
                 className="flex-1 bg-brand-orange hover:bg-orange-600 disabled:bg-orange-400 text-white py-3.5 rounded-xl font-bold text-base transition-all duration-200 shadow-md shadow-orange-100 hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                {isCreatingIntent ? 'Preparing Payment...' : <><CreditCard size={18} /> Proceed to Payment →</>}
+                {isCreatingIntent ? (
+                  <><svg className="animate-spin h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Preparing Payment...</>
+                ) : (
+                  <><CreditCard size={18} /> Proceed to Payment →</>
+                )}
               </button>
             </div>
           </div>
@@ -702,11 +787,31 @@ export function CheckoutFlow({ listing }: { listing: ListingData }) {
               </div>
             </div>
 
+            {/* Buyer Details Summary Box */}
+            <div className="mb-6 p-4 rounded-xl border border-gray-200 bg-gray-50 flex items-start justify-between">
+              <div>
+                <p className="text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wide">Billing Details</p>
+                <p className="text-sm font-bold text-brand-navy">{buyer.firstName} {buyer.lastName}</p>
+                <p className="text-sm text-gray-600">{buyer.email}</p>
+                <p className="text-sm text-gray-600">{buyer.dialCode} {buyer.phone}</p>
+              </div>
+              <button 
+                onClick={() => goTo('DETAILS')} 
+                className="text-brand-orange hover:text-orange-600 bg-orange-50 hover:bg-orange-100 p-2 rounded-lg transition-colors flex items-center gap-1.5 text-xs font-bold"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                Edit
+              </button>
+            </div>
+
             {clientSecret ? (
               stripePromise ? (
                 <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: 'stripe' } }}>
                   <PaymentForm 
                     total={total} 
+                    buyerName={`${buyer.firstName} ${buyer.lastName}`.trim()}
+                    buyerEmail={buyer.email}
+                    buyerPhone={`${buyer.dialCode} ${buyer.phone}`.trim()}
                     onSuccess={() => goTo('CONFIRMATION')} 
                     onBack={() => goTo('PROTECTION')} 
                   />
