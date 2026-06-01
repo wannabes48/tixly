@@ -4,6 +4,7 @@ import { Link, usePathname, useRouter } from '@/navigation';
 import { useEffect, useState, useRef } from 'react';
 import { Menu, X, ChevronDown, Globe, DollarSign } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
+import { useSession, signOut } from 'next-auth/react';
 
 const navLinks = [
   { href: '/matches', label: 'Matches' },
@@ -18,10 +19,13 @@ const currencies = ['USD', 'EUR', 'GBP', 'MXN', 'CAD'];
 const languages = ['EN', 'ES', 'FR', 'DE', 'PT'];
 
 export function Navbar() {
+  const { data: session } = useSession();
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
   const isHome = pathname === '/';
+
+  if (pathname === '/sign-in') return null;
 
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -39,7 +43,7 @@ export function Navbar() {
   const handleLanguageChange = (l: string) => {
     setSelectedLanguage(l);
     setLanguageOpen(false);
-    router.replace(pathname, { locale: l.toLowerCase() });
+    router.replace(pathname, { locale: l.toLowerCase() as any });
   };
 
   const handleCurrencyChange = (c: string) => {
@@ -193,15 +197,31 @@ export function Navbar() {
               )}
             </div>
 
-            {/* Sign In */}
-            <Link
-              href="/sign-in"
-              className={`hidden md:block text-sm font-semibold px-3 py-2 rounded-lg transition-colors hover:bg-black/5 ${
-                isSolid ? 'text-gray-700' : 'text-white/90'
-              }`}
-            >
-              Sign In
-            </Link>
+            {/* Sign In / User Profile */}
+            {session ? (
+              <div className="hidden md:flex items-center gap-4">
+                <button 
+                  onClick={() => signOut()}
+                  className={`text-sm font-semibold px-3 py-2 rounded-lg transition-colors hover:bg-black/5 ${
+                    isSolid ? 'text-gray-700' : 'text-white/90'
+                  }`}
+                >
+                  Sign Out
+                </button>
+                <div className="w-9 h-9 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold text-sm shadow-sm border-2 border-white/20">
+                  {session.user?.name?.charAt(0).toUpperCase() || 'U'}
+                </div>
+              </div>
+            ) : (
+              <Link
+                href="/sign-in"
+                className={`hidden md:block text-sm font-semibold px-3 py-2 rounded-lg transition-colors hover:bg-black/5 ${
+                  isSolid ? 'text-gray-700' : 'text-white/90'
+                }`}
+              >
+                Sign In
+              </Link>
+            )}
 
             {/* Sell Tickets CTA */}
             <Link

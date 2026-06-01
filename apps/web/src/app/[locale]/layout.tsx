@@ -6,6 +6,8 @@ import { Footer } from '@/components/Footer';
 import { CookieBanner } from '@/components/CookieBanner';
 import { Analytics } from '@/components/Analytics';
 
+import { Providers } from '@/components/Providers';
+
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export default function LocaleLayout({
@@ -21,10 +23,12 @@ export default function LocaleLayout({
     <html lang={locale}>
       <body className={inter.className}>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <Navbar />
-            {children}
-            <Footer />
-            <CookieBanner />
+            <Providers>
+              <Navbar />
+              {children}
+              <Footer />
+              <CookieBanner />
+            </Providers>
           </NextIntlClientProvider>
           <Analytics />
       </body>

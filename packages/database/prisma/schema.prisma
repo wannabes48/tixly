@@ -39,16 +39,18 @@ model Team {
 }
 
 model Stadium {
-  id          String   @id @default(cuid())
-  name        String
-  slug        String   @unique
-  city        String
-  countryCode String
-  capacity    Int
-  lat         Float?
-  lng         Float?
+  id               String   @id @default(cuid())
+  name             String
+  slug             String   @unique
+  city             String
+  countryCode      String
+  capacity         Int
+  lat              Float?
+  lng              Float?
+  imageUrl         String?
+  seatingChartUrl  String?
   
-  matches     Match[]
+  matches          Match[]
 }
 
 model TicketListing {

@@ -8,19 +8,6 @@ import { format } from 'date-fns';
 import { stadiumInsights } from '@/data/stadium-insights';
 
 import Image from 'next/image';
-const MOCK_STADIUM = {
-  slug: 'metlife-stadium', name: 'MetLife Stadium', city: 'New York/New Jersey', countryCode: 'US', capacity: 82500, imageUrl: 'https://images.unsplash.com/photo-1577223625816-7546f13df25d?auto=format&fit=crop&q=80&w=1200',
-  description: 'An iconic venue capable of hosting the grandest events. MetLife Stadium will be the center of attention for key matches in the 2026 World Cup.'
-};
-
-const MOCK_MATCHES = [
-  {
-    id: 'm2', slug: 'match-15-arg-bra', matchNumber: 15, round: 'Group Stage', group: 'C', kickoffUtc: new Date('2026-06-15T18:00:00Z'), status: 'SCHEDULED',
-    homeTeam: { name: 'Argentina', flagUrl: 'https://flagcdn.com/w320/ar.png' },
-    awayTeam: { name: 'Brazil', flagUrl: 'https://flagcdn.com/w320/br.png' }
-  }
-];
-
 export default async function StadiumDetailPage({ params }: { params: { locale: string; stadiumSlug: string } }) {
   let stadium: any = null;
   
@@ -39,20 +26,14 @@ export default async function StadiumDetailPage({ params }: { params: { locale: 
   }
 
   if (!stadium) {
-    // Check if it's our mock
-    if (params.stadiumSlug !== 'metlife-stadium') {
-      // Fallback generator
-      stadium = { ...MOCK_STADIUM, slug: params.stadiumSlug, name: params.stadiumSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') };
-    } else {
-      stadium = MOCK_STADIUM;
-    }
-    stadium.matches = MOCK_MATCHES;
-  } else {
-    stadium.imageUrl = MOCK_STADIUM.imageUrl; // Fallback image for DB items
-    stadium.description = `Experience the incredible atmosphere at ${stadium.name} in ${stadium.city}.`;
+    notFound();
   }
 
-  const displayMatches = stadium.matches?.length > 0 ? stadium.matches : MOCK_MATCHES;
+  // Fallback image since we haven't added stadium images to the DB yet
+  stadium.imageUrl = stadium.imageUrl || 'https://images.unsplash.com/photo-1577223625816-7546f13df25d?auto=format&fit=crop&q=80&w=1200';
+  stadium.description = stadium.description || `Experience the incredible atmosphere at ${stadium.name} in ${stadium.city}.`;
+
+  const displayMatches = stadium.matches || [];
   const insights = stadiumInsights[stadium.slug];
 
   return (
@@ -205,12 +186,12 @@ export default async function StadiumDetailPage({ params }: { params: { locale: 
                     </div>
 
                     <div className="p-6 sm:w-48 flex items-center justify-center border-t sm:border-t-0 sm:border-l border-slate-100 h-full w-full">
-                      <Link href={`/tickets/${match.slug}`} className="w-full">
-                        <Button className="w-full rounded-xl bg-[#ff6b00] hover:bg-[#e66000] text-white font-semibold">
+                      <Button asChild className="w-full rounded-xl bg-[#ff6b00] hover:bg-[#e66000] text-white font-semibold">
+                        <Link href={`/matches/${match.slug}`} className="w-full flex items-center justify-center">
                           <Ticket className="w-4 h-4 mr-2" />
                           Tickets
-                        </Button>
-                      </Link>
+                        </Link>
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>

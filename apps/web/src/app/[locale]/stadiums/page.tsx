@@ -7,22 +7,22 @@ import { Prisma } from '@tixly/database';
 
 import Image from 'next/image';
 const STADIUM_IMAGES: Record<string, string> = {
-  'metlife-stadium':         'https://upload.wikimedia.org/wikipedia/commons/0/04/Metlife_stadium_%28Aerial_view%29.jpg',
-  'sofi-stadium':            'https://upload.wikimedia.org/wikipedia/commons/b/b3/SoFi_Stadium_2023.jpg',
-  'estadio-azteca':          'https://upload.wikimedia.org/wikipedia/commons/0/07/Vista_a%C3%A9rea_del_Estadio_Azteca_-_2026_-_02.jpg',
-  'bmo-field':               'https://upload.wikimedia.org/wikipedia/commons/9/91/Toronto_BMO_Field_in_2024.jpg',
-  'att-stadium':             'https://upload.wikimedia.org/wikipedia/commons/1/11/Arlington_June_2020_4_%28AT%26T_Stadium%29.jpg',
-  'arrowhead-stadium':       'https://upload.wikimedia.org/wikipedia/commons/a/ac/Aerial_view_of_Arrowhead_Stadium_08-31-2013.jpg',
-  'nrg-stadium':             'https://upload.wikimedia.org/wikipedia/commons/3/3e/Nrg_stadium.jpg',
-  'mercedes-benz-stadium':   'https://upload.wikimedia.org/wikipedia/commons/1/10/Mercedes_Benz_Stadium_time_lapse_capture_2017-08-13.jpg',
-  'lincoln-financial-field': 'https://upload.wikimedia.org/wikipedia/commons/a/a1/Lincoln_Financial_Field_%28Aerial_view%29.jpg',
-  'lumen-field':             'https://upload.wikimedia.org/wikipedia/commons/9/98/2025_FIFA_Club_World_Cup_-_Seattle_Sounders_FC_vs._Atl%C3%A9tico_Madrid_-_05.jpg',
-  'levis-stadium':           'https://upload.wikimedia.org/wikipedia/commons/a/a6/Levi%27s_Stadium_in_February_2016_prior_to_Super_Bowl_50_%2824398261729%29.jpg',
-  'gillette-stadium':        'https://upload.wikimedia.org/wikipedia/commons/d/db/Gillette_Stadium_%28Top_View%29.jpg',
-  'hard-rock-stadium':       'https://upload.wikimedia.org/wikipedia/commons/c/ce/Hard_Rock_Stadium_for_Super_Bowl_LIV_%2849606710103%29.jpg',
-  'bc-place':                'https://upload.wikimedia.org/wikipedia/commons/f/ff/BC_Place_2015_Women%27s_FIFA_World_Cup.jpg',
-  'estadio-akron':           'https://upload.wikimedia.org/wikipedia/commons/1/10/Estadio_Akron_02-07-2022_cabecera_sur_lado_derecho_%283%29.jpg',
-  'estadio-bbva':            'https://upload.wikimedia.org/wikipedia/commons/e/e5/Estadio_BBVA_Bancomer_panoramic.jpg',
+  'metlife-stadium':         'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307182/Metlife_stadium__Aerial_view_ozywne.jpg',
+  'sofi-stadium':            'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307236/SoFi_Stadium_2023_fzzuuc.jpg',
+  'estadio-azteca':          'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307185/Estadio_Azteca_-_2026_-_02_jpevn0.jpg',
+  'bmo-field':               'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307178/bmo_field_ngoycc.avif',
+  'att-stadium':             'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307180/ATT_economic-1_jqbqoh.jpg',
+  'arrowhead-stadium':       'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307175/Aerial_view_of_Arrowhead_Stadium_08-31-2013_podq2f.jpg',
+  'nrg-stadium':             'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307268/Nrg_stadium_dkhltx.jpg',
+  'mercedes-benz-stadium':   'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307145/Mercedes_Benz_Stadium_time_lapse_capture_2017-08-13_cwql91.jpg',
+  'lincoln-financial-field': 'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307175/Lincoln_Financial_Field__Aerial_view_bquhy6.jpg',
+  'lumen-field':             'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307070/LumenFieldAerialB500_krblfo.webp',
+  'levis-stadium':           'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307175/levis-stadium-cover_c7qwzt.webp',
+  'gillette-stadium':        'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307085/Gillette_Stadium__Top_View_aepxrg.jpg',
+  'hard-rock-stadium':       'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307062/hard-rock-stadium-hero_kxq0ml.jpg',
+  'bc-place':                'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307069/bcplace_zbkhwe.jpg',
+  'estadio-akron':           'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307058/Estadio-Akron_ncqjr2.jpg',
+  'estadio-bbva':            'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307254/Estadio_BBVA_Bancomer_fifa_world_cup_2026_6_cpn91l.jpg',
 };
 
 export default async function StadiumsPage({ 

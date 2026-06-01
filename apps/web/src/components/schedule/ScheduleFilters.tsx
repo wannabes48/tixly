@@ -95,7 +95,7 @@ export function ScheduleFilters() {
                       ? 'bg-brand-orange text-white'
                       : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200'
                   }`}
-                  disabled={currentRound && currentRound !== 'Group Stage'}
+                  disabled={Boolean(currentRound && currentRound !== 'Group Stage')}
                   title={currentRound && currentRound !== 'Group Stage' ? "Only available in Group Stage" : ""}
                 >
                   {group}

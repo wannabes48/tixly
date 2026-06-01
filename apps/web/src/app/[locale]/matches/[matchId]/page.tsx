@@ -12,6 +12,7 @@ import { LocalTime } from '@/components/LocalTime';
 import { cache } from 'react';
 import { ListingsTable } from '@/components/match/ListingsTable';
 import Script from 'next/script';
+import StadiumChartModal from '@/components/matches/StadiumChartModal';
 
 import Image from 'next/image';
 // Cache the match query so metadata and page components don't trigger duplicate DB calls
@@ -105,7 +106,7 @@ export default async function MatchDetailPage({
 
   return (
     <main className="min-h-screen bg-[#f9fafb] pb-20">
-      <Script
+      <script
         id="event-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
@@ -176,12 +177,13 @@ export default async function MatchDetailPage({
           {/* ─── Sidebar Info Panel ─── */}
           <aside className="w-full lg:w-80 shrink-0">
             <div className="bg-white rounded-2xl border border-gray-100 shadow-soft overflow-hidden sticky top-24">
-              <div className="w-full h-48 bg-gray-200">
-                <iframe
-                  width="100%" height="100%" style={{ border: 0 }} loading="lazy" allowFullScreen
-                  referrerPolicy="no-referrer-when-downgrade"
-                  src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyCWlCjyA5PUYr3CHOaO8QJQgqUqcxtvDTs&q=${encodeURIComponent(match.stadium.name + ', ' + match.stadium.city)}`}
-                ></iframe>
+              <div className="w-full h-48 bg-gray-200 relative overflow-hidden">
+                <Image
+                  src={match.stadium.imageUrl || "https://images.unsplash.com/photo-1577223625816-7546f13df25d?q=80&w=600&auto=format&fit=crop"}
+                  alt={`${match.stadium.name} view`}
+                  fill
+                  className="object-cover"
+                />
               </div>
               
               <div className="p-6">
@@ -205,12 +207,10 @@ export default async function MatchDetailPage({
                   </div>
                 </div>
 
-                <Link
-                  href={`/stadiums/${match.stadium.slug}`}
-                  className="block w-full py-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 text-brand-navy text-sm font-bold text-center transition-colors mb-3 border border-gray-200"
-                >
-                  View Stadium Layout
-                </Link>
+                <StadiumChartModal 
+                  stadiumName={match.stadium.name} 
+                  seatingChartUrl={match.stadium.seatingChartUrl}
+                />
               </div>
             </div>
           </aside>

@@ -31,7 +31,7 @@ export default async function StandingsPage({
   // requires results logic which is complex and likely missing from initial seed.
 
   const q = typeof searchParams.q === 'string' ? searchParams.q.toLowerCase() : '';
-  let groups = { ...MOCK_GROUPS };
+  let groups: Record<string, any[]> = { ...MOCK_GROUPS };
 
   if (q) {
     const filteredGroups: Record<string, any[]> = {};

@@ -7,22 +7,22 @@ import { Prisma } from '@tixly/database';
 
 import Image from 'next/image';
 const CITY_IMAGES: Record<string, string> = {
-  'new-york-nj':           'https://upload.wikimedia.org/wikipedia/commons/7/7a/View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_%28cropped%29.jpg',
-  'los-angeles':           'https://upload.wikimedia.org/wikipedia/commons/5/5a/Hollywood_Sign_%28Zuschnitt%29.jpg',
-  'dallas':                'https://upload.wikimedia.org/wikipedia/commons/0/03/View_of_Dallas_from_Reunion_Tower_August_2015_05.jpg',
-  'houston':               'https://upload.wikimedia.org/wikipedia/commons/a/a3/Texas_medical_center.jpg',
-  'atlanta':               'https://upload.wikimedia.org/wikipedia/commons/c/c8/A2ATL20250614-0721_%28cropped%29.jpg',
-  'philadelphia':          'https://upload.wikimedia.org/wikipedia/commons/1/19/Philadelphia_skyline_20240528_%28cropped_2-1%29.jpg',
-  'seattle':               'https://upload.wikimedia.org/wikipedia/commons/5/58/Seattle_Center_as_night_falls.jpg',
-  'san-francisco-bay-area':'https://upload.wikimedia.org/wikipedia/commons/f/f9/San_Francisco_Downtown_Aerial%2C_August_2025.jpg',
-  'boston':                'https://upload.wikimedia.org/wikipedia/commons/9/96/ISH_WC_Boston4.jpg',
-  'miami':                 'https://upload.wikimedia.org/wikipedia/commons/2/28/Miami_wideangle_south_beach.jpg',
-  'kansas-city':           'https://upload.wikimedia.org/wikipedia/commons/b/b5/Kansas_City_Missouri_Downtown_2012.jpg',
-  'mexico-city':           'https://upload.wikimedia.org/wikipedia/commons/4/4f/Sobrevuelos_CDMX_HJ2A4913_%2825514321687%29_%28cropped%29.jpg',
-  'guadalajara':           'https://upload.wikimedia.org/wikipedia/commons/a/a4/Guadalajara_de_noche.JPG',
-  'monterrey':             'https://upload.wikimedia.org/wikipedia/commons/9/9b/Monterrey_Mexico_at_night.jpg',
-  'toronto':               'https://upload.wikimedia.org/wikipedia/commons/4/43/Toronto_Skyline_From_CN_Tower.jpg',
-  'vancouver':             'https://upload.wikimedia.org/wikipedia/commons/b/b5/Vancouver_Skyline_at_dusk.jpg',
+  'new-york-nj':           'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780304169/new-york_omfrh6.jpg',
+  'los-angeles':           'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780304222/losangeles_v82zbn.jpg',
+  'dallas':                'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780304161/Skyline-Dallas-Texas_nticby.webp',
+  'houston':               'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780304160/houston-skyline_quwptf.jpg',
+  'atlanta':               'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780304168/atlanta-skyline-georgia_j59ykj.webp',
+  'philadelphia':          'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780304157/philadelphia_yny63r.jpg',
+  'seattle':               'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780304165/seattle_sdljvu.avif',
+  'san-francisco-bay-area':'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780304147/san-francisco-ca_n7lsjj.jpg',
+  'boston':                'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780304152/boston_a2xiyv.webp',
+  'miami':                 'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780304169/miami_ltw4at.webp',
+  'kansas-city':           'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780304166/kansascity_vvckg7.webp',
+  'mexico-city':           'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780304180/mexicocity_t7bigt.avif',
+  'guadalajara':           'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780304151/guadalajara_r9wo1t.jpg',
+  'monterrey':             'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780304181/monterrey_rabcs0.jpg',
+  'toronto':               'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780304148/toronto_bwnsmn.jpg',
+  'vancouver':             'https://res.cloudinary.com/dm12f7lnc/image/upload/v1780304153/vancouver_a4k5zl.jpg',
 };
 
 export default async function CitiesPage({ 

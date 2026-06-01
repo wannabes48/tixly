@@ -9,7 +9,7 @@ import { Link } from '@/navigation';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { PaymentForm } from './PaymentForm';
-import { TicketReceipt } from './TicketReceipt';
+import { InvoiceReceipt } from './InvoiceReceipt';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 
@@ -321,7 +321,7 @@ export function CheckoutFlow({ listing }: { listing: ListingData }) {
         format: [canvas.width / 2, canvas.height / 2]
       });
       pdf.addImage(imgData, 'PNG', 0, 0, canvas.width / 2, canvas.height / 2);
-      pdf.save(`Tixly_Ticket_${orderRef}.pdf`);
+      pdf.save(`Tixly_Invoice_${orderRef}.pdf`);
     } catch (e) {
       console.error("PDF generation failed", e);
     }
@@ -769,18 +769,23 @@ export function CheckoutFlow({ listing }: { listing: ListingData }) {
                 onClick={downloadPDF}
                 className="inline-flex items-center justify-center gap-2 bg-brand-navy hover:bg-blue-900 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md hover:shadow-lg w-full max-w-md"
               >
-                <DownloadCloud size={20} /> Download Receipt PDF
+                <DownloadCloud size={20} /> Download Payment Invoice
               </button>
             </div>
 
-            {/* Hidden Ticket Receipt for PDF */}
+            {/* Hidden Invoice Receipt for PDF */}
             <div className="absolute -left-[9999px]">
-              <TicketReceipt 
+              <InvoiceReceipt 
                 ref={ticketRef} 
-                match={mockMatch} 
-                section={listing.section || undefined} 
-                row={listing.row || undefined} 
-                seat="TBD" 
+                orderRef={orderRef}
+                buyerName={buyer.holders[0]?.firstName ? `${buyer.holders[0].firstName} ${buyer.holders[0].lastName}` : 'Guest Buyer'}
+                buyerEmail={buyer.email || 'guest@example.com'}
+                matchName={listing.matchName}
+                category={listing.category}
+                quantity={quantity}
+                pricePerTicket={listing.pricePerTicket}
+                totalPaid={listing.pricePerTicket * quantity * (refundProtection ? 1.18 : 1.10)}
+                date={listing.dateStr}
               />
             </div>
 
