@@ -6,7 +6,7 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 const nextConfig = {
   transpilePackages: ["@tixly/database"],
   experimental: {
-    serverComponentsExternalPackages: ["@prisma/client", "@tixly/database"]
+    serverComponentsExternalPackages: ["@prisma/client"]
   },
   images: {
     remotePatterns: [
