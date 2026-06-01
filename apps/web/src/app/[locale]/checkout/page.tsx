@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import { prisma } from '@tixly/database';
+import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
@@ -86,9 +87,9 @@ export default async function CheckoutPage({
                 <input type="email" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-brand-midblue" />
                 <p className="text-xs text-gray-400 mt-1">Your tickets will be transferred to this email.</p>
               </div>
-              <button className="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-3.5 rounded-xl transition-colors mt-4">
+              <Link href={`/checkout/${listing.id}`} className="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-3.5 rounded-xl transition-colors mt-4 block text-center">
                 Continue to Payment
-              </button>
+              </Link>
             </div>
           </div>
 

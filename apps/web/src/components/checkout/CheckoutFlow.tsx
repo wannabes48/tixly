@@ -1,17 +1,21 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import {
   ShieldCheck, Lock, CreditCard, CheckCircle2, ChevronDown,
-  User, Mail, Phone, Globe, AlertCircle, Ticket, MapPin, Calendar,
+  User, Mail, Phone, Globe, AlertCircle, Ticket, MapPin, Calendar, Download, DownloadCloud
 } from 'lucide-react';
 import { Link } from '@/navigation';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { PaymentForm } from './PaymentForm';
+import { TicketReceipt } from './TicketReceipt';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 
-// Initialize Stripe outside component
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
+// Initialize Stripe outside component safely
+const stripeKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+const stripePromise = stripeKey ? loadStripe(stripeKey) : null;
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -295,6 +299,34 @@ export function CheckoutFlow({ listing }: { listing: ListingData }) {
     return Object.keys(errs).length === 0;
   };
 
+  const ticketRef = useRef<HTMLDivElement>(null);
+
+  const [homeTeamName, awayTeamName] = listing.matchName.split(' vs ');
+  const mockMatch = {
+    homeTeam: { name: homeTeamName?.trim() || 'Home', code: homeTeamName?.trim()?.substring(0, 2).toUpperCase() || 'XX' },
+    awayTeam: { name: awayTeamName?.trim() || 'Away', code: awayTeamName?.trim()?.substring(0, 2).toUpperCase() || 'YY' },
+    stadium: { name: listing.stadiumName, city: '' },
+    date: new Date(listing.dateStr)
+  };
+
+  const downloadPDF = async () => {
+    const element = ticketRef.current;
+    if (!element) return;
+    try {
+      const canvas = await html2canvas(element, { scale: 2 });
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'px',
+        format: [canvas.width / 2, canvas.height / 2]
+      });
+      pdf.addImage(imgData, 'PNG', 0, 0, canvas.width / 2, canvas.height / 2);
+      pdf.save(`Tixly_Ticket_${orderRef}.pdf`);
+    } catch (e) {
+      console.error("PDF generation failed", e);
+    }
+  };
+
   const handleDetailsSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateDetails()) goTo('PROTECTION');
@@ -317,9 +349,12 @@ export function CheckoutFlow({ listing }: { listing: ListingData }) {
       if (data.clientSecret) {
         setClientSecret(data.clientSecret);
         goTo('PAYMENT');
+      } else {
+        alert("Payment initialization failed: " + (data.error || "Unknown error"));
       }
     } catch (e) {
       console.error("Failed to init payment:", e);
+      alert("Network error: Could not reach payment server.");
     }
     setIsCreatingIntent(false);
   };
@@ -668,13 +703,20 @@ export function CheckoutFlow({ listing }: { listing: ListingData }) {
             </div>
 
             {clientSecret ? (
-              <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: 'stripe' } }}>
-                <PaymentForm 
-                  total={total} 
-                  onSuccess={() => goTo('CONFIRMATION')} 
-                  onBack={() => goTo('PROTECTION')} 
-                />
-              </Elements>
+              stripePromise ? (
+                <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: 'stripe' } }}>
+                  <PaymentForm 
+                    total={total} 
+                    onSuccess={() => goTo('CONFIRMATION')} 
+                    onBack={() => goTo('PROTECTION')} 
+                  />
+                </Elements>
+              ) : (
+                <div className="bg-red-50 text-red-700 p-6 rounded-xl text-center font-medium border border-red-200">
+                  <p>Stripe API Key is missing.</p>
+                  <p className="text-sm mt-2">Please ensure NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is set in your .env and you have restarted the Next.js dev server.</p>
+                </div>
+              )
             ) : (
               <div className="flex justify-center p-12">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-orange"></div>
@@ -692,35 +734,81 @@ export function CheckoutFlow({ listing }: { listing: ListingData }) {
             <h2 className="text-3xl font-extrabold text-brand-navy mb-2">You're Going!</h2>
             <p className="text-gray-500 text-sm mb-1">Order confirmed for</p>
             <p className="text-lg font-bold text-brand-navy mb-4">{listing.matchName}</p>
-            <div className="inline-block bg-gray-100 rounded-xl px-6 py-3 mb-8">
-              <p className="text-xs text-gray-500 mb-1">Order Reference</p>
-              <p className="font-mono font-bold text-brand-navy text-xl tracking-widest">{orderRef}</p>
+            
+            <div className="inline-block bg-gray-50 border border-gray-100 rounded-xl px-8 py-4 mb-6 shadow-inner">
+              <p className="text-xs text-gray-500 mb-1 uppercase tracking-wider font-bold">Order Reference</p>
+              <p className="font-mono font-bold text-brand-navy text-2xl tracking-widest">{orderRef}</p>
             </div>
 
+            {/* Order Summary Summary */}
+            <div className="bg-white border border-gray-200 rounded-xl p-4 text-left mb-6 max-w-md mx-auto shadow-sm">
+              <div className="flex justify-between border-b pb-2 mb-2">
+                <span className="text-sm text-gray-500">Tickets</span>
+                <span className="text-sm font-bold">{quantity}x {listing.category}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-sm text-gray-500">Total Paid</span>
+                <span className="text-sm font-black text-brand-orange">${(listing.pricePerTicket * quantity * (refundProtection ? 1.18 : 1.10)).toFixed(2)}</span>
+              </div>
+            </div>
+
+            {/* Email Message */}
             <div className="bg-blue-50 border border-blue-100 rounded-xl p-5 text-left mb-6 max-w-md mx-auto">
-              <h3 className="font-bold text-brand-navy mb-3 text-sm">What happens next?</h3>
-              <ol className="space-y-3 text-sm text-gray-600">
-                <li className="flex gap-3"><span className="w-6 h-6 bg-brand-navy text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">1</span>A confirmation email has been sent to <strong>{buyer.email || 'your email'}</strong>.</li>
-                <li className="flex gap-3"><span className="w-6 h-6 bg-brand-navy text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">2</span>The seller will transfer the tickets within 24 hours.</li>
-                <li className="flex gap-3"><span className="w-6 h-6 bg-brand-navy text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">3</span>You'll receive an email from FIFA's official ticketing platform to claim your tickets.</li>
-              </ol>
+              <div className="flex items-start gap-3">
+                <Mail className="text-brand-midblue mt-0.5 shrink-0" size={20} />
+                <div>
+                  <h3 className="font-bold text-brand-navy text-sm">Tickets are on the way</h3>
+                  <p className="text-sm text-gray-600 mt-1">Your tickets will be emailed to <strong>{buyer.email || 'your email'}</strong> within 24–48 hours.</p>
+                </div>
+              </div>
             </div>
 
-            {buyer.createAccount && (
-              <div className="mb-6 p-4 bg-orange-50 border border-orange-100 rounded-xl max-w-md mx-auto">
-                <p className="text-sm font-semibold text-brand-navy mb-1">Account creation</p>
-                <p className="text-xs text-gray-500">We'll send you a link to set your password at {buyer.email}.</p>
+            {/* PDF Button */}
+            <div className="mb-6 flex justify-center">
+              <button 
+                onClick={downloadPDF}
+                className="inline-flex items-center justify-center gap-2 bg-brand-navy hover:bg-blue-900 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md hover:shadow-lg w-full max-w-md"
+              >
+                <DownloadCloud size={20} /> Download Receipt PDF
+              </button>
+            </div>
+
+            {/* Hidden Ticket Receipt for PDF */}
+            <div className="absolute -left-[9999px]">
+              <TicketReceipt 
+                ref={ticketRef} 
+                match={mockMatch} 
+                section={listing.section || undefined} 
+                row={listing.row || undefined} 
+                seat="TBD" 
+              />
+            </div>
+
+            {/* Soft Upsell */}
+            {!buyer.createAccount && (
+              <div className="mb-6 p-5 bg-orange-50 border border-orange-100 rounded-xl max-w-md mx-auto text-left">
+                <div className="flex items-start gap-3">
+                  <User className="text-brand-orange mt-0.5 shrink-0" size={20} />
+                  <div>
+                    <h3 className="font-bold text-brand-navy text-sm">Want to track this order?</h3>
+                    <p className="text-xs text-gray-600 mt-1 mb-3">Create a free account using your email to easily manage your tickets.</p>
+                    <button className="text-xs font-bold text-brand-orange bg-white border border-orange-200 px-4 py-2 rounded-lg hover:bg-orange-100 transition-colors">
+                      Create Account
+                    </button>
+                  </div>
+                </div>
               </div>
             )}
 
+            {/* Trust Badge */}
+            <div className="flex items-center justify-center gap-2 text-gray-500 mb-6">
+              <ShieldCheck size={16} className="text-green-500" />
+              <span className="text-xs font-medium">This order is protected by <strong>Tixly Protect</strong></span>
+            </div>
+
             <div className="flex flex-col sm:flex-row justify-center gap-3 pt-4 border-t border-gray-100">
-              <Link href="/"
-                className="px-6 py-3 rounded-xl font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 transition-colors text-sm">
+              <Link href="/" className="px-6 py-3 rounded-xl font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 transition-colors text-sm">
                 Return to Home
-              </Link>
-              <Link href="/track-order"
-                className="px-6 py-3 rounded-xl font-bold text-white bg-brand-orange hover:bg-orange-600 transition-colors text-sm">
-                Track My Order →
               </Link>
             </div>
           </div>

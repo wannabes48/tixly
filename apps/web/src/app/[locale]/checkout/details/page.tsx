@@ -44,7 +44,7 @@ export default function CheckoutDetailsPage() {
     search.set("buyerEmail", formData.buyerEmail);
     
     startTransition(() => {
-      router.push(`/checkout/payment?${search.toString()}`);
+      router.push(`/checkout/${listingId}?quantity=${quantity}`);
     });
   };
 
