@@ -105,8 +105,8 @@ export default function SignInPage() {
             <div className="mt-8 text-center">
               <p className="text-[11px] leading-relaxed text-gray-800 font-bold max-w-[320px] mx-auto">
                 This site is protected by reCAPTCHA and the Google{' '}
-                <Link href="#" className="underline decoration-gray-400 underline-offset-2">Privacy Policy</Link> and{' '}
-                <Link href="#" className="underline decoration-gray-400 underline-offset-2">Terms of Service</Link> apply.
+                <a href="#" className="underline decoration-gray-400 underline-offset-2">Privacy Policy</a> and{' '}
+                <a href="#" className="underline decoration-gray-400 underline-offset-2">Terms of Service</a> apply.
               </p>
             </div>
 
