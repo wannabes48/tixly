@@ -25,8 +25,6 @@ export function Navbar() {
   const router = useRouter();
   const isHome = pathname === '/';
 
-  if (pathname === '/sign-in') return null;
-
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [currencyOpen, setCurrencyOpen] = useState(false);
@@ -88,6 +86,8 @@ export function Navbar() {
   }, [mobileOpen]);
 
   const isSolid = !isHome || scrolled;
+
+  if (pathname === '/sign-in') return null;
 
   return (
     <>

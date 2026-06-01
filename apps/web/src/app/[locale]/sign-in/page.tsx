@@ -1,12 +1,30 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useRouter } from '@/navigation';
 import { X, User } from 'lucide-react';
 import { signIn } from 'next-auth/react';
+import { useSearchParams } from 'next/navigation';
 
 export default function SignInPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
+  const [email, setEmail] = useState('');
+
+  const handleEmailSignIn = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    
+    // Automatically assign ADMIN role if the email contains "admin" (for demo purposes)
+    const role = email.toLowerCase().includes('admin') ? 'ADMIN' : 'SELLER';
+    
+    signIn('credentials', { 
+      email, 
+      role, 
+      callbackUrl 
+    });
+  };
 
   return (
     <main className="min-h-screen bg-slate-900/60 flex items-center justify-center p-4">
@@ -84,10 +102,12 @@ export default function SignInPage() {
             </div>
 
             {/* Email Form */}
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-4" onSubmit={handleEmailSignIn}>
               <div>
                 <input 
                   type="email" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email Address" 
                   className="w-full border border-gray-300 focus:border-brand-orange focus:ring-1 focus:ring-brand-orange rounded-md px-4 py-3.5 outline-none transition-all placeholder:text-gray-400"
                   required
