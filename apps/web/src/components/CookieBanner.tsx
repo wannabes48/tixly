@@ -29,24 +29,24 @@ export function CookieBanner() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-2xl p-4 md:p-6 transform transition-transform duration-500 ease-in-out">
-      <div className="container mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8">
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-2xl p-3 md:p-4 transform transition-transform duration-500 ease-in-out">
+      <div className="container mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between gap-3 md:gap-6">
         <div className="flex-1">
-          <h3 className="text-lg font-bold text-brand-navy mb-2">We value your privacy</h3>
-          <p className="text-sm text-gray-600 leading-relaxed">
+          <h3 className="text-base font-bold text-brand-navy mb-1">We value your privacy</h3>
+          <p className="text-xs text-gray-600 leading-relaxed">
             We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies. To learn more, read our <Link href="/legal/privacy" className="text-brand-orange hover:underline font-medium">Privacy Policy</Link>.
           </p>
         </div>
-        <div className="flex flex-col sm:flex-row gap-3 shrink-0 w-full md:w-auto">
+        <div className="flex flex-col sm:flex-row gap-2 shrink-0 w-full md:w-auto">
           <button
             onClick={handleRejectNonEssential}
-            className="px-6 py-2.5 rounded-xl border border-gray-300 text-gray-700 text-sm font-bold hover:bg-gray-50 transition-colors w-full sm:w-auto"
+            className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 text-xs font-bold hover:bg-gray-50 transition-colors w-full sm:w-auto"
           >
             Reject Non-Essential
           </button>
           <button
             onClick={handleAcceptAll}
-            className="px-6 py-2.5 rounded-xl bg-brand-orange text-white text-sm font-bold hover:bg-orange-600 shadow-sm transition-colors w-full sm:w-auto"
+            className="px-4 py-2 rounded-lg bg-brand-orange text-white text-xs font-bold hover:bg-orange-600 shadow-sm transition-colors w-full sm:w-auto"
           >
             Accept All
           </button>
