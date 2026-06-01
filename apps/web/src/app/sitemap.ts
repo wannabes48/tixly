@@ -1,6 +1,8 @@
 import { MetadataRoute } from 'next';
 import { prisma } from '@tixly/database';
 
+export const dynamic = 'force-dynamic';
+
 const baseUrl = 'https://www.tixlyonline.com';
 const locales = ['en', 'es', 'fr', 'pt', 'ar', 'de'];
 

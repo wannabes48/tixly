@@ -28,7 +28,7 @@ const footerColumns = [
     links: [
       { href: '/legal/terms', label: 'Terms & Conditions' },
       { href: '/legal/privacy', label: 'Privacy Policy' },
-      { href: '#', label: 'Cookie Settings' },
+      { href: '/cookies', label: 'Cookie Settings' },
     ],
   },
 ];
@@ -72,7 +72,7 @@ export function Footer() {
               {socialLinks.map(({ icon: Icon, label }) => (
                 <a
                   key={label}
-                  href="#"
+                  href={`https://${label.toLowerCase()}.com/tixly`}
                   aria-label={label}
                   className="w-9 h-9 bg-gray-100 hover:bg-brand-navy hover:text-white text-gray-500 rounded-lg flex items-center justify-center transition-colors duration-200"
                 >

@@ -194,7 +194,7 @@ export default async function CityDetailPage({ params }: { params: { locale: str
                     </div>
 
                     <div className="p-6 sm:w-48 flex items-center justify-center border-t sm:border-t-0 sm:border-l border-slate-100 h-full w-full">
-                      <Link href={`/tickets/${match.slug}`} className="w-full">
+                      <Link href={`/matches/${match.id}`} className="w-full">
                         <Button className="w-full rounded-xl bg-[#ff6b00] hover:bg-[#e66000] text-white font-semibold">
                           <Ticket className="w-4 h-4 mr-2" />
                           Tickets

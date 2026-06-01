@@ -220,7 +220,7 @@ export default async function StadiumDetailPage({ params }: { params: { locale: 
 
                     <div className="p-6 sm:w-48 flex items-center justify-center border-t sm:border-t-0 sm:border-l border-slate-100 h-full w-full">
                       <Button asChild className="w-full rounded-xl bg-[#ff6b00] hover:bg-[#e66000] text-white font-semibold">
-                        <Link href={`/matches/${match.slug}`} className="w-full flex items-center justify-center">
+                        <Link href={`/matches/${match.id}`} className="w-full flex items-center justify-center">
                           <Ticket className="w-4 h-4 mr-2" />
                           Tickets
                         </Link>

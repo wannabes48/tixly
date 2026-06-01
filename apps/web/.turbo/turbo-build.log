@@ -8,16 +8,72 @@
    Creating an optimized production build ...
  ✓ Compiled successfully
    Linting and checking validity of types ...
-Failed to compile.
+   Collecting page data ...
+   Generating static pages (0/8) ...
+   Generating static pages (2/8) 
+   Generating static pages (4/8) 
+   Generating static pages (6/8) 
+ ✓ Generating static pages (8/8) 
+   Finalizing page optimization ...
+   Collecting build traces ...
 
-./src/app/[locale]/stadiums/[stadiumSlug]/page.tsx:52:11
-Type error: Property 'description' does not exist on type '{ matches: ({ homeTeam: { id: string; name: string; slug: string; countryCode: string; flagUrl: string | null; confederation: string; }; awayTeam: { id: string; name: string; slug: string; countryCode: string; flagUrl: string | null; confederation: string; }; } & { ...; })[]; } & { ...; }'.
+Route (app)                              Size     First Load JS
+┌ ○ /_not-found                          892 B          85.4 kB
+├ λ /[locale]                            10.7 kB         130 kB
+├ λ /[locale]/about                      305 B          89.8 kB
+├ λ /[locale]/account                    1.68 kB          94 kB
+├ λ /[locale]/admin                      190 B          84.7 kB
+├ λ /[locale]/buyer-protection           305 B          89.8 kB
+├ λ /[locale]/checkout                   1.2 kB         85.7 kB
+├ λ /[locale]/checkout/[listingId]       196 kB          293 kB
+├ λ /[locale]/checkout/confirmation      3.26 kB         108 kB
+├ λ /[locale]/checkout/details           2.89 kB         101 kB
+├ λ /[locale]/checkout/payment           3.23 kB         101 kB
+├ λ /[locale]/checkout/protection        190 B          84.7 kB
+├ λ /[locale]/cities                     1.71 kB          99 kB
+├ λ /[locale]/cities/[citySlug]          1.71 kB          99 kB
+├ λ /[locale]/contact                    190 B          84.7 kB
+├ λ /[locale]/cookies                    190 B          84.7 kB
+├ λ /[locale]/faq                        3.35 kB        98.5 kB
+├ λ /[locale]/how-it-works               1.71 kB          99 kB
+├ λ /[locale]/legal/privacy              1.68 kB          94 kB
+├ λ /[locale]/legal/seller-agreement     1.68 kB          94 kB
+├ λ /[locale]/legal/terms                1.68 kB          94 kB
+├ λ /[locale]/matches                    47 kB           170 kB
+├ λ /[locale]/matches/[matchId]          5.05 kB         129 kB
+├ λ /[locale]/privacy                    190 B          84.7 kB
+├ λ /[locale]/schedule                   4.09 kB         108 kB
+├ λ /[locale]/sell                       1.68 kB          94 kB
+├ λ /[locale]/sell/dashboard             190 B          84.7 kB
+├ λ /[locale]/sell/list                  190 B          84.7 kB
+├ λ /[locale]/sell/login                 190 B          84.7 kB
+├ λ /[locale]/sell/register              190 B          84.7 kB
+├ λ /[locale]/seller-faq                 190 B          84.7 kB
+├ λ /[locale]/seller-payouts             190 B          84.7 kB
+├ λ /[locale]/sign-in                    2.05 kB         109 kB
+├ λ /[locale]/stadiums                   1.71 kB          99 kB
+├ λ /[locale]/stadiums/[stadiumSlug]     1.71 kB          99 kB
+├ λ /[locale]/standings                  1.71 kB          99 kB
+├ λ /[locale]/teams                      1.71 kB          99 kB
+├ λ /[locale]/teams/[teamSlug]           1.71 kB          99 kB
+├ λ /[locale]/terms                      190 B          84.7 kB
+├ λ /[locale]/track-order                190 B          84.7 kB
+├ λ /api/auth/[...nextauth]              0 B                0 B
+├ λ /api/create-payment-intent           0 B                0 B
+├ λ /api/matches/[matchId]/listings      0 B                0 B
+├ λ /api/verify-turnstile                0 B                0 B
+├ λ /api/webhook                         0 B                0 B
+├ ○ /icon.svg                            0 B                0 B
+├ ○ /robots.txt                          0 B                0 B
+└ λ /sitemap.xml                         0 B                0 B
++ First Load JS shared by all            84.5 kB
+  ├ chunks/1686-ed81900f880d5871.js      29.1 kB
+  ├ chunks/69c4c07a-404ccecda7e190d2.js  53.4 kB
+  └ other shared chunks (total)          2.07 kB
 
-[0m [90m 50 |[39m   [90m// Fallback image since we haven't added stadium images to the DB yet[39m[0m
-[0m [90m 51 |[39m   stadium[33m.[39mimageUrl [33m=[39m stadium[33m.[39mimageUrl [33m||[39m [32m'https://images.unsplash.com/photo-1577223625816-7546f13df25d?auto=format&fit=crop&q=80&w=1200'[39m[33m;[39m[0m
-[0m[31m[1m>[22m[39m[90m 52 |[39m   stadium[33m.[39mdescription [33m=[39m stadium[33m.[39mdescription [33m||[39m [32m`Experience the incredible atmosphere at ${stadium.name} in ${stadium.city}.`[39m[33m;[39m[0m
-[0m [90m    |[39m           [31m[1m^[22m[39m[0m
-[0m [90m 53 |[39m[0m
-[0m [90m 54 |[39m   [36mconst[39m displayMatches [33m=[39m stadium[33m.[39mmatches [33m||[39m [][33m;[39m[0m
-[0m [90m 55 |[39m   [36mconst[39m insights [33m=[39m stadiumInsights[stadium[33m.[39mslug][33m;[39m[0m
- ELIFECYCLE  Command failed with exit code 1.
+
+ƒ Middleware                             63.5 kB
+
+○  (Static)   prerendered as static content
+λ  (Dynamic)  server-rendered on demand using Node.js
+
