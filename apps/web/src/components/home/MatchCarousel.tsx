@@ -4,15 +4,16 @@ import { useLocale } from "next-intl";
 import { useRef } from 'react';
 import { ChevronLeft, ChevronRight, MapPin, ArrowRight } from 'lucide-react';
 import { Link } from '@/navigation';
+import Image from 'next/image';
 
 interface Match {
   id: string;
   date: string;
   dateShort: string;
   homeTeam: string;
-  homeFlag: string;
+  homeFlagUrl: string;
   awayTeam: string;
-  awayFlag: string;
+  awayFlagUrl: string;
   stadium: string;
   city: string;
   priceFrom: number;
@@ -24,9 +25,9 @@ const MATCHES: Match[] = [
     date: 'JUN 11 · THU',
     dateShort: '2026-06-11',
     homeTeam: 'Mexico',
-    homeFlag: '🇲🇽',
+    homeFlagUrl: 'https://flagcdn.com/w320/mx.png',
     awayTeam: 'Canada',
-    awayFlag: '🇨🇦',
+    awayFlagUrl: 'https://flagcdn.com/w320/ca.png',
     stadium: 'Estadio Azteca',
     city: 'Mexico City',
     priceFrom: 150,
@@ -36,9 +37,9 @@ const MATCHES: Match[] = [
     date: 'JUN 12 · FRI',
     dateShort: '2026-06-12',
     homeTeam: 'Argentina',
-    homeFlag: '🇦🇷',
+    homeFlagUrl: 'https://flagcdn.com/w320/ar.png',
     awayTeam: 'France',
-    awayFlag: '🇫🇷',
+    awayFlagUrl: 'https://flagcdn.com/w320/fr.png',
     stadium: 'MetLife Stadium',
     city: 'New York / New Jersey',
     priceFrom: 450,
@@ -48,9 +49,9 @@ const MATCHES: Match[] = [
     date: 'JUN 13 · SAT',
     dateShort: '2026-06-13',
     homeTeam: 'USA',
-    homeFlag: '🇺🇸',
+    homeFlagUrl: 'https://flagcdn.com/w320/us.png',
     awayTeam: 'Brazil',
-    awayFlag: '🇧🇷',
+    awayFlagUrl: 'https://flagcdn.com/w320/br.png',
     stadium: 'SoFi Stadium',
     city: 'Los Angeles',
     priceFrom: 380,
@@ -60,9 +61,9 @@ const MATCHES: Match[] = [
     date: 'JUN 14 · SUN',
     dateShort: '2026-06-14',
     homeTeam: 'Germany',
-    homeFlag: '🇩🇪',
+    homeFlagUrl: 'https://flagcdn.com/w320/de.png',
     awayTeam: 'Spain',
-    awayFlag: '🇪🇸',
+    awayFlagUrl: 'https://flagcdn.com/w320/es.png',
     stadium: 'Hard Rock Stadium',
     city: 'Miami',
     priceFrom: 320,
@@ -72,9 +73,9 @@ const MATCHES: Match[] = [
     date: 'JUN 15 · MON',
     dateShort: '2026-06-15',
     homeTeam: 'England',
-    homeFlag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+    homeFlagUrl: 'https://flagcdn.com/w320/gb-eng.png',
     awayTeam: 'Portugal',
-    awayFlag: '🇵🇹',
+    awayFlagUrl: 'https://flagcdn.com/w320/pt.png',
     stadium: 'AT&T Stadium',
     city: 'Dallas',
     priceFrom: 290,
@@ -84,16 +85,16 @@ const MATCHES: Match[] = [
     date: 'JUN 16 · TUE',
     dateShort: '2026-06-16',
     homeTeam: 'Japan',
-    homeFlag: '🇯🇵',
+    homeFlagUrl: 'https://flagcdn.com/w320/jp.png',
     awayTeam: 'Netherlands',
-    awayFlag: '🇳🇱',
+    awayFlagUrl: 'https://flagcdn.com/w320/nl.png',
     stadium: 'BMO Field',
     city: 'Toronto',
     priceFrom: 180,
   },
 ];
 
-export default function MatchCarousel() {
+export default function MatchCarousel({ matches = MATCHES }: { matches?: Match[] }) {
   const locale = useLocale();
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -169,7 +170,7 @@ export default function MatchCarousel() {
           className="flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {MATCHES.map((match) => (
+          {matches.map((match) => (
             <div
               key={match.id}
               className="min-w-[320px] max-w-[340px] bg-white rounded-2xl border border-gray-100 flex flex-col hover:scale-[1.02] transition-all duration-300 snap-start"
@@ -203,7 +204,9 @@ export default function MatchCarousel() {
                 {/* Team Matchup */}
                 <div className="flex items-center justify-between gap-3 mb-4">
                   <div className="flex flex-col items-center flex-1 min-w-0">
-                    <span className="text-3xl mb-1.5">{match.homeFlag}</span>
+                    <div className="w-10 h-10 mb-1.5 relative rounded-full overflow-hidden border border-gray-100 shadow-sm bg-gray-50">
+                      <Image src={match.homeFlagUrl} alt={`${match.homeTeam} flag`} fill className="object-cover" />
+                    </div>
                     <span className="text-sm font-black text-[#0D2137] text-center truncate w-full">
                       {match.homeTeam}
                     </span>
@@ -214,7 +217,9 @@ export default function MatchCarousel() {
                   </span>
 
                   <div className="flex flex-col items-center flex-1 min-w-0">
-                    <span className="text-3xl mb-1.5">{match.awayFlag}</span>
+                    <div className="w-10 h-10 mb-1.5 relative rounded-full overflow-hidden border border-gray-100 shadow-sm bg-gray-50">
+                      <Image src={match.awayFlagUrl} alt={`${match.awayTeam} flag`} fill className="object-cover" />
+                    </div>
                     <span className="text-sm font-black text-[#0D2137] text-center truncate w-full">
                       {match.awayTeam}
                     </span>
@@ -245,6 +250,7 @@ export default function MatchCarousel() {
                 </div>
                 <Link
                   href={`matches/${match.id}`}
+                  prefetch={false}
                   className="bg-[#E8532A] hover:bg-[#c74823] text-white text-sm font-bold px-6 py-3 rounded-xl transition-colors duration-200"
                 >
                   Buy Tickets

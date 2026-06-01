@@ -6,14 +6,24 @@ import { Input } from '@/components/ui/input';
 import { Prisma } from '@tixly/database';
 
 import Image from 'next/image';
-const MOCK_CITIES = [
-  { slug: 'new-york-new-jersey', name: 'New York/New Jersey', countryCode: 'US', imageUrl: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&q=80&w=800' },
-  { slug: 'los-angeles', name: 'Los Angeles', countryCode: 'US', imageUrl: 'https://images.unsplash.com/photo-1518481612222-68bbe828def1?auto=format&fit=crop&q=80&w=800' },
-  { slug: 'toronto', name: 'Toronto', countryCode: 'CA', imageUrl: 'https://images.unsplash.com/photo-1517090504586-fde19ea6066f?auto=format&fit=crop&q=80&w=800' },
-  { slug: 'mexico-city', name: 'Mexico City', countryCode: 'MX', imageUrl: 'https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?auto=format&fit=crop&q=80&w=800' },
-  { slug: 'miami', name: 'Miami', countryCode: 'US', imageUrl: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=800' },
-  { slug: 'vancouver', name: 'Vancouver', countryCode: 'CA', imageUrl: 'https://images.unsplash.com/photo-1559511260-66a654ae982a?auto=format&fit=crop&q=80&w=800' },
-];
+const CITY_IMAGES: Record<string, string> = {
+  'new-york-nj':           'https://upload.wikimedia.org/wikipedia/commons/7/7a/View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_%28cropped%29.jpg',
+  'los-angeles':           'https://upload.wikimedia.org/wikipedia/commons/5/5a/Hollywood_Sign_%28Zuschnitt%29.jpg',
+  'dallas':                'https://upload.wikimedia.org/wikipedia/commons/0/03/View_of_Dallas_from_Reunion_Tower_August_2015_05.jpg',
+  'houston':               'https://upload.wikimedia.org/wikipedia/commons/a/a3/Texas_medical_center.jpg',
+  'atlanta':               'https://upload.wikimedia.org/wikipedia/commons/c/c8/A2ATL20250614-0721_%28cropped%29.jpg',
+  'philadelphia':          'https://upload.wikimedia.org/wikipedia/commons/1/19/Philadelphia_skyline_20240528_%28cropped_2-1%29.jpg',
+  'seattle':               'https://upload.wikimedia.org/wikipedia/commons/5/58/Seattle_Center_as_night_falls.jpg',
+  'san-francisco-bay-area':'https://upload.wikimedia.org/wikipedia/commons/f/f9/San_Francisco_Downtown_Aerial%2C_August_2025.jpg',
+  'boston':                'https://upload.wikimedia.org/wikipedia/commons/9/96/ISH_WC_Boston4.jpg',
+  'miami':                 'https://upload.wikimedia.org/wikipedia/commons/2/28/Miami_wideangle_south_beach.jpg',
+  'kansas-city':           'https://upload.wikimedia.org/wikipedia/commons/b/b5/Kansas_City_Missouri_Downtown_2012.jpg',
+  'mexico-city':           'https://upload.wikimedia.org/wikipedia/commons/4/4f/Sobrevuelos_CDMX_HJ2A4913_%2825514321687%29_%28cropped%29.jpg',
+  'guadalajara':           'https://upload.wikimedia.org/wikipedia/commons/a/a4/Guadalajara_de_noche.JPG',
+  'monterrey':             'https://upload.wikimedia.org/wikipedia/commons/9/9b/Monterrey_Mexico_at_night.jpg',
+  'toronto':               'https://upload.wikimedia.org/wikipedia/commons/4/43/Toronto_Skyline_From_CN_Tower.jpg',
+  'vancouver':             'https://upload.wikimedia.org/wikipedia/commons/b/b5/Vancouver_Skyline_at_dusk.jpg',
+};
 
 export default async function CitiesPage({ 
   params,
@@ -46,16 +56,19 @@ export default async function CitiesPage({
           slug,
           name: s.city,
           countryCode: s.countryCode,
-          imageUrl: MOCK_CITIES.find(c => c.slug === slug)?.imageUrl || MOCK_CITIES[0].imageUrl
+          imageUrl: CITY_IMAGES[slug] || 'https://images.unsplash.com/photo-1449844908441-8829872d2607?w=800&h=600&fit=crop'
         });
       }
     });
     cities = Array.from(cityMap.values());
   } else {
-    cities = MOCK_CITIES;
-    if (q) {
-      cities = cities.filter(c => c.name.toLowerCase().includes(q.toLowerCase()));
-    }
+    // mock fallback
+    cities = Object.entries(CITY_IMAGES).map(([slug, img]) => ({
+      slug,
+      name: slug,
+      countryCode: 'US',
+      imageUrl: img
+    }));
   }
 
   const groupedByCountry = cities.reduce((acc: any, city: any) => {
@@ -109,6 +122,7 @@ export default async function CitiesPage({
                       <div className="absolute inset-0 z-0">
                         <Image src={city.imageUrl} 
                           alt={city.name} 
+                          unoptimized
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" width={800} height={600} />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0a192f]/90 via-[#0a192f]/30 to-transparent" />
                       </div>

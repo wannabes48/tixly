@@ -20,34 +20,34 @@ const countryGroups: CountryGroup[] = [
     country: "USA",
     flag: "🇺🇸",
     cities: [
-      { name: "New York/NJ", slug: "new-york-nj", matches: 8, image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&h=400&fit=crop" },
-      { name: "Los Angeles", slug: "los-angeles", matches: 7, image: "https://images.unsplash.com/photo-1518481612222-68bbe828def1?w=600&h=400&fit=crop" },
-      { name: "Dallas", slug: "dallas", matches: 6, image: "https://images.unsplash.com/photo-1572975929656-749e755519b5?w=600&h=400&fit=crop" },
-      { name: "Houston", slug: "houston", matches: 5, image: "https://images.unsplash.com/photo-1516084478335-5154316f73e5?w=600&h=400&fit=crop" },
-      { name: "Atlanta", slug: "atlanta", matches: 6, image: "https://images.unsplash.com/photo-1575971480026-64506f23fcf6?w=600&h=400&fit=crop" },
-      { name: "Philadelphia", slug: "philadelphia", matches: 5, image: "https://images.unsplash.com/photo-1604104033282-5fbe6089bd16?w=600&h=400&fit=crop" },
-      { name: "Seattle", slug: "seattle", matches: 5, image: "https://images.unsplash.com/photo-1502175353174-a7a70e73b4c3?w=600&h=400&fit=crop" },
-      { name: "San Francisco Bay Area", slug: "san-francisco", matches: 6, image: "https://images.unsplash.com/photo-1501594907296-3244840e6922?w=600&h=400&fit=crop" },
-      { name: "Boston/Foxborough", slug: "boston", matches: 5, image: "https://images.unsplash.com/photo-1506526649718-20da5d92e624?w=600&h=400&fit=crop" },
-      { name: "Miami", slug: "miami", matches: 7, image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=600&h=400&fit=crop" },
-      { name: "Kansas City", slug: "kansas-city", matches: 5, image: "https://images.unsplash.com/photo-1591942060867-b541334c264a?w=600&h=400&fit=crop" },
+      { name: "New York/NJ",           slug: "new-york-nj",  matches: 8, image: "https://upload.wikimedia.org/wikipedia/commons/7/7a/View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_%28cropped%29.jpg" },
+      { name: "Los Angeles",           slug: "los-angeles",  matches: 7, image: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Hollywood_Sign_%28Zuschnitt%29.jpg" },
+      { name: "Dallas",                slug: "dallas",       matches: 6, image: "https://upload.wikimedia.org/wikipedia/commons/0/03/View_of_Dallas_from_Reunion_Tower_August_2015_05.jpg" },
+      { name: "Houston",               slug: "houston",      matches: 5, image: "https://upload.wikimedia.org/wikipedia/commons/a/a3/Texas_medical_center.jpg" },
+      { name: "Atlanta",               slug: "atlanta",      matches: 6, image: "https://upload.wikimedia.org/wikipedia/commons/c/c8/A2ATL20250614-0721_%28cropped%29.jpg" },
+      { name: "Philadelphia",          slug: "philadelphia", matches: 5, image: "https://upload.wikimedia.org/wikipedia/commons/1/19/Philadelphia_skyline_20240528_%28cropped_2-1%29.jpg" },
+      { name: "Seattle",               slug: "seattle",      matches: 5, image: "https://upload.wikimedia.org/wikipedia/commons/5/58/Seattle_Center_as_night_falls.jpg" },
+      { name: "San Francisco Bay Area", slug: "san-francisco",matches: 6, image: "https://upload.wikimedia.org/wikipedia/commons/f/f9/San_Francisco_Downtown_Aerial%2C_August_2025.jpg" },
+      { name: "Boston/Foxborough",     slug: "boston",       matches: 5, image: "https://upload.wikimedia.org/wikipedia/commons/9/96/ISH_WC_Boston4.jpg" },
+      { name: "Miami",                 slug: "miami",        matches: 7, image: "https://upload.wikimedia.org/wikipedia/commons/2/28/Miami_wideangle_south_beach.jpg" },
+      { name: "Kansas City",           slug: "kansas-city",  matches: 5, image: "https://upload.wikimedia.org/wikipedia/commons/b/b5/Kansas_City_Missouri_Downtown_2012.jpg" },
     ],
   },
   {
     country: "Mexico",
     flag: "🇲🇽",
     cities: [
-      { name: "Mexico City", slug: "mexico-city", matches: 7, image: "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=600&h=400&fit=crop" },
-      { name: "Guadalajara", slug: "guadalajara", matches: 5, image: "https://images.unsplash.com/photo-1592862086910-410ff372a9df?w=600&h=400&fit=crop" },
-      { name: "Monterrey", slug: "monterrey", matches: 5, image: "https://images.unsplash.com/photo-1585293297151-5be0cbf9f53e?w=600&h=400&fit=crop" },
+      { name: "Mexico City", slug: "mexico-city", matches: 7, image: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Sobrevuelos_CDMX_HJ2A4913_%2825514321687%29_%28cropped%29.jpg" },
+      { name: "Guadalajara", slug: "guadalajara",  matches: 5, image: "https://upload.wikimedia.org/wikipedia/commons/a/a4/Guadalajara_de_noche.JPG" },
+      { name: "Monterrey",   slug: "monterrey",   matches: 5, image: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Monterrey_Mexico_at_night.jpg" },
     ],
   },
   {
     country: "Canada",
     flag: "🇨🇦",
     cities: [
-      { name: "Toronto", slug: "toronto", matches: 6, image: "https://images.unsplash.com/photo-1517090504586-fde19ea6066f?w=600&h=400&fit=crop" },
-      { name: "Vancouver", slug: "vancouver", matches: 5, image: "https://images.unsplash.com/photo-1559511260-66a654ae982a?w=600&h=400&fit=crop" },
+      { name: "Toronto",   slug: "toronto",   matches: 6, image: "https://upload.wikimedia.org/wikipedia/commons/4/43/Toronto_Skyline_From_CN_Tower.jpg" },
+      { name: "Vancouver", slug: "vancouver", matches: 5, image: "https://upload.wikimedia.org/wikipedia/commons/b/b5/Vancouver_Skyline_at_dusk.jpg" },
     ],
   },
 ];
@@ -103,6 +103,7 @@ export default function CityGrid() {
                         src={city.image}
                         alt={city.name}
                         fill
+                        unoptimized
                         className="object-cover transition-transform duration-500 group-hover:scale-110"
                       />
                       {/* Gradient overlay */}
