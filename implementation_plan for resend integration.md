@@ -20,7 +20,7 @@ This plan outlines the steps to securely integrate Resend using your provided AP
 
 ### Environment Variables
 #### [MODIFY] [.env](file:///d:/tixly/.env)
-- Add `RESEND_API_KEY=re_PbwF219v_2QHbR4AqzZ4whMELVvvYCaUQ` securely to the environment variables.
+- Add `RESEND_API_KEY=
 
 ---
 
