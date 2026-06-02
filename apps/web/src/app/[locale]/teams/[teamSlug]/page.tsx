@@ -167,13 +167,25 @@ export default async function TeamDetailPage({ params }: { params: { locale: str
                           {match.isHome ? team.name : opponent?.name}
                         </span>
                         <div className="w-8 h-6 rounded overflow-hidden shadow-sm flex-shrink-0 bg-gray-200">
-                          <Image src={match.isHome ? team.flagUrl : opponent?.flagUrl} alt="flag" className="w-full h-full object-cover" width={120} height={80} />
+                          {(match.isHome ? team.flagUrl : opponent?.flagUrl) ? (
+                            <Image src={(match.isHome ? team.flagUrl : opponent?.flagUrl) as string} alt="flag" className="w-full h-full object-cover" width={120} height={80} />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-xs font-bold text-gray-400">
+                              🏳️
+                            </div>
+                          )}
                         </div>
                       </div>
                       <div className="font-bold text-gray-400">VS</div>
                       <div className="flex items-center gap-3 flex-1 justify-start">
                         <div className="w-8 h-6 rounded overflow-hidden shadow-sm flex-shrink-0 bg-gray-200">
-                          <Image src={!match.isHome ? team.flagUrl : opponent?.flagUrl} alt="flag" className="w-full h-full object-cover" width={120} height={80} />
+                          {(!match.isHome ? team.flagUrl : opponent?.flagUrl) ? (
+                            <Image src={(!match.isHome ? team.flagUrl : opponent?.flagUrl) as string} alt="flag" className="w-full h-full object-cover" width={120} height={80} />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-xs font-bold text-gray-400">
+                              🏳️
+                            </div>
+                          )}
                         </div>
                         <span className={`font-bold text-lg ${!match.isHome ? 'text-brand-navy' : 'text-gray-500'}`}>
                           {!match.isHome ? team.name : opponent?.name}

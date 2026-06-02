@@ -64,7 +64,7 @@ export default async function StadiumsPage({
   } else {
     // Merge with real images
     stadiums = stadiums.map(s => {
-      return { ...s, imageUrl: STADIUM_IMAGES[s.slug] || 'https://images.unsplash.com/photo-1449844908441-8829872d2607?w=800&h=600&fit=crop' };
+      return { ...s, imageUrl: s.imageUrl || STADIUM_IMAGES[s.slug] || 'https://images.unsplash.com/photo-1449844908441-8829872d2607?w=800&h=600&fit=crop' };
     });
   }
 

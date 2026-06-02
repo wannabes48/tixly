@@ -28,7 +28,9 @@ export default async function TeamsPage({
   const q = typeof searchParams.q === 'string' ? searchParams.q : '';
 
   try {
-    const where: Prisma.TeamWhereInput = {};
+    const where: Prisma.TeamWhereInput = {
+      countryCode: { notIn: ['TBD', 'UN'] }
+    };
     if (q) {
       where.name = { contains: q, mode: 'insensitive' };
     }
