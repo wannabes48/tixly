@@ -86,7 +86,10 @@ export default async function MatchesPage({
 
   // City slug filter (from CityGrid links)
   if (searchParams.city) {
-    const citySlug = (searchParams.city as string).replace(/-/g, ' ');
+    let citySlug = (searchParams.city as string).replace(/-/g, ' ');
+    if (searchParams.city === 'new-york-nj') {
+      citySlug = 'new york';
+    }
     where.stadium = {
       ...(where.stadium as any || {}),
       city: { contains: citySlug, mode: 'insensitive' as const },

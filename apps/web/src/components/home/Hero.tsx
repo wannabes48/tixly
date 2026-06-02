@@ -282,13 +282,13 @@ export default function Hero() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="any">Any Team or City</SelectItem>
-                  <SelectItem value="argentina">Argentina</SelectItem>
-                  <SelectItem value="brazil">Brazil</SelectItem>
-                  <SelectItem value="france">France</SelectItem>
-                  <SelectItem value="usa">USA</SelectItem>
-                  <SelectItem value="mexico">Mexico</SelectItem>
-                  <SelectItem value="new-york">New York / NJ</SelectItem>
-                  <SelectItem value="miami">Miami</SelectItem>
+                  <SelectItem value="Argentina">Argentina</SelectItem>
+                  <SelectItem value="Brazil">Brazil</SelectItem>
+                  <SelectItem value="France">France</SelectItem>
+                  <SelectItem value="USA">USA</SelectItem>
+                  <SelectItem value="Mexico">Mexico</SelectItem>
+                  <SelectItem value="New York">New York / NJ</SelectItem>
+                  <SelectItem value="Miami">Miami</SelectItem>
                 </SelectContent>
               </Select>
             </div>
