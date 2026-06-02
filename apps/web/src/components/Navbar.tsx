@@ -5,6 +5,13 @@ import { useEffect, useState, useRef } from 'react';
 import { Menu, X, ChevronDown, Globe, DollarSign } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
 import { useSession, signOut } from 'next-auth/react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const navLinks = [
   { href: '/matches', label: 'Matches' },
@@ -94,14 +101,14 @@ export function Navbar() {
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 h-16 ${
           isSolid
-            ? 'bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-soft'
+            ? 'bg-tixNavy/80 backdrop-blur-md border-b border-white/10 shadow-soft'
             : 'bg-transparent'
         }`}
       >
         <div className="max-w-content mx-auto px-4 h-full flex items-center justify-between gap-4">
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0">
-            <Logo size="sm" variant={isSolid ? 'light' : 'dark'} />
+            <Logo size="sm" variant="dark" />
           </Link>
 
           {/* Center Nav Links */}
@@ -110,9 +117,9 @@ export function Navbar() {
               <Link
                 key={href}
                 href={href}
-                className={`px-3 py-2 rounded-lg text-sm font-semibold transition-colors hover:bg-black/5 ${
+                className={`px-3 py-2 rounded-lg text-sm font-semibold transition-colors hover:bg-white/10 ${
                   isSolid
-                    ? 'text-gray-700 hover:text-brand-navy'
+                    ? 'text-white/90 hover:text-white'
                     : 'text-white/90 hover:text-white'
                 }`}
               >
@@ -130,9 +137,7 @@ export function Navbar() {
                   setCurrencyOpen(!currencyOpen);
                   setLanguageOpen(false);
                 }}
-                className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-sm font-medium transition-colors hover:bg-black/5 ${
-                  isSolid ? 'text-gray-600' : 'text-white/85'
-                }`}
+                className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-sm font-medium transition-colors hover:bg-white/10 text-white/85`}
               >
                 <DollarSign size={14} />
                 <span>{selectedCurrency}</span>
@@ -147,9 +152,9 @@ export function Navbar() {
                     <button
                       key={c}
                       onClick={() => handleCurrencyChange(c)}
-                      className={`w-full text-left px-3 py-2 text-sm transition-colors hover:bg-brand-paleblue ${
+                      className={`w-full text-left px-3 py-2 text-sm transition-colors hover:bg-tixSilver ${
                         c === selectedCurrency
-                          ? 'text-brand-navy font-semibold bg-brand-paleblue'
+                          ? 'text-tixNavy font-semibold bg-tixSilver'
                           : 'text-gray-600'
                       }`}
                     >
@@ -167,9 +172,7 @@ export function Navbar() {
                   setLanguageOpen(!languageOpen);
                   setCurrencyOpen(false);
                 }}
-                className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-sm font-medium transition-colors hover:bg-black/5 ${
-                  isSolid ? 'text-gray-600' : 'text-white/85'
-                }`}
+                className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-sm font-medium transition-colors hover:bg-white/10 text-white/85`}
               >
                 <Globe size={14} />
                 <span>{selectedLanguage}</span>
@@ -184,9 +187,9 @@ export function Navbar() {
                     <button
                       key={l}
                       onClick={() => handleLanguageChange(l)}
-                      className={`w-full text-left px-3 py-2 text-sm transition-colors hover:bg-brand-paleblue ${
+                      className={`w-full text-left px-3 py-2 text-sm transition-colors hover:bg-tixSilver ${
                         l === selectedLanguage
-                          ? 'text-brand-navy font-semibold bg-brand-paleblue'
+                          ? 'text-tixNavy font-semibold bg-tixSilver'
                           : 'text-gray-600'
                       }`}
                     >
@@ -202,22 +205,18 @@ export function Navbar() {
               <div className="hidden md:flex items-center gap-4">
                 <button 
                   onClick={() => signOut()}
-                  className={`text-sm font-semibold px-3 py-2 rounded-lg transition-colors hover:bg-black/5 ${
-                    isSolid ? 'text-gray-700' : 'text-white/90'
-                  }`}
+                  className={`text-sm font-semibold px-3 py-2 rounded-lg transition-colors hover:bg-white/10 text-white/90`}
                 >
                   Sign Out
                 </button>
-                <div className="w-9 h-9 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold text-sm shadow-sm border-2 border-white/20">
+                <div className="w-9 h-9 bg-tixOrange text-white rounded-full flex items-center justify-center font-bold text-sm shadow-sm border-2 border-white/20">
                   {session.user?.name?.charAt(0).toUpperCase() || 'U'}
                 </div>
               </div>
             ) : (
               <Link
                 href="/sign-in"
-                className={`hidden md:block text-sm font-semibold px-3 py-2 rounded-lg transition-colors hover:bg-black/5 ${
-                  isSolid ? 'text-gray-700' : 'text-white/90'
-                }`}
+                className={`hidden md:block text-sm font-semibold px-3 py-2 rounded-lg transition-colors hover:bg-white/10 text-white/90`}
               >
                 Sign In
               </Link>
@@ -226,7 +225,7 @@ export function Navbar() {
             {/* Sell Tickets CTA */}
             <Link
               href="/sell"
-              className="bg-brand-orange hover:bg-orange-600 active:scale-95 text-white text-sm font-bold px-5 py-2.5 rounded-button transition-all"
+              className="bg-tixOrange hover:bg-orange-600 active:scale-95 text-white text-sm font-bold px-5 py-2.5 rounded-button transition-all"
             >
               Sell Tickets
             </Link>
@@ -287,7 +286,7 @@ export function Navbar() {
                   key={href}
                   href={href}
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center px-4 py-3 text-brand-navy font-semibold rounded-xl hover:bg-brand-paleblue transition-colors text-[15px]"
+                  className="flex items-center px-4 py-3 text-tixNavy font-semibold rounded-xl hover:bg-tixSilver transition-colors text-[15px]"
                 >
                   {label}
                 </Link>
@@ -303,34 +302,32 @@ export function Navbar() {
                   <DollarSign size={14} />
                   <span className="font-medium">Currency</span>
                 </div>
-                <select
-                  value={selectedCurrency}
-                  onChange={(e) => handleCurrencyChange(e.target.value)}
-                  className="bg-transparent text-sm font-semibold text-brand-navy outline-none cursor-pointer"
-                >
-                  {currencies.map((c) => (
-                    <option key={c} value={c}>
-                      {c}
-                    </option>
-                  ))}
-                </select>
+                <Select value={selectedCurrency} onValueChange={handleCurrencyChange}>
+                  <SelectTrigger className="w-[80px] h-8 bg-transparent border-none text-sm font-semibold text-tixNavy shadow-none focus:ring-0 p-0 justify-end gap-1">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {currencies.map((c) => (
+                      <SelectItem key={c} value={c}>{c}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               <div className="flex items-center justify-between px-4 py-2.5 bg-gray-50 rounded-xl">
                 <div className="flex items-center gap-2 text-sm text-gray-600">
                   <Globe size={14} />
                   <span className="font-medium">Language</span>
                 </div>
-                <select
-                  value={selectedLanguage}
-                  onChange={(e) => handleLanguageChange(e.target.value)}
-                  className="bg-transparent text-sm font-semibold text-brand-navy outline-none cursor-pointer"
-                >
-                  {languages.map((l) => (
-                    <option key={l} value={l}>
-                      {l}
-                    </option>
-                  ))}
-                </select>
+                <Select value={selectedLanguage} onValueChange={handleLanguageChange}>
+                  <SelectTrigger className="w-[80px] h-8 bg-transparent border-none text-sm font-semibold text-tixNavy shadow-none focus:ring-0 p-0 justify-end gap-1">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {languages.map((l) => (
+                      <SelectItem key={l} value={l}>{l}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
@@ -340,14 +337,14 @@ export function Navbar() {
               <Link
                 href="/sign-in"
                 onClick={() => setMobileOpen(false)}
-                className="block w-full text-center px-4 py-3 text-brand-navy font-semibold rounded-xl hover:bg-gray-50 transition-colors border border-gray-200"
+                className="block w-full text-center px-4 py-3 text-tixNavy font-semibold rounded-xl hover:bg-gray-50 transition-colors border border-gray-200"
               >
                 Sign In
               </Link>
               <Link
                 href="/sell"
                 onClick={() => setMobileOpen(false)}
-                className="block w-full text-center px-4 py-3 bg-brand-orange hover:bg-orange-600 text-white font-bold rounded-xl transition-colors"
+                className="block w-full text-center px-4 py-3 bg-tixOrange hover:bg-orange-600 text-white font-bold rounded-xl transition-colors"
               >
                 Sell Tickets
               </Link>

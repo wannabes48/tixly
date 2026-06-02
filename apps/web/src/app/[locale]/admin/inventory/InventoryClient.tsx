@@ -4,6 +4,13 @@ import React, { useState } from 'react';
 import { Search, Edit3, PlusCircle, Save, X } from 'lucide-react';
 import { format } from 'date-fns';
 import { LocalTime } from '@/components/LocalTime';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export function InventoryClient({ initialMatches }: { initialMatches: any[] }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -118,27 +125,32 @@ export function InventoryClient({ initialMatches }: { initialMatches: any[] }) {
             <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); setAllocatingMatch(null); }}>
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-1">Category</label>
-                <select className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-1 focus:ring-brand-orange outline-none">
-                  <option>CAT1</option>
-                  <option>CAT2</option>
-                  <option>CAT3</option>
-                </select>
+                <Select defaultValue="CAT1">
+                  <SelectTrigger className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-1 focus:ring-tixOrange outline-none text-left">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="CAT1">CAT1</SelectItem>
+                    <SelectItem value="CAT2">CAT2</SelectItem>
+                    <SelectItem value="CAT3">CAT3</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-bold text-slate-700 mb-1">Quantity</label>
-                  <input type="number" defaultValue={10} className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-1 focus:ring-brand-orange outline-none" />
+                  <input type="number" defaultValue={10} className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-1 focus:ring-tixOrange outline-none" />
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-slate-700 mb-1">Price per Ticket (USD)</label>
-                  <input type="number" defaultValue={250} className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-1 focus:ring-brand-orange outline-none" />
+                  <input type="number" defaultValue={250} className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-1 focus:ring-tixOrange outline-none" />
                 </div>
               </div>
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-1">Internal Note / Allocation ID</label>
-                <input type="text" placeholder="e.g. VIP-ALLOCATION-A" className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-1 focus:ring-brand-orange outline-none" />
+                <input type="text" placeholder="e.g. VIP-ALLOCATION-A" className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-1 focus:ring-tixOrange outline-none" />
               </div>
-              <button type="submit" className="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition-colors mt-2">
+              <button type="submit" className="w-full bg-tixOrange hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition-colors mt-2">
                 List Tickets to Marketplace
               </button>
             </form>

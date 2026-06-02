@@ -4,6 +4,13 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from '@/navigation';
 import { ListingRow } from './ListingRow';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Loader2 } from 'lucide-react';
 
 interface ListingsTableProps {
@@ -67,6 +74,7 @@ export function ListingsTable({ matchId, initialQuantity }: ListingsTableProps) 
   const sortedListings = [...listings].sort((a, b) => {
     if (sortBy === 'price_asc') return a.pricePerTicket - b.pricePerTicket;
     if (sortBy === 'price_desc') return b.pricePerTicket - a.pricePerTicket;
+    if (sortBy === 'qty_desc') return b.quantity - a.quantity;
     return 0;
   });
 
@@ -86,8 +94,8 @@ export function ListingsTable({ matchId, initialQuantity }: ListingsTableProps) 
               onClick={() => setActiveTab(tab)}
               className={`flex-1 min-w-[120px] py-4 px-2 text-center border-b-2 transition-colors ${
                 activeTab === tab 
-                  ? 'border-brand-navy text-brand-navy font-bold bg-white' 
-                  : 'border-transparent text-gray-500 hover:text-brand-navy hover:bg-gray-100'
+                  ? 'border-tixNavy text-tixNavy font-bold bg-white' 
+                  : 'border-transparent text-gray-500 hover:text-tixNavy hover:bg-gray-100'
               }`}
             >
               <div className="text-sm">{getTabLabel(tab)}</div>
@@ -101,15 +109,17 @@ export function ListingsTable({ matchId, initialQuantity }: ListingsTableProps) 
       <div className="flex flex-col sm:flex-row justify-between items-center p-4 border-b border-gray-100 bg-white gap-4">
         
         <div className="flex items-center gap-3">
-          <span className="text-sm font-bold text-gray-700">Sort:</span>
-          <select 
-            value={sortBy} 
-            onChange={(e) => setSortBy(e.target.value)}
-            className="bg-gray-50 border border-gray-200 text-sm rounded-lg px-3 py-1.5 outline-none focus:ring-2 focus:ring-brand-midblue"
-          >
-            <option value="price_asc">Lowest Price</option>
-            <option value="price_desc">Highest Price</option>
-          </select>
+          <label className="text-sm font-semibold text-gray-500 whitespace-nowrap">Sort by:</label>
+          <Select value={sortBy} onValueChange={(val: string) => setSortBy(val)}>
+            <SelectTrigger className="w-[180px] bg-white border-gray-200 text-tixNavy font-semibold">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="price_asc">Price: Low to High</SelectItem>
+              <SelectItem value="price_desc">Price: High to Low</SelectItem>
+              <SelectItem value="qty_desc">Quantity: High to Low</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
         
         <div className="flex items-center gap-3">
@@ -122,7 +132,7 @@ export function ListingsTable({ matchId, initialQuantity }: ListingsTableProps) 
             >
               −
             </button>
-            <div className="px-4 py-1.5 font-bold text-brand-navy bg-white border-x border-gray-200 w-12 text-center">
+            <div className="px-4 py-1.5 font-bold text-tixNavy bg-white border-x border-gray-200 w-12 text-center">
               {quantity}
             </div>
             <button 
@@ -145,14 +155,14 @@ export function ListingsTable({ matchId, initialQuantity }: ListingsTableProps) 
       <div className="flex-1 bg-white relative">
         {isLoading && (
           <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] flex items-center justify-center z-10">
-            <Loader2 className="animate-spin text-brand-orange w-8 h-8" />
+            <Loader2 className="animate-spin text-tixOrange w-8 h-8" />
           </div>
         )}
         
         {sortedListings.length === 0 && !isLoading ? (
           <div className="p-12 text-center">
             <div className="text-5xl mb-4 opacity-50">🎫</div>
-            <h3 className="text-xl font-bold text-brand-navy mb-2">No tickets found</h3>
+            <h3 className="text-xl font-bold text-tixNavy mb-2">No tickets found</h3>
             <p className="text-gray-500">We couldn't find any tickets for this category and quantity.</p>
           </div>
         ) : (

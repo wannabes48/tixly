@@ -6,6 +6,13 @@ import { Search, ChevronRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Link } from '@/navigation';
 import Image from 'next/image';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const WORLD_CUP_START = new Date('2026-06-11T00:00:00Z').getTime();
 
@@ -59,6 +66,8 @@ export default function Hero() {
 
   const router = useRouter();
   const [query, setQuery] = useState('');
+  const [matchRound, setMatchRound] = useState('');
+  const [matchQuantity, setMatchQuantity] = useState('1');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const blurTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { days, hours, minutes, seconds, mounted } = useCountdown(WORLD_CUP_START);
@@ -70,11 +79,14 @@ export default function Hero() {
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      if (query.trim()) {
-        router.push(`/matches?q=${encodeURIComponent(query.trim())}`);
-      }
+      const params = new URLSearchParams();
+      if (query.trim()) params.set('q', query.trim());
+      if (matchRound) params.set('round', matchRound);
+      if (matchQuantity && matchQuantity !== '1') params.set('quantity', matchQuantity);
+      
+      router.push(`/matches?${params.toString()}`);
     },
-    [query, router]
+    [query, matchRound, matchQuantity, router]
   );
 
   const handleSelect = useCallback(
@@ -150,11 +162,11 @@ export default function Hero() {
         />
       </div>
 
-      {/* Gradient overlay: dark navy top to slightly lighter bottom */}
+      {/* Gradient overlay: tixNavy top to tixNavy bottom */}
       <div
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(to bottom, rgba(13,33,55,0.92) 0%, rgba(13,33,55,0.75) 100%)',
+          background: 'linear-gradient(to bottom, rgba(10,25,47,0.92) 0%, rgba(10,25,47,0.75) 100%)',
         }}
       />
 
@@ -219,7 +231,7 @@ export default function Hero() {
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-tight tracking-tight mb-4 md:mb-5">
           <span className="text-white">FIFA World Cup 2026™</span>
           <br />
-          <span className="text-[#E8532A]">Tickets</span>
+          <span className="text-tixOrange">Tickets</span>
         </h1>
 
         {/* Sub-heading */}
@@ -259,49 +271,72 @@ export default function Hero() {
           ))}
         </div>
 
-        {/* Search Bar */}
-        <div className="relative max-w-2xl mx-auto mb-8 w-full">
-          <form onSubmit={handleSubmit} className="relative w-full">
-            <div className="flex flex-col sm:flex-row items-center bg-transparent sm:bg-white rounded-2xl sm:shadow-xl sm:shadow-black/10 overflow-hidden sm:ring-2 sm:ring-[#E8532A]/20 gap-2 sm:gap-0">
-              <div className="flex items-center bg-white rounded-2xl w-full sm:w-auto flex-1 shadow-xl sm:shadow-none ring-2 ring-[#E8532A]/20 sm:ring-0">
-                <div className="pl-4 sm:pl-5 pr-2 sm:pr-3 text-gray-400">
-                  <Search className="w-5 h-5" />
-                </div>
-                <input
-                  type="text"
-                  placeholder="Search by team, city, or match…"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  onFocus={handleFocus}
-                  onBlur={handleBlur}
-                  className="w-full py-3 sm:py-4 pr-2 text-gray-800 placeholder-gray-400 bg-transparent outline-none text-sm sm:text-base"
-                />
-              </div>
+        {/* Match Finder Widget (Flight Booking Style) */}
+        <div className="relative max-w-4xl mx-auto mb-10 w-full">
+          <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 flex flex-col md:flex-row flex-wrap gap-4 border border-slate-100 z-10 relative mt-4">
+            <div className="flex-1 min-w-[200px]">
+              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5 text-left">Team or City</label>
+              <Select value={query} onValueChange={setQuery}>
+                <SelectTrigger className="w-full h-11 bg-slate-50 border-slate-200 text-slate-800 font-semibold focus:ring-1 focus:ring-tixOrange focus:border-tixOrange">
+                  <SelectValue placeholder="Any Team or City" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="any">Any Team or City</SelectItem>
+                  <SelectItem value="argentina">Argentina</SelectItem>
+                  <SelectItem value="brazil">Brazil</SelectItem>
+                  <SelectItem value="france">France</SelectItem>
+                  <SelectItem value="usa">USA</SelectItem>
+                  <SelectItem value="mexico">Mexico</SelectItem>
+                  <SelectItem value="new-york">New York / NJ</SelectItem>
+                  <SelectItem value="miami">Miami</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="flex-1 min-w-[200px]">
+              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5 text-left">Tournament Round</label>
+              <Select value={matchRound} onValueChange={setMatchRound}>
+                <SelectTrigger className="w-full h-11 bg-slate-50 border-slate-200 text-slate-800 font-semibold focus:ring-1 focus:ring-tixOrange focus:border-tixOrange">
+                  <SelectValue placeholder="Any Round" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="any">Any Round</SelectItem>
+                  <SelectItem value="group">Group Stage</SelectItem>
+                  <SelectItem value="round-of-32">Round of 32</SelectItem>
+                  <SelectItem value="round-of-16">Round of 16</SelectItem>
+                  <SelectItem value="quarter">Quarter-Finals</SelectItem>
+                  <SelectItem value="semi">Semi-Finals</SelectItem>
+                  <SelectItem value="final">Final</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="w-full md:w-32">
+              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5 text-left">Quantity</label>
+              <Select value={matchQuantity} onValueChange={setMatchQuantity}>
+                <SelectTrigger className="w-full h-11 bg-slate-50 border-slate-200 text-slate-800 font-semibold focus:ring-1 focus:ring-tixOrange focus:border-tixOrange">
+                  <SelectValue placeholder="1 Ticket" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">1 Ticket</SelectItem>
+                  <SelectItem value="2">2 Tickets</SelectItem>
+                  <SelectItem value="3">3 Tickets</SelectItem>
+                  <SelectItem value="4">4 Tickets</SelectItem>
+                  <SelectItem value="5">5+ Tickets</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="w-full md:w-auto flex items-end">
               <button
                 type="submit"
-                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#E8532A] hover:bg-[#d14a25] text-white font-bold px-6 py-3 sm:mr-2 rounded-xl transition-all duration-200 hover:scale-105 shadow-xl sm:shadow-none"
+                className="w-full md:w-auto flex items-center justify-center gap-2 bg-tixOrange hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-xl transition-all duration-300 hover:-translate-y-0.5 shadow-md"
               >
-                Find Tickets
+                Search Matches
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           </form>
-
-          {/* Autosuggest Dropdown */}
-          {showSuggestions && filtered.length > 0 && (
-            <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl shadow-black/15 border border-gray-100 py-2 z-50 overflow-hidden">
-              {filtered.map((item) => (
-                <button
-                  key={item}
-                  onMouseDown={() => handleSelect(item)}
-                  className="w-full flex items-center gap-3 px-5 py-3 text-left text-gray-700 hover:bg-gray-50 transition-colors text-sm"
-                >
-                  <Search className="w-4 h-4 text-gray-300 flex-shrink-0" />
-                  <span>{item}</span>
-                </button>
-              ))}
-            </div>
-          )}
         </div>
 
         {/* Quick-filter pills */}
@@ -310,7 +345,7 @@ export default function Hero() {
             <Link
               key={f.label}
               href={f.round ? `/matches?round=${f.round}` : '/matches'}
-              className="rounded-full bg-white/10 border border-white/15 text-white/80 hover:bg-[#E8532A] hover:border-[#E8532A] hover:text-white px-5 py-2 text-sm font-medium transition-all duration-200"
+              className="rounded-full bg-white/10 border border-white/15 text-white/80 hover:bg-tixOrange hover:border-tixOrange hover:text-white px-5 py-2 text-sm font-medium transition-all duration-200"
             >
               {f.label}
             </Link>

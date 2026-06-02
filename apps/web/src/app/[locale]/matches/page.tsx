@@ -217,10 +217,10 @@ export default async function MatchesPage({
   return (
     <main className="min-h-screen bg-[#f9fafb]">
       {/* ──────────────── Page Header ──────────────── */}
-      <div className="bg-brand-navy pt-24 pb-10 relative overflow-hidden">
+      <div className="bg-tixNavy pt-24 pb-10 relative overflow-hidden">
         {/* Decorative gradient orbs */}
-        <div className="absolute -top-32 -right-32 w-96 h-96 bg-brand-midblue/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-brand-orange/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-32 -right-32 w-96 h-96 bg-tixSilver/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-tixOrange/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="container mx-auto px-4 relative z-10">
           {/* Breadcrumb */}
@@ -240,7 +240,7 @@ export default async function MatchesPage({
           </h1>
           <p className="text-white/60 max-w-lg text-lg">
             Browse all{' '}
-            <span className="text-brand-orange font-bold">{matches.length}</span>{' '}
+            <span className="text-tixOrange font-bold">{matches.length}</span>{' '}
             matches across 16 stadiums and 16 host cities.
           </p>
 
@@ -253,7 +253,7 @@ export default async function MatchesPage({
                 placeholder="Search by team, city, or match…"
                 className="flex-1 px-4 py-3 text-sm text-gray-800 placeholder-gray-400 outline-none"
               />
-              <button type="submit" className="bg-brand-orange text-white px-6 py-3 text-sm font-bold hover:bg-orange-600 transition-colors">
+              <button type="submit" className="bg-tixOrange text-white px-6 py-3 text-sm font-bold hover:bg-orange-600 transition-colors">
                 Search
               </button>
             </div>
@@ -276,7 +276,7 @@ export default async function MatchesPage({
               <div className="flex items-center gap-3">
                 <MatchesFilterSheet teamOptions={teamOptions} />
                 <p className="text-sm text-gray-500 font-medium hidden sm:block">
-                  <span className="font-bold text-brand-navy">{matches.length}</span>{' '}
+                  <span className="font-bold text-tixNavy">{matches.length}</span>{' '}
                   matches available
                 </p>
               </div>
@@ -285,8 +285,8 @@ export default async function MatchesPage({
 
             {/* Knockout highlight banner */}
             {knockout.length > 0 && (
-              <div className="bg-brand-navy rounded-2xl p-4 mb-5 flex items-center gap-4">
-                <div className="w-10 h-10 bg-brand-orange rounded-xl flex items-center justify-center shrink-0">
+              <div className="bg-tixNavy rounded-2xl p-4 mb-5 flex items-center gap-4 border border-tixOrange/20">
+                <div className="w-10 h-10 bg-tixOrange rounded-xl flex items-center justify-center shrink-0">
                   <Trophy size={20} className="text-white" />
                 </div>
                 <div>
@@ -299,7 +299,7 @@ export default async function MatchesPage({
                 </div>
                 <Link
                   href="#knockout"
-                  className="ml-auto shrink-0 bg-brand-orange hover:bg-orange-600 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors active:scale-95"
+                  className="ml-auto shrink-0 bg-tixOrange hover:bg-orange-600 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors active:scale-95"
                 >
                   View →
                 </Link>
@@ -310,8 +310,8 @@ export default async function MatchesPage({
             {groupStage.length > 0 && (
               <div className="mb-8">
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="w-1.5 h-6 bg-brand-orange rounded-full" />
-                  <h2 className="text-base font-bold text-brand-navy">Group Stage</h2>
+                  <span className="w-1.5 h-6 bg-tixOrange rounded-full" />
+                  <h2 className="text-base font-bold text-tixNavy">Group Stage</h2>
                   <span className="text-xs text-gray-400 bg-gray-100 rounded-full px-2 py-0.5 font-semibold">
                     {groupStage.length}
                   </span>
@@ -329,8 +329,8 @@ export default async function MatchesPage({
             {knockout.length > 0 && (
               <div id="knockout" className="mt-4">
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="w-1.5 h-6 bg-brand-midblue rounded-full" />
-                  <h2 className="text-base font-bold text-brand-navy">
+                  <span className="w-1.5 h-6 bg-tixNavy rounded-full" />
+                  <h2 className="text-base font-bold text-tixNavy">
                     Knockout Stage
                   </h2>
                   <span className="text-xs text-gray-400 bg-gray-100 rounded-full px-2 py-0.5 font-semibold">
@@ -389,25 +389,19 @@ function MatchCard({
   });
 
   const roundLabelColor =
-    accentColor === 'orange' ? 'text-brand-orange' : 'text-brand-midblue';
-  const panelHoverBg =
-    accentColor === 'orange'
-      ? 'group-hover:bg-brand-orange/[0.04]'
-      : 'group-hover:bg-brand-midblue/[0.04]';
-  const ctaBg =
-    accentColor === 'orange'
-      ? 'bg-brand-orange hover:bg-orange-600'
-      : 'bg-brand-navy hover:bg-brand-midblue';
+    accentColor === 'orange' ? 'text-tixOrange' : 'text-tixNavy';
+  const panelHoverBg = 'group-hover:bg-tixSilver/50';
+  const ctaBg = 'bg-tixOrange hover:bg-orange-600';
 
   return (
-    <div className="group bg-white rounded-2xl border border-gray-100 shadow-soft hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-300 overflow-hidden">
-      <div className="flex flex-col sm:flex-row">
-        {/* Teams panel */}
+    <div className="group bg-white rounded-xl border border-slate-100 shadow-sm hover:shadow-md hover:border-tixOrange/50 transition-all duration-300 overflow-hidden">
+      <div className="flex flex-col md:flex-row">
+        {/* Teams panel (Left section) */}
         <div
-          className={`sm:w-64 bg-[#f9fafb] ${panelHoverBg} transition-colors p-5 flex flex-col justify-center border-b sm:border-b-0 sm:border-r border-gray-100`}
+          className={`md:w-72 bg-[#f9fafb] ${panelHoverBg} transition-colors p-5 flex flex-col justify-center border-b md:border-b-0 md:border-r border-slate-100`}
         >
           <div
-            className={`text-xs font-bold ${roundLabelColor} mb-3 uppercase tracking-wider`}
+            className={`text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider`}
           >
             {match.round}
             {match.group && (
@@ -420,74 +414,77 @@ function MatchCard({
           <div className="flex items-center gap-3">
             <div className="flex-1 text-center">
               {match.homeTeam.flagUrl ? (
-                <Image src={match.homeTeam.flagUrl} alt={`${match.homeTeam.name} flag`} className="w-10 h-7 object-cover mx-auto mb-2 rounded border border-gray-100 shadow-sm" width={64} height={48} />
+                <Image src={match.homeTeam.flagUrl} alt={`${match.homeTeam.name} flag`} className="w-10 h-7 object-cover mx-auto mb-2 rounded shadow-sm border border-slate-200" width={64} height={48} />
               ) : (
                 <span className="text-3xl block mb-1">🏳️</span>
               )}
-              <div className="text-sm font-bold text-brand-navy leading-tight">
+              <div className="text-sm font-bold text-tixNavy leading-tight">
                 {match.homeTeam.name}
               </div>
             </div>
 
             <div className="shrink-0">
-              <span className="text-xs font-black text-white bg-brand-navy px-2.5 py-1 rounded-lg">
+              <span className="text-xs font-black text-slate-400">
                 VS
               </span>
             </div>
 
             <div className="flex-1 text-center">
               {match.awayTeam.flagUrl ? (
-                <Image src={match.awayTeam.flagUrl} alt={`${match.awayTeam.name} flag`} className="w-10 h-7 object-cover mx-auto mb-2 rounded border border-gray-100 shadow-sm" width={64} height={48} />
+                <Image src={match.awayTeam.flagUrl} alt={`${match.awayTeam.name} flag`} className="w-10 h-7 object-cover mx-auto mb-2 rounded shadow-sm border border-slate-200" width={64} height={48} />
               ) : (
                 <span className="text-3xl block mb-1">🏳️</span>
               )}
-              <div className="text-sm font-bold text-brand-navy leading-tight">
+              <div className="text-sm font-bold text-tixNavy leading-tight">
                 {match.awayTeam.name}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Info + CTA */}
-        <div className="flex-1 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 text-gray-600 text-sm">
-              <Calendar size={14} className="text-brand-midblue shrink-0" />
-              <span className="font-medium">{dateStr}</span>
-              <span className="text-gray-400">·</span>
-              <span className="text-gray-400">{timeStr}</span>
+        {/* Info + CTA (Middle and Right Sections) */}
+        <div className="flex-1 p-5 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 text-slate-600 text-sm">
+              <Calendar size={16} className="text-slate-400 shrink-0" />
+              <span className="font-semibold text-slate-700">{dateStr}</span>
+              <span className="text-slate-300">·</span>
+              <span className="text-slate-500">{timeStr}</span>
             </div>
-            <div className="flex items-center gap-2 text-gray-600 text-sm">
-              <MapPin size={14} className="text-brand-midblue shrink-0" />
-              <span className="truncate">
-                {match.stadium.name}, {match.stadium.city}
+            <div className="flex items-center gap-2 text-slate-600 text-sm">
+              <MapPin size={16} className="text-slate-400 shrink-0" />
+              <span className="font-semibold text-tixNavy truncate">
+                {match.stadium.name}
+              </span>
+              <span className="text-slate-400 truncate hidden xl:inline">
+                , {match.stadium.city}
               </span>
             </div>
-            <div className="flex items-center gap-2 text-gray-600 text-sm">
-              <Ticket size={14} className="text-brand-orange shrink-0" />
-              <span className="font-medium text-brand-navy">{numListings}</span>
-              <span className="text-gray-400">tickets available</span>
+            <div className="flex items-center gap-2 text-slate-600 text-sm">
+              <Ticket size={16} className="text-tixGreen shrink-0" />
+              <span className="font-bold text-tixNavy">{numListings}</span>
+              <span className="text-slate-500">tickets available</span>
             </div>
           </div>
 
-          <div className="flex items-center justify-between sm:justify-end sm:text-right gap-5">
+          <div className="flex items-center justify-between md:justify-end md:text-right gap-6 md:border-l border-slate-100 md:pl-6 h-full">
             <div>
               {lowestPrice ? (
                 <>
-                  <span className="text-xs text-gray-400 block">From</span>
-                  <span className="text-2xl font-black text-brand-navy">
+                  <span className="text-xs text-slate-400 block uppercase tracking-wider font-bold mb-1">From</span>
+                  <span className="text-3xl font-black text-tixNavy tracking-tight">
                     ${lowestPrice}
                   </span>
                 </>
               ) : (
-                <span className="text-sm text-gray-400 italic">No tickets yet</span>
+                <span className="text-sm text-slate-400 italic">No tickets yet</span>
               )}
             </div>
             <Link
               href={`/matches/${match.id}`}
-              className={`${ctaBg} text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-colors active:scale-95 whitespace-nowrap`}
+              className={`${ctaBg} text-white text-sm font-bold px-6 py-3 rounded-xl transition-colors active:scale-95 whitespace-nowrap shadow-sm hover:shadow-md block text-center`}
             >
-              View Tickets
+              Select Seats
             </Link>
           </div>
         </div>

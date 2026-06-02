@@ -142,7 +142,7 @@ export function MatchesFilterSidebar({ onApplyMobile, teamOptions }: MatchesFilt
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-soft p-6 h-full overflow-y-auto">
       {/* Title */}
-      <div className="flex items-center gap-2 mb-6 text-brand-navy hidden lg:flex">
+      <div className="flex items-center gap-2 mb-6 text-tixNavy hidden lg:flex">
         <SlidersHorizontal size={18} />
         <h2 className="text-base font-bold">Filters</h2>
       </div>
@@ -168,11 +168,11 @@ export function MatchesFilterSidebar({ onApplyMobile, teamOptions }: MatchesFilt
                 id={`country-${code}`}
                 checked={selectedCountries.includes(code)}
                 onCheckedChange={() => toggleArrayItem(code, selectedCountries, setSelectedCountries, "countries")}
-                className="border-gray-300 text-brand-orange data-[state=checked]:bg-brand-orange data-[state=checked]:border-brand-orange"
+                className="border-gray-300 text-tixOrange data-[state=checked]:bg-tixOrange data-[state=checked]:border-tixOrange"
               />
               <label
                 htmlFor={`country-${code}`}
-                className="text-sm font-medium leading-none cursor-pointer text-gray-700 group-hover:text-brand-navy transition-colors"
+                className="text-sm font-medium leading-none cursor-pointer text-gray-700 group-hover:text-tixNavy transition-colors"
               >
                 {emoji} {label}
               </label>
@@ -207,11 +207,11 @@ export function MatchesFilterSidebar({ onApplyMobile, teamOptions }: MatchesFilt
                 id={`stage-${key}`}
                 checked={selectedRounds.includes(key)}
                 onCheckedChange={() => toggleArrayItem(key, selectedRounds, setSelectedRounds, "rounds")}
-                className="border-gray-300 text-brand-orange data-[state=checked]:bg-brand-orange data-[state=checked]:border-brand-orange"
+                className="border-gray-300 text-tixOrange data-[state=checked]:bg-tixOrange data-[state=checked]:border-tixOrange"
               />
               <label
                 htmlFor={`stage-${key}`}
-                className="text-sm font-medium leading-none cursor-pointer text-gray-700 group-hover:text-brand-navy transition-colors"
+                className="text-sm font-medium leading-none cursor-pointer text-gray-700 group-hover:text-tixNavy transition-colors"
               >
                 {label}
               </label>
@@ -233,11 +233,11 @@ export function MatchesFilterSidebar({ onApplyMobile, teamOptions }: MatchesFilt
                 id={`cat-${cat}`}
                 checked={selectedCategories.includes(cat)}
                 onCheckedChange={() => toggleArrayItem(cat, selectedCategories, setSelectedCategories, "categories")}
-                className="border-gray-300 text-brand-orange data-[state=checked]:bg-brand-orange data-[state=checked]:border-brand-orange"
+                className="border-gray-300 text-tixOrange data-[state=checked]:bg-tixOrange data-[state=checked]:border-tixOrange"
               />
               <label
                 htmlFor={`cat-${cat}`}
-                className="text-sm font-medium leading-none cursor-pointer text-gray-700 group-hover:text-brand-navy transition-colors"
+                className="text-sm font-medium leading-none cursor-pointer text-gray-700 group-hover:text-tixNavy transition-colors"
               >
                 {cat}
               </label>
@@ -253,7 +253,7 @@ export function MatchesFilterSidebar({ onApplyMobile, teamOptions }: MatchesFilt
           <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">
             Price Range
           </h3>
-          <span className="text-xs font-bold text-brand-navy">
+          <span className="text-xs font-bold text-tixNavy">
             ${priceRange[0]} - ${priceRange[1]}{priceRange[1] === 2500 ? "+" : ""}
           </span>
         </div>
@@ -270,11 +270,11 @@ export function MatchesFilterSidebar({ onApplyMobile, teamOptions }: MatchesFilt
 
       <div className="flex flex-col gap-3">
         {onApplyMobile && (
-          <Button onClick={onApplyMobile} className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white rounded-xl py-6 text-lg shadow-soft font-bold lg:hidden">
+          <Button onClick={onApplyMobile} className="w-full bg-tixOrange hover:bg-orange-600 text-white rounded-xl py-6 text-lg shadow-soft font-bold lg:hidden">
             Apply Filters
           </Button>
         )}
-        <Button onClick={clearAll} variant="outline" className="w-full text-brand-navy border-gray-300 rounded-xl">
+        <Button onClick={clearAll} variant="outline" className="w-full text-tixNavy border-gray-300 rounded-xl">
           Clear All Filters
         </Button>
       </div>

@@ -56,7 +56,7 @@ export default async function CheckoutPage({
   return (
     <main className="min-h-screen bg-gray-50 pt-32 pb-20">
       <div className="container mx-auto px-4 max-w-6xl">
-        <h1 className="text-3xl font-bold text-brand-navy mb-8">Secure Checkout</h1>
+        <h1 className="text-3xl font-bold text-tixNavy mb-8">Secure Checkout</h1>
         <CheckoutFlow listing={listingData} initialData={initialData} />
       </div>
     </main>

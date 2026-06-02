@@ -140,10 +140,10 @@ export default async function MatchDetailPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       {/* ──────────────── Hero Header ──────────────── */}
-      <div className="bg-brand-navy text-white pt-24 pb-14 relative overflow-hidden">
+      <div className="bg-tixNavy text-white pt-24 pb-14 relative overflow-hidden">
         {/* Decorative elements omitted for brevity, keeping structure intact */}
-        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-brand-midblue/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-brand-orange/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-tixSilver/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-tixOrange/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="container mx-auto px-4 relative z-10">
           <nav className="flex items-center gap-2 text-white/50 text-sm mb-6 flex-wrap">
@@ -157,7 +157,7 @@ export default async function MatchDetailPage({
           </nav>
 
           <div className="text-center mb-6">
-            <span className="inline-block bg-brand-orange text-white text-sm font-bold px-4 py-1.5 rounded-full uppercase tracking-wide">
+            <span className="inline-block bg-tixOrange text-white text-sm font-bold px-4 py-1.5 rounded-full uppercase tracking-wide shadow-sm">
               {match.round} {match.group ? `· ${match.group}` : ''}
             </span>
           </div>
@@ -182,11 +182,11 @@ export default async function MatchDetailPage({
 
           <div className="flex flex-col sm:flex-row justify-center items-center gap-6 text-base text-white/70">
             <div className="flex items-center gap-2">
-              <Calendar size={18} className="text-brand-orange" />
+              <Calendar size={18} className="text-tixOrange" />
               <span><LocalTime date={match.kickoffUtc.toISOString()} format="date" /> &bull; <LocalTime date={match.kickoffUtc.toISOString()} format="time" /></span>
             </div>
             <div className="flex items-center gap-2 hover:text-white transition-colors">
-              <MapPin size={18} className="text-brand-orange" />
+              <MapPin size={18} className="text-tixOrange" />
               <Link href={`/stadiums/${match.stadium.slug}`} className="hover:underline">
                 {match.stadium.name}, {match.stadium.city}
               </Link>
@@ -198,14 +198,10 @@ export default async function MatchDetailPage({
       {/* ──────────────── Content Area ──────────────── */}
       <div className="container mx-auto px-4 -mt-4 relative z-20">
         <div className="flex flex-col lg:flex-row gap-8 items-start">
-          <div className="flex-1 min-w-0 w-full">
-            <ListingsTable matchId={match.id} initialQuantity={initialQuantity} />
-          </div>
-
-          {/* ─── Sidebar Info Panel ─── */}
-          <aside className="w-full lg:w-80 shrink-0">
+          {/* ─── Sidebar Info Panel (Left) ─── */}
+          <aside className="w-full lg:w-96 shrink-0">
             <div className="bg-white rounded-2xl border border-gray-100 shadow-soft overflow-hidden sticky top-24">
-              <div className="w-full h-48 bg-gray-200 relative overflow-hidden">
+              <div className="w-full h-56 bg-gray-200 relative overflow-hidden">
                 <Image
                   src={match.stadium.imageUrl || "https://images.unsplash.com/photo-1577223625816-7546f13df25d?q=80&w=600&auto=format&fit=crop"}
                   alt={`${match.stadium.name} view`}
@@ -215,21 +211,21 @@ export default async function MatchDetailPage({
               </div>
               
               <div className="p-6">
-                <h3 className="text-base font-black text-brand-navy mb-4">Venue Info</h3>
+                <h3 className="text-base font-black text-tixNavy mb-4">Venue Info</h3>
                 <div className="space-y-4 mb-6">
                   <div className="flex items-start gap-3">
-                    <MapPin size={18} className="text-brand-midblue shrink-0 mt-0.5" />
+                    <MapPin size={18} className="text-tixNavy shrink-0 mt-0.5" />
                     <div>
-                      <Link href={`/stadiums/${match.stadium.slug}`} className="text-sm font-bold text-brand-navy hover:underline">
+                      <Link href={`/stadiums/${match.stadium.slug}`} className="text-sm font-bold text-tixNavy hover:underline">
                         {match.stadium.name}
                       </Link>
                       <div className="text-sm text-gray-500">{match.stadium.city}, {match.stadium.countryCode}</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Users size={18} className="text-brand-midblue shrink-0 mt-0.5" />
+                    <Users size={18} className="text-tixNavy shrink-0 mt-0.5" />
                     <div>
-                      <div className="text-sm font-bold text-brand-navy">Capacity</div>
+                      <div className="text-sm font-bold text-tixNavy">Capacity</div>
                       <div className="text-sm text-gray-500">{match.stadium.capacity.toLocaleString()} seats</div>
                     </div>
                   </div>
@@ -242,6 +238,11 @@ export default async function MatchDetailPage({
               </div>
             </div>
           </aside>
+
+          {/* ─── Ticket List (Right) ─── */}
+          <div className="flex-1 min-w-0 w-full">
+            <ListingsTable matchId={match.id} initialQuantity={initialQuantity} />
+          </div>
         </div>
       </div>
     </main>

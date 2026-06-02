@@ -12,6 +12,13 @@ import { PaymentForm } from './PaymentForm';
 import { InvoiceReceipt } from './InvoiceReceipt';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 // Initialize Stripe outside component safely
 const stripeKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
@@ -126,11 +133,11 @@ function StepBar({ current }: { current: Step }) {
             <div key={s.key} className="flex items-center flex-1 last:flex-none">
               <div className="flex flex-col items-center">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300
-                  ${done ? 'bg-green-500 text-white' : active ? 'bg-brand-orange text-white shadow-lg shadow-orange-200' : 'bg-gray-100 text-gray-400'}`}>
+                  ${done ? 'bg-green-500 text-white' : active ? 'bg-tixOrange text-white shadow-lg shadow-orange-200' : 'bg-gray-100 text-gray-400'}`}>
                   {done ? <CheckCircle2 size={16} /> : i + 1}
                 </div>
                 <span className={`text-xs mt-1 font-semibold whitespace-nowrap
-                  ${done ? 'text-green-600' : active ? 'text-brand-orange' : 'text-gray-400'}`}>
+                  ${done ? 'text-green-600' : active ? 'text-tixOrange' : 'text-gray-400'}`}>
                   {s.label}
                 </span>
               </div>
@@ -163,13 +170,13 @@ function OrderSummary({
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sticky top-24">
-      <h3 className="text-lg font-bold text-brand-navy mb-5 flex items-center gap-2">
-        <Ticket size={18} className="text-brand-orange" /> Order Summary
+      <h3 className="text-lg font-bold text-tixNavy mb-5 flex items-center gap-2">
+        <Ticket size={18} className="text-tixOrange" /> Order Summary
       </h3>
 
       {/* Match info */}
       <div className="mb-5 pb-5 border-b border-gray-100">
-        <p className="font-bold text-brand-navy text-base leading-snug mb-1">{listing.matchName}</p>
+        <p className="font-bold text-tixNavy text-base leading-snug mb-1">{listing.matchName}</p>
         <p className="text-gray-500 text-sm flex items-center gap-1 mb-1">
           <Calendar size={13} /> {listing.dateStr}
         </p>
@@ -178,7 +185,7 @@ function OrderSummary({
         </p>
         <div className="flex items-center justify-between bg-orange-50 rounded-lg px-3 py-2 text-sm">
           <span className="text-gray-600">{listing.section ? `Section ${listing.section}` : 'General'}{listing.row ? `, Row ${listing.row}` : ''}</span>
-          <span className="text-brand-orange font-bold text-xs bg-orange-100 px-2 py-0.5 rounded-full">
+          <span className="text-tixOrange font-bold text-xs bg-orange-100 px-2 py-0.5 rounded-full">
             {CATEGORY_LABELS[listing.category] ? listing.category : listing.category}
           </span>
         </div>
@@ -209,8 +216,8 @@ function OrderSummary({
       </div>
 
       <div className="flex justify-between items-center mb-5">
-        <span className="font-bold text-brand-navy text-base">Total</span>
-        <span className="text-2xl font-extrabold text-brand-navy">${total.toFixed(2)}</span>
+        <span className="font-bold text-tixNavy text-base">Total</span>
+        <span className="text-2xl font-extrabold text-tixNavy">${total.toFixed(2)}</span>
       </div>
 
       <div className="bg-green-50 border border-green-100 rounded-lg p-3 flex items-start gap-2 text-xs text-gray-600 mb-3">
@@ -243,7 +250,7 @@ function Field({ label, error, required, children }: {
 }
 
 const inputCls = (err?: string) =>
-  `w-full border ${err ? 'border-red-400 bg-red-50' : 'border-gray-200'} rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-orange focus:border-transparent transition-colors placeholder-gray-400`;
+  `w-full border ${err ? 'border-red-400 bg-red-50' : 'border-gray-200'} rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-tixOrange focus:border-transparent transition-colors placeholder-gray-400`;
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
@@ -411,7 +418,7 @@ export function CheckoutFlow({
       {/* ── Main Panel ──────────────────────────────────────────────────────── */}
       <div className="w-full lg:w-[60%]">
         {step !== 'CONFIRMATION' && (
-          <div className="bg-orange-50 border border-orange-200 text-brand-orange px-4 py-3 rounded-xl mb-6 flex items-center justify-between font-medium shadow-sm">
+          <div className="bg-orange-50 border border-orange-200 text-tixOrange px-4 py-3 rounded-xl mb-6 flex items-center justify-between font-medium shadow-sm">
             <div className="flex items-center gap-2 text-sm">
               <Timer size={16} />
               Tickets reserved
@@ -425,7 +432,7 @@ export function CheckoutFlow({
         {/* ── STEP 1: Quantity ──────────────────────────────────────────────── */}
         {step === 'QUANTITY' && (
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
-            <h2 className="text-2xl font-bold text-brand-navy mb-2">Select Your Tickets</h2>
+            <h2 className="text-2xl font-bold text-tixNavy mb-2">Select Your Tickets</h2>
             <p className="text-gray-500 text-sm mb-8">Choose how many tickets you need. Prices update instantly.</p>
 
             {/* Quantity selector */}
@@ -439,13 +446,13 @@ export function CheckoutFlow({
                   <button
                     onClick={() => quantity > 1 && updateQuantity(quantity - 1)}
                     disabled={quantity <= 1}
-                    className="w-10 h-10 rounded-full border-2 border-brand-orange text-brand-orange font-bold text-xl flex items-center justify-center disabled:opacity-30 hover:bg-brand-orange hover:text-white transition-colors"
+                    className="w-10 h-10 rounded-full border-2 border-tixOrange text-tixOrange font-bold text-xl flex items-center justify-center disabled:opacity-30 hover:bg-tixOrange hover:text-white transition-colors"
                   >−</button>
-                  <span className="w-10 text-center text-2xl font-extrabold text-brand-navy">{quantity}</span>
+                  <span className="w-10 text-center text-2xl font-extrabold text-tixNavy">{quantity}</span>
                   <button
                     onClick={() => quantity < Math.min(listing.quantityAvailable, 8) && updateQuantity(quantity + 1)}
                     disabled={quantity >= Math.min(listing.quantityAvailable, 8)}
-                    className="w-10 h-10 rounded-full border-2 border-brand-orange text-brand-orange font-bold text-xl flex items-center justify-center disabled:opacity-30 hover:bg-brand-orange hover:text-white transition-colors"
+                    className="w-10 h-10 rounded-full border-2 border-tixOrange text-tixOrange font-bold text-xl flex items-center justify-center disabled:opacity-30 hover:bg-tixOrange hover:text-white transition-colors"
                   >+</button>
                 </div>
               </div>
@@ -465,7 +472,7 @@ export function CheckoutFlow({
                 <span>Delivery</span>
                 <span className="font-semibold">Free</span>
               </div>
-              <div className="flex justify-between px-5 py-4 bg-brand-navy text-white">
+              <div className="flex justify-between px-5 py-4 bg-tixNavy text-white">
                 <span className="font-bold">Estimated Total</span>
                 <span className="text-xl font-extrabold">${(subtotal + serviceFee).toFixed(2)}</span>
               </div>
@@ -490,7 +497,7 @@ export function CheckoutFlow({
                 }, 500);
               }}
               id="continue-btn"
-              className="w-full bg-brand-orange hover:bg-orange-600 text-white py-4 rounded-xl font-bold text-lg transition-all duration-200 shadow-md shadow-orange-100 hover:shadow-lg hover:shadow-orange-200 hover:-translate-y-0.5 flex items-center justify-center"
+              className="w-full bg-tixOrange hover:bg-orange-600 text-white py-4 rounded-xl font-bold text-lg transition-all duration-200 shadow-md shadow-orange-100 hover:shadow-lg hover:shadow-orange-200 hover:-translate-y-0.5 flex items-center justify-center"
             >
               Continue to Checkout →
             </button>
@@ -500,7 +507,7 @@ export function CheckoutFlow({
         {/* ── STEP 2: Buyer Details ─────────────────────────────────────────── */}
         {step === 'DETAILS' && (
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
-            <h2 className="text-2xl font-bold text-brand-navy mb-1">Your Details</h2>
+            <h2 className="text-2xl font-bold text-tixNavy mb-1">Your Details</h2>
             <p className="text-gray-500 text-sm mb-8 flex items-center gap-1.5">
               <Lock size={13} className="text-green-600" />
               No account needed — we'll email your tickets directly.
@@ -565,18 +572,18 @@ export function CheckoutFlow({
               <Field label="Phone Number" error={errors.phone} required>
                 <div className="flex gap-2">
                   <div className="relative">
-                    <select
-                      value={buyer.dialCode}
-                      onChange={e => setBuyer(p => ({ ...p, dialCode: e.target.value }))}
-                      className="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-orange bg-white min-w-[90px]"
-                    >
-                      {DIAL_CODES.map(d => (
-                        <option key={d.code + d.label} value={d.code}>
-                          {d.flag} {d.code}
-                        </option>
-                      ))}
-                    </select>
-                    <ChevronDown size={14} className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                    <Select value={buyer.dialCode} onValueChange={val => setBuyer(p => ({ ...p, dialCode: val }))}>
+                      <SelectTrigger className="w-[100px] bg-white border-gray-200 h-[46px] rounded-lg">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {DIAL_CODES.map(d => (
+                          <SelectItem key={d.code + d.label} value={d.code}>
+                            {d.flag} {d.code}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div className="relative flex-1">
                     <Phone size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -592,24 +599,22 @@ export function CheckoutFlow({
 
               {/* Country */}
               <Field label="Country of Residence" error={errors.country} required>
-                <div className="relative">
-                  <Globe size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                  <select
-                    value={buyer.country}
-                    onChange={e => setBuyer(p => ({ ...p, country: e.target.value }))}
-                    className={`${inputCls(errors.country)} pl-9 appearance-none`}
-                  >
-                    <option value="">Select your country…</option>
-                    {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
-                  </select>
-                  <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                <div className="relative mt-1">
+                  <Select value={buyer.country} onValueChange={val => setBuyer(p => ({ ...p, country: val }))}>
+                    <SelectTrigger className={inputCls(errors.country)}>
+                      <SelectValue placeholder="Select your country…" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {COUNTRIES.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
                 </div>
                 <p className="mt-1 text-xs text-gray-400">Used for VAT/tax compliance only.</p>
               </Field>
 
               {/* Ticket Holder Details */}
               <div className="pt-6 border-t border-gray-100">
-                <h3 className="text-base font-bold text-brand-navy mb-1">Ticket Holder Details</h3>
+                <h3 className="text-base font-bold text-tixNavy mb-1">Ticket Holder Details</h3>
                 <p className="text-xs text-gray-500 mb-5">
                   Stadium security requires the legal name of each attendee as it appears on their ID.
                 </p>
@@ -617,8 +622,8 @@ export function CheckoutFlow({
                   {buyer.holders.map((holder, i) => (
                     <div key={i} className="p-4 bg-gray-50 rounded-xl border border-gray-100">
                       <div className="flex items-center justify-between mb-3">
-                        <p className="text-sm font-semibold text-brand-navy flex items-center gap-1.5">
-                          <Ticket size={13} className="text-brand-orange" />
+                        <p className="text-sm font-semibold text-tixNavy flex items-center gap-1.5">
+                          <Ticket size={13} className="text-tixOrange" />
                           Ticket #{i + 1}
                           {i === 0 && <span className="text-xs text-gray-400 font-normal ml-1 hidden sm:inline">(can be same as buyer)</span>}
                         </p>
@@ -630,7 +635,7 @@ export function CheckoutFlow({
                               h[0] = { ...h[0], firstName: buyer.firstName, lastName: buyer.lastName };
                               setBuyer(p => ({ ...p, holders: h }));
                             }}
-                            className="text-xs font-bold text-brand-midblue hover:text-brand-navy bg-blue-50 hover:bg-blue-100 transition-colors px-2 py-1 rounded-md flex items-center gap-1.5"
+                            className="text-xs font-bold text-tixNavy hover:text-tixNavy bg-blue-50 hover:bg-blue-100 transition-colors px-2 py-1 rounded-md flex items-center gap-1.5"
                           >
                             <User size={12} />
                             Use my details
@@ -680,10 +685,10 @@ export function CheckoutFlow({
                   type="checkbox"
                   checked={buyer.createAccount}
                   onChange={e => setBuyer(p => ({ ...p, createAccount: e.target.checked }))}
-                  className="mt-0.5 accent-brand-orange"
+                  className="mt-0.5 accent-tixOrange"
                 />
                 <div>
-                  <p className="text-sm font-semibold text-brand-navy">Create a Tixly account <span className="text-xs font-normal text-gray-500">(optional)</span></p>
+                  <p className="text-sm font-semibold text-tixNavy">Create a Tixly account <span className="text-xs font-normal text-gray-500">(optional)</span></p>
                   <p className="text-xs text-gray-500 mt-0.5">Track your order, contact the seller, and list tickets — all in one place.</p>
                 </div>
               </label>
@@ -695,7 +700,7 @@ export function CheckoutFlow({
                   ← Back
                 </button>
                 <button type="submit"
-                  className="flex-1 bg-brand-orange hover:bg-orange-600 text-white py-3.5 rounded-xl font-bold text-base transition-all duration-200 shadow-md shadow-orange-100 hover:shadow-lg hover:-translate-y-0.5">
+                  className="flex-1 bg-tixOrange hover:bg-orange-600 text-white py-3.5 rounded-xl font-bold text-base transition-all duration-200 shadow-md shadow-orange-100 hover:shadow-lg hover:-translate-y-0.5">
                   Continue to Protection →
                 </button>
               </div>
@@ -706,22 +711,22 @@ export function CheckoutFlow({
         {/* ── STEP 3: Refund Protection ─────────────────────────────────────── */}
         {step === 'PROTECTION' && (
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
-            <h2 className="text-2xl font-bold text-brand-navy mb-1">Protect Your Purchase</h2>
+            <h2 className="text-2xl font-bold text-tixNavy mb-1">Protect Your Purchase</h2>
             <p className="text-gray-500 text-sm mb-8">Life is unpredictable. Be covered if you can't make the game.</p>
 
             {/* Yes — protected */}
             <div
               onClick={() => setRefundProtection(true)}
-              className={`border-2 rounded-xl p-5 mb-4 cursor-pointer transition-all duration-200 ${refundProtection ? 'border-brand-orange bg-orange-50 shadow-md shadow-orange-50' : 'border-gray-200 hover:border-orange-300 hover:bg-orange-50/40'}`}
+              className={`border-2 rounded-xl p-5 mb-4 cursor-pointer transition-all duration-200 ${refundProtection ? 'border-tixOrange bg-orange-50 shadow-md shadow-orange-50' : 'border-gray-200 hover:border-orange-300 hover:bg-orange-50/40'}`}
             >
               <div className="flex items-start gap-4">
-                <div className={`mt-0.5 w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${refundProtection ? 'border-brand-orange' : 'border-gray-300'}`}>
-                  {refundProtection && <div className="w-2.5 h-2.5 bg-brand-orange rounded-full" />}
+                <div className={`mt-0.5 w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${refundProtection ? 'border-tixOrange' : 'border-gray-300'}`}>
+                  {refundProtection && <div className="w-2.5 h-2.5 bg-tixOrange rounded-full" />}
                 </div>
                 <div className="flex-1">
                   <div className="flex justify-between items-start mb-2">
-                    <p className="font-bold text-brand-navy">Yes, Add Protection for +{(PROTECTION_FEE_PCT * 100).toFixed(0)}%</p>
-                    <span className="font-bold text-brand-orange">${(subtotal * PROTECTION_FEE_PCT).toFixed(2)}</span>
+                    <p className="font-bold text-tixNavy">Yes, Add Protection for +{(PROTECTION_FEE_PCT * 100).toFixed(0)}%</p>
+                    <span className="font-bold text-tixOrange">${(subtotal * PROTECTION_FEE_PCT).toFixed(2)}</span>
                   </div>
                   <ul className="text-sm text-gray-600 space-y-1">
                     <li className="flex items-center gap-1.5"><CheckCircle2 size={13} className="text-green-500 flex-shrink-0" />Cancel-for-any-reason coverage</li>
@@ -753,7 +758,7 @@ export function CheckoutFlow({
                 ← Back
               </button>
               <button onClick={handleProceedToPayment} disabled={isCreatingIntent}
-                className="flex-1 bg-brand-orange hover:bg-orange-600 disabled:bg-orange-400 text-white py-3.5 rounded-xl font-bold text-base transition-all duration-200 shadow-md shadow-orange-100 hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                className="flex-1 bg-tixOrange hover:bg-orange-600 disabled:bg-orange-400 text-white py-3.5 rounded-xl font-bold text-base transition-all duration-200 shadow-md shadow-orange-100 hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2">
                 {isCreatingIntent ? (
                   <><svg className="animate-spin h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Preparing Payment...</>
                 ) : (
@@ -767,12 +772,12 @@ export function CheckoutFlow({
         {/* ── STEP 4: Payment ───────────────────────────────────────────────── */}
         {step === 'PAYMENT' && (
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-4 duration-300">
-            <h2 className="text-2xl font-bold text-brand-navy mb-6">Secure Payment</h2>
+            <h2 className="text-2xl font-bold text-tixNavy mb-6">Secure Payment</h2>
 
             <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 flex items-start gap-3">
-              <Lock size={18} className="text-brand-midblue flex-shrink-0 mt-0.5" />
+              <Lock size={18} className="text-tixNavy flex-shrink-0 mt-0.5" />
               <div>
-                <p className="font-semibold text-brand-navy text-sm">256-bit SSL Encrypted Checkout</p>
+                <p className="font-semibold text-tixNavy text-sm">256-bit SSL Encrypted Checkout</p>
                 <p className="text-xs text-gray-500 mt-0.5">Your payment is processed by Stripe. Tixly never stores your card details.</p>
               </div>
             </div>
@@ -791,13 +796,13 @@ export function CheckoutFlow({
             <div className="mb-6 p-4 rounded-xl border border-gray-200 bg-gray-50 flex items-start justify-between">
               <div>
                 <p className="text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wide">Billing Details</p>
-                <p className="text-sm font-bold text-brand-navy">{buyer.firstName} {buyer.lastName}</p>
+                <p className="text-sm font-bold text-tixNavy">{buyer.firstName} {buyer.lastName}</p>
                 <p className="text-sm text-gray-600">{buyer.email}</p>
                 <p className="text-sm text-gray-600">{buyer.dialCode} {buyer.phone}</p>
               </div>
               <button 
                 onClick={() => goTo('DETAILS')} 
-                className="text-brand-orange hover:text-orange-600 bg-orange-50 hover:bg-orange-100 p-2 rounded-lg transition-colors flex items-center gap-1.5 text-xs font-bold"
+                className="text-tixOrange hover:text-orange-600 bg-orange-50 hover:bg-orange-100 p-2 rounded-lg transition-colors flex items-center gap-1.5 text-xs font-bold"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                 Edit
@@ -824,7 +829,7 @@ export function CheckoutFlow({
               )
             ) : (
               <div className="flex justify-center p-12">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-orange"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-tixOrange"></div>
               </div>
             )}
           </div>
@@ -836,13 +841,13 @@ export function CheckoutFlow({
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle2 size={44} className="text-green-500" />
             </div>
-            <h2 className="text-3xl font-extrabold text-brand-navy mb-2">You're Going!</h2>
+            <h2 className="text-3xl font-extrabold text-tixNavy mb-2">You're Going!</h2>
             <p className="text-gray-500 text-sm mb-1">Order confirmed for</p>
-            <p className="text-lg font-bold text-brand-navy mb-4">{listing.matchName}</p>
+            <p className="text-lg font-bold text-tixNavy mb-4">{listing.matchName}</p>
             
             <div className="inline-block bg-gray-50 border border-gray-100 rounded-xl px-8 py-4 mb-6 shadow-inner">
               <p className="text-xs text-gray-500 mb-1 uppercase tracking-wider font-bold">Order Reference</p>
-              <p className="font-mono font-bold text-brand-navy text-2xl tracking-widest">{orderRef}</p>
+              <p className="font-mono font-bold text-tixNavy text-2xl tracking-widest">{orderRef}</p>
             </div>
 
             {/* Order Summary Summary */}
@@ -853,16 +858,16 @@ export function CheckoutFlow({
               </div>
               <div className="flex justify-between">
                 <span className="text-sm text-gray-500">Total Paid</span>
-                <span className="text-sm font-black text-brand-orange">${(listing.pricePerTicket * quantity * (refundProtection ? 1.18 : 1.10)).toFixed(2)}</span>
+                <span className="text-sm font-black text-tixOrange">${(listing.pricePerTicket * quantity * (refundProtection ? 1.18 : 1.10)).toFixed(2)}</span>
               </div>
             </div>
 
             {/* Email Message */}
             <div className="bg-blue-50 border border-blue-100 rounded-xl p-5 text-left mb-6 max-w-md mx-auto">
               <div className="flex items-start gap-3">
-                <Mail className="text-brand-midblue mt-0.5 shrink-0" size={20} />
+                <Mail className="text-tixNavy mt-0.5 shrink-0" size={20} />
                 <div>
-                  <h3 className="font-bold text-brand-navy text-sm">Tickets are on the way</h3>
+                  <h3 className="font-bold text-tixNavy text-sm">Tickets are on the way</h3>
                   <p className="text-sm text-gray-600 mt-1">Your tickets will be emailed to <strong>{buyer.email || 'your email'}</strong> within 24–48 hours.</p>
                 </div>
               </div>
@@ -872,7 +877,7 @@ export function CheckoutFlow({
             <div className="mb-6 flex justify-center">
               <button 
                 onClick={downloadPDF}
-                className="inline-flex items-center justify-center gap-2 bg-brand-navy hover:bg-blue-900 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md hover:shadow-lg w-full max-w-md"
+                className="inline-flex items-center justify-center gap-2 bg-tixNavy hover:bg-blue-900 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md hover:shadow-lg w-full max-w-md"
               >
                 <DownloadCloud size={20} /> Download Payment Invoice
               </button>
@@ -898,11 +903,11 @@ export function CheckoutFlow({
             {!buyer.createAccount && (
               <div className="mb-6 p-5 bg-orange-50 border border-orange-100 rounded-xl max-w-md mx-auto text-left">
                 <div className="flex items-start gap-3">
-                  <User className="text-brand-orange mt-0.5 shrink-0" size={20} />
+                  <User className="text-tixOrange mt-0.5 shrink-0" size={20} />
                   <div>
-                    <h3 className="font-bold text-brand-navy text-sm">Want to track this order?</h3>
+                    <h3 className="font-bold text-tixNavy text-sm">Want to track this order?</h3>
                     <p className="text-xs text-gray-600 mt-1 mb-3">Create a free account using your email to easily manage your tickets.</p>
-                    <button className="text-xs font-bold text-brand-orange bg-white border border-orange-200 px-4 py-2 rounded-lg hover:bg-orange-100 transition-colors">
+                    <button className="text-xs font-bold text-tixOrange bg-white border border-orange-200 px-4 py-2 rounded-lg hover:bg-orange-100 transition-colors">
                       Create Account
                     </button>
                   </div>

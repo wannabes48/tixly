@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from '@/navigation';
-import { BadgeCheck, Download, ChevronDown, ChevronUp } from 'lucide-react';
+import { BadgeCheck, Download, ChevronDown, ChevronUp, Zap } from 'lucide-react';
 
 interface ListingRowProps {
   listing: any;
@@ -46,7 +46,13 @@ export function ListingRow({ listing, matchId, selectedQty }: ListingRowProps) {
           </div>
           
           <div className="flex-1 min-w-0">
-            <div className="font-bold text-brand-navy truncate text-sm sm:text-base">{listing.section || 'General Admission'}</div>
+            <div className="flex items-center gap-2 mb-1">
+              <div className="font-bold text-tixNavy truncate text-sm sm:text-base">{listing.section || 'General Admission'}</div>
+              <div className="hidden sm:flex items-center gap-1 bg-tixGreen/10 text-tixGreen text-[10px] uppercase font-bold px-1.5 py-0.5 rounded">
+                <Zap size={10} className="fill-tixGreen" />
+                Instant
+              </div>
+            </div>
             <div className="text-xs sm:text-sm text-gray-500 truncate">{listing.row || 'Row TBD'}</div>
           </div>
           
@@ -61,7 +67,7 @@ export function ListingRow({ listing, matchId, selectedQty }: ListingRowProps) {
           </div>
           
           <div className="w-24 text-right hidden lg:block shrink-0">
-            <div className="font-bold text-brand-navy">${total.toLocaleString()}</div>
+            <div className="font-bold text-tixNavy">${total.toLocaleString()}</div>
             <div className="text-xs text-gray-400">Total</div>
           </div>
         </div>
@@ -69,14 +75,14 @@ export function ListingRow({ listing, matchId, selectedQty }: ListingRowProps) {
         <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto sm:ml-6 pt-3 sm:pt-0 border-t border-gray-100 sm:border-0">
           <div className="sm:hidden text-sm flex items-center gap-1.5">
             <span className="text-gray-500 font-medium">Total:</span>
-            <span className="font-bold text-brand-navy">${total.toLocaleString()}</span>
+            <span className="font-bold text-tixNavy">${total.toLocaleString()}</span>
             <span className="text-gray-400 text-xs">({selectedQty}x)</span>
           </div>
           <div className="flex items-center gap-3">
             <button
               onClick={handleBuy}
               disabled={isHolding}
-              className="bg-brand-orange hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-xl transition-colors shadow-sm disabled:opacity-50 text-sm sm:text-base"
+              className="bg-tixOrange hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-xl transition-colors shadow-sm disabled:opacity-50 text-sm sm:text-base"
             >
               {isHolding ? 'Holding...' : 'Buy'}
             </button>
@@ -94,11 +100,11 @@ export function ListingRow({ listing, matchId, selectedQty }: ListingRowProps) {
             <div className="flex-1">
               <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Seller Details</h4>
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-full bg-brand-paleblue flex items-center justify-center text-brand-navy font-bold text-lg">
+                <div className="w-10 h-10 rounded-full bg-tixSilver flex items-center justify-center text-tixNavy font-bold text-lg">
                   {listing.seller?.name?.charAt(0) || 'A'}
                 </div>
                 <div>
-                  <div className="font-bold text-brand-navy flex items-center gap-1.5">
+                  <div className="font-bold text-tixNavy flex items-center gap-1.5">
                     {listing.seller?.name || 'Anonymous User'}
                     {listing.seller?.kycStatus === 'VERIFIED' && (
                       <BadgeCheck size={16} className="text-green-600" />
@@ -116,14 +122,14 @@ export function ListingRow({ listing, matchId, selectedQty }: ListingRowProps) {
             <div className="flex-1">
               <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Ticket Delivery</h4>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-violet-50 flex items-center justify-center text-violet-600">
-                  <Download size={18} />
+                <div className="w-10 h-10 rounded-full bg-tixGreen/10 flex items-center justify-center text-tixGreen">
+                  <Zap size={18} className="fill-tixGreen" />
                 </div>
                 <div>
-                  <div className="font-bold text-brand-navy">
-                    {listing.deliveryMethod === 'MOBILE_TRANSFER' ? 'Mobile Transfer' : 'Instant PDF'}
+                  <div className="font-bold text-tixNavy">
+                    Instant Download
                   </div>
-                  <div className="text-sm text-gray-500">Tickets transferred within 72h of match</div>
+                  <div className="text-sm text-gray-500">Tickets are ready to be transferred immediately.</div>
                 </div>
               </div>
             </div>

@@ -61,22 +61,22 @@ export default async function CheckoutPage({
     <div className="min-h-screen pt-32 pb-20 bg-[#f9fafb]">
       <div className="container mx-auto px-4 max-w-5xl">
         <div className="mb-8">
-          <h1 className="text-3xl font-black text-brand-navy">Secure Checkout</h1>
+          <h1 className="text-3xl font-black text-tixNavy">Secure Checkout</h1>
           <p className="text-gray-500">Your tickets are held for 10:00 minutes.</p>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="flex-1 bg-white rounded-3xl p-8 border border-gray-100 shadow-soft">
-            <h2 className="text-xl font-bold text-brand-navy mb-6">Guest Information</h2>
+            <h2 className="text-xl font-bold text-tixNavy mb-6">Guest Information</h2>
             <GuestCheckoutForm listingId={listing.id} qty={qty} />
           </div>
 
           <aside className="w-full lg:w-96 shrink-0">
             <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-soft sticky top-24">
-              <h3 className="font-bold text-brand-navy mb-4">Order Summary</h3>
+              <h3 className="font-bold text-tixNavy mb-4">Order Summary</h3>
               
               <div className="pb-4 border-b border-gray-100 mb-4">
-                <div className="font-bold text-brand-navy">{listing.match.homeTeam.name} vs {listing.match.awayTeam.name}</div>
+                <div className="font-bold text-tixNavy">{listing.match.homeTeam.name} vs {listing.match.awayTeam.name}</div>
                 <div className="text-sm text-gray-500">{listing.category} · {listing.section || 'General Admission'} · {listing.row || 'Row TBD'}</div>
                 <div className="text-sm text-gray-500 mt-1">{qty} {qty === 1 ? 'ticket' : 'tickets'}</div>
               </div>
@@ -84,17 +84,17 @@ export default async function CheckoutPage({
               <div className="space-y-3 mb-4">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Tickets ({qty} × ${listing.pricePerTicket})</span>
-                  <span className="font-medium text-brand-navy">${subtotal.toLocaleString()}</span>
+                  <span className="font-medium text-tixNavy">${subtotal.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Service Fee</span>
-                  <span className="font-medium text-brand-navy">${serviceFee.toLocaleString()}</span>
+                  <span className="font-medium text-tixNavy">${serviceFee.toLocaleString()}</span>
                 </div>
               </div>
 
               <div className="pt-4 border-t border-gray-100 flex justify-between items-center">
-                <span className="font-bold text-brand-navy">Total</span>
-                <span className="text-2xl font-black text-brand-navy">${total.toLocaleString()}</span>
+                <span className="font-bold text-tixNavy">Total</span>
+                <span className="text-2xl font-black text-tixNavy">${total.toLocaleString()}</span>
               </div>
             </div>
           </aside>
