@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
       // Create Stripe Express Account
       const account = await stripe.accounts.create({
         type: "express",
-        email: user.email,
+        email: user.email || undefined,
         capabilities: {
           transfers: { requested: true },
         },
