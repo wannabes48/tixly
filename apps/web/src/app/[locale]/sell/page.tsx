@@ -1,91 +1,288 @@
-import React from 'react';
-import { Link } from '@/navigation';
+import { ShieldCheck, Wallet, TrendingUp, Globe, Headphones, Zap, UserPlus, ListPlus, CreditCard, Truck, ArrowRight, Star, CheckCircle2, Quote } from "lucide-react";
+import { Link } from "@/navigation";
 
-export default function SellLandingPage({ params }: { params: { locale: string } }) {
+export default function SellLandingPage() {
+  const stats = [
+    { value: "10,000+", label: "Active Sellers" },
+    { value: "$2M+", label: "In Payouts" },
+    { value: "104", label: "Matches" },
+    { value: "4.9★", label: "Seller Rating" },
+  ];
+
+  const steps = [
+    {
+      number: "01",
+      icon: UserPlus,
+      title: "Create Account",
+      description: "Sign up and complete quick KYC verification through Stripe Identity.",
+    },
+    {
+      number: "02",
+      icon: ListPlus,
+      title: "List Your Tickets",
+      description: "Select the match, set your price with real-time guidance, and upload proof.",
+    },
+    {
+      number: "03",
+      icon: CreditCard,
+      title: "Get Paid",
+      description: "Buyer pays securely. Money is held in escrow until confirmed.",
+    },
+    {
+      number: "04",
+      icon: Truck,
+      title: "Deliver Tickets",
+      description: "Transfer tickets via PDF, FIFA App, or within 72h. Payout released automatically.",
+    },
+  ];
+
+  const benefits = [
+    {
+      icon: ShieldCheck,
+      title: "Verified Platform",
+      description: "KYC-verified sellers with automated fraud prevention.",
+      iconBg: "bg-[#1A3C5E]/10 text-[#1A3C5E]",
+    },
+    {
+      icon: Wallet,
+      title: "Fast Payouts",
+      description: "Direct to your bank via Stripe Connect within 3–5 business days.",
+      iconBg: "bg-[#E8532A]/10 text-[#E8532A]",
+    },
+    {
+      icon: TrendingUp,
+      title: "Price Guidance",
+      description: "Real-time comparable prices to help you maximize value.",
+      iconBg: "bg-[#1A3C5E]/10 text-[#1A3C5E]",
+    },
+    {
+      icon: Globe,
+      title: "Global Reach",
+      description: "Reach verified fans from 200+ countries instantly.",
+      iconBg: "bg-[#E8532A]/10 text-[#E8532A]",
+    },
+    {
+      icon: Headphones,
+      title: "Seller Support",
+      description: "Dedicated 24/7 support for listing, pricing, and payouts.",
+      iconBg: "bg-[#1A3C5E]/10 text-[#1A3C5E]",
+    },
+    {
+      icon: Zap,
+      title: "Instant Listing",
+      description: "Go live in under 2 minutes with our streamlined process.",
+      iconBg: "bg-[#E8532A]/10 text-[#E8532A]",
+    },
+  ];
+
+  const testimonials = [
+    {
+      quote: "Listed 4 extra USA vs Brazil tickets on Tixly — sold within hours. Payout arrived before the match even started!",
+      name: "Marcus R.",
+      location: "Los Angeles, USA",
+      stars: 5,
+    },
+    {
+      quote: "The price guidance tool helped me sell for 30% more than expected. Seamless and professional.",
+      name: "Sofia M.",
+      location: "Mexico City, Mexico",
+      stars: 5,
+    },
+    {
+      quote: "First-time seller — KYC was quick, support answered all my questions. Highly recommend.",
+      name: "James T.",
+      location: "Toronto, Canada",
+      stars: 5,
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Hero Section */}
-      <section className="bg-brand-navy text-white py-24 px-4 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] pointer-events-none"></div>
-        <div className="container mx-auto max-w-5xl relative z-10 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
-            Turn your extra tickets into <span className="text-brand-orange">cash</span>
-          </h1>
-          <p className="text-xl md:text-2xl mb-10 text-slate-300 max-w-3xl mx-auto font-light">
-            Join thousands of fans selling tickets securely on Tixly. No hidden fees, instant payouts, and guaranteed buyer protection.
-          </p>
-          <a 
-            href="/api/auth/signin?callbackUrl=/en/sell/list"
-            className="inline-block bg-brand-orange hover:bg-orange-600 text-white font-bold text-lg py-4 px-10 rounded-2xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
-          >
-            Start Selling Now
-          </a>
+    <div className="min-h-screen bg-white">
+      {/* Hero */}
+      <section className="relative overflow-hidden pt-28 pb-16">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0D2137] via-[#1A3C5E] to-[#0D2137]" />
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(255,255,255,0.03) 30px, rgba(255,255,255,0.03) 32px)" }} />
+        <div className="absolute top-16 right-16 w-72 h-72 bg-[#E8532A]/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-8 left-8 w-64 h-64 bg-[#2F6B9A]/10 rounded-full blur-3xl" />
+
+        <div className="container mx-auto px-4 max-w-6xl relative z-10">
+          <div className="max-w-3xl mx-auto text-center md:text-left md:mx-0">
+            <div className="inline-flex items-center gap-1.5 bg-[#E8532A]/20 text-[#E8532A] px-4 py-2 rounded-full font-bold text-xs mb-6 backdrop-blur-sm border border-[#E8532A]/20">
+              <Wallet className="w-4 h-4" />
+              Seller Portal
+            </div>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-5 text-white tracking-tight">
+              Turn Your Extra Tickets Into{" "}
+              <span className="text-[#E8532A]">Cash</span>
+            </h1>
+            <p className="text-base md:text-lg text-slate-300 max-w-2xl mb-8">
+              Join thousands of verified sellers on the most trusted World Cup 2026 marketplace. List in under 2 minutes.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link href="/sign-in?callbackUrl=/en/sell/list" className="inline-flex items-center justify-center gap-2 bg-[#E8532A] hover:bg-[#d64a23] text-white font-bold text-sm py-3.5 px-8 rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+                Start Selling Now <ArrowRight className="w-4 h-4" />
+              </Link>
+              <a href="#how-it-works" className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-sm py-3.5 px-8 rounded-xl transition-all backdrop-blur-sm">
+                Learn How It Works
+              </a>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-12">
+            {stats.map((stat, i) => (
+              <div key={i} className="bg-white/10 backdrop-blur-md border border-white/10 rounded-xl px-5 py-4 text-center">
+                <p className="text-2xl md:text-3xl font-black text-white mb-0.5">{stat.value}</p>
+                <p className="text-white/60 text-xs font-medium">{stat.label}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-center text-brand-navy mb-16">Why sell with Tixly?</h2>
-          
-          <div className="grid md:grid-cols-3 gap-10">
-            {/* Benefit 1 */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 bg-blue-50 text-brand-navy rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-brand-navy mb-3">100% Secure</h3>
-              <p className="text-slate-600">
-                Our platform ensures your tickets and money are safe. We handle the transfer securely.
-              </p>
-            </div>
+      {/* How It Works */}
+      <section id="how-it-works" className="py-16 bg-white">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center mb-12">
+            <div className="w-10 h-1 bg-[#E8532A] rounded-full mx-auto mb-3" />
+            <h2 className="text-3xl md:text-4xl font-black text-[#1A3C5E] mb-2">Sell in 4 Easy Steps</h2>
+            <p className="text-sm text-slate-500 max-w-xl mx-auto">From listing to payout — simple, secure, and fast.</p>
+          </div>
 
-            {/* Benefit 2 */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 bg-orange-50 text-brand-orange rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+          <div className="grid md:grid-cols-4 gap-4">
+            {steps.map((step, i) => (
+              <div key={i} className="relative bg-slate-50 rounded-xl border border-slate-100 p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                <span className="text-6xl font-black text-[#E8532A]/10 absolute top-3 right-3 select-none leading-none">{step.number}</span>
+                <div className="relative">
+                  <div className="w-11 h-11 bg-gradient-to-br from-[#1A3C5E] to-[#2F6B9A] rounded-xl flex items-center justify-center mb-4 shadow-md">
+                    <step.icon className="w-5 h-5 text-white" />
+                  </div>
+                  <h3 className="text-base font-bold text-[#1A3C5E] mb-1.5 leading-tight">{step.title}</h3>
+                  <p className="text-sm text-slate-600">{step.description}</p>
+                </div>
+                {i < steps.length - 1 && (
+                  <div className="hidden md:flex absolute -right-2 top-1/2 -translate-y-1/2 z-10 w-4 h-4 bg-white border border-slate-200 rounded-full items-center justify-center">
+                    <ArrowRight className="w-2.5 h-2.5 text-[#E8532A]" />
+                  </div>
+                )}
               </div>
-              <h3 className="text-xl font-bold text-brand-navy mb-3">Fast Payouts</h3>
-              <p className="text-slate-600">
-                Get paid straight to your bank account soon after the event takes place.
-              </p>
-            </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            {/* Benefit 3 */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center hover:shadow-md transition-shadow">
-              <div className="w-16 h-16 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
+      {/* Why Sell With Tixly */}
+      <section className="py-16 bg-slate-50">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center mb-12">
+            <div className="w-10 h-1 bg-[#E8532A] rounded-full mx-auto mb-3" />
+            <h2 className="text-3xl md:text-4xl font-black text-[#1A3C5E] mb-2">Why Sell With Tixly</h2>
+            <p className="text-sm text-slate-500 max-w-xl mx-auto">The most trusted platform for World Cup 2026 ticket resale.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {benefits.map((benefit, i) => (
+              <div key={i} className="bg-white p-6 rounded-xl border border-slate-100 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                <div className={`w-11 h-11 ${benefit.iconBg} rounded-lg flex items-center justify-center mb-4`}>
+                  <benefit.icon className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-bold text-[#1A3C5E] mb-1.5 leading-tight">{benefit.title}</h3>
+                <p className="text-sm text-slate-600">{benefit.description}</p>
               </div>
-              <h3 className="text-xl font-bold text-brand-navy mb-3">Maximum Reach</h3>
-              <p className="text-slate-600">
-                List your tickets once and reach thousands of verified football fans instantly.
-              </p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Seller Fees */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <div className="text-center mb-12">
+            <div className="w-10 h-1 bg-[#E8532A] rounded-full mx-auto mb-3" />
+            <h2 className="text-3xl md:text-4xl font-black text-[#1A3C5E] mb-2">Transparent Pricing</h2>
+            <p className="text-sm text-slate-500 max-w-xl mx-auto">No surprises. Know exactly what you earn before you list.</p>
+          </div>
+
+          <div className="bg-gradient-to-br from-[#0D2137] to-[#1A3C5E] rounded-2xl p-6 md:p-10 text-white relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-[#E8532A]/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-36 h-36 bg-[#2F6B9A]/15 rounded-full blur-3xl" />
+
+            <div className="relative z-10">
+              <div className="grid grid-cols-3 gap-6 mb-8">
+                <div className="text-center">
+                  <p className="text-5xl md:text-6xl font-black text-[#E8532A] mb-1">$0</p>
+                  <p className="text-white/80 font-medium text-sm">Listing Fee</p>
+                  <p className="text-white/50 text-xs mt-0.5">Free to list</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-5xl md:text-6xl font-black text-white mb-1">8%</p>
+                  <p className="text-white/80 font-medium text-sm">Commission</p>
+                  <p className="text-white/50 text-xs mt-0.5">On successful sales</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-5xl md:text-6xl font-black text-white mb-1">$0</p>
+                  <p className="text-white/80 font-medium text-sm">Hidden Fees</p>
+                  <p className="text-white/50 text-xs mt-0.5">What you see is what you get</p>
+                </div>
+              </div>
+
+              <div className="border-t border-white/10 pt-6">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-[#E8532A] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-bold text-sm mb-0.5">Industry-Leading Rates</p>
+                    <p className="text-white/70 text-xs">Most competitors charge 10–15% commission plus listing fees. Tixly&apos;s 8% flat rate means you keep more.</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 px-4 bg-white">
-        <div className="container mx-auto max-w-4xl bg-brand-navy rounded-[2rem] p-12 text-center text-white shadow-xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-brand-orange rounded-full opacity-20 blur-2xl"></div>
-          <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-blue-400 rounded-full opacity-20 blur-2xl"></div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 relative z-10">Ready to list your tickets?</h2>
-          <p className="text-slate-300 mb-8 max-w-2xl mx-auto relative z-10">
-            It takes less than 2 minutes to create a listing. Join the community and help other fans experience the magic of the World Cup.
-          </p>
-          <a 
-            href="/api/auth/signin?callbackUrl=/en/sell/list"
-            className="inline-block bg-brand-orange hover:bg-orange-600 text-white font-bold text-lg py-4 px-10 rounded-2xl transition-all shadow-lg relative z-10"
-          >
-            Start Selling
-          </a>
+      {/* Testimonials */}
+      <section className="py-16 bg-slate-50">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center mb-12">
+            <div className="w-10 h-1 bg-[#E8532A] rounded-full mx-auto mb-3" />
+            <h2 className="text-3xl md:text-4xl font-black text-[#1A3C5E] mb-2">Sellers Love Tixly</h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-4">
+            {testimonials.map((t, i) => (
+              <div key={i} className="bg-white p-6 rounded-xl border border-slate-100 hover:shadow-lg transition-all duration-300 flex flex-col">
+                <div className="flex gap-0.5 mb-3">
+                  {Array.from({ length: t.stars }).map((_, j) => (
+                    <Star key={j} className="w-4 h-4 text-[#E8532A] fill-[#E8532A]" />
+                  ))}
+                </div>
+                <Quote className="w-6 h-6 text-[#E8532A]/20 mb-2" />
+                <p className="text-sm text-slate-700 mb-5 flex-1 italic">&ldquo;{t.quote}&rdquo;</p>
+                <div className="border-t border-slate-100 pt-3">
+                  <p className="font-bold text-sm text-[#1A3C5E]">{t.name}</p>
+                  <p className="text-slate-500 text-xs">{t.location}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <div className="bg-[#1A3C5E] rounded-2xl p-8 md:p-12 text-center relative overflow-hidden">
+            <div className="absolute top-0 right-0 -mt-8 -mr-8 w-40 h-40 bg-[#E8532A] rounded-full opacity-15 blur-3xl" />
+            <div className="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-[#2F6B9A] rounded-full opacity-20 blur-3xl" />
+            <div className="relative z-10">
+              <Wallet className="w-12 h-12 text-[#E8532A] mx-auto mb-4" />
+              <h2 className="text-3xl md:text-4xl font-black text-white mb-3">Ready to List Your Tickets?</h2>
+              <p className="text-slate-300 mb-6 max-w-lg mx-auto text-sm">It takes less than 2 minutes. Join the community and help fans experience the World Cup.</p>
+              <Link href="/sign-in?callbackUrl=/en/sell/list" className="inline-flex items-center gap-2 bg-[#E8532A] hover:bg-[#d64a23] text-white font-bold text-sm py-3 px-8 rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+                Start Selling <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </div>

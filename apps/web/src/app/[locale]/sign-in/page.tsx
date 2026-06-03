@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { Link, useRouter } from '@/navigation';
-import { X, User } from 'lucide-react';
+import { X, User, Mail } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 
@@ -103,15 +104,18 @@ export default function SignInPage() {
 
             {/* Email Form */}
             <form className="space-y-4" onSubmit={handleEmailSignIn}>
-              <div>
-                <input 
+              <div className="relative">
+                <Input 
                   type="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email Address" 
-                  className="w-full border border-gray-300 focus:border-brand-orange focus:ring-1 focus:ring-brand-orange rounded-md px-4 py-3.5 outline-none transition-all placeholder:text-gray-400"
+                  className="peer pe-10 border-gray-300 focus-visible:ring-brand-orange focus-visible:border-brand-orange h-[50px] rounded-md text-[15px]"
                   required
                 />
+                <div className="pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-4 text-gray-400 peer-disabled:opacity-50">
+                  <Mail size={20} strokeWidth={2} aria-hidden="true" />
+                </div>
               </div>
               <button 
                 type="submit"
