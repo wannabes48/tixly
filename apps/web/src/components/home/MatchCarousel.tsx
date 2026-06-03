@@ -152,8 +152,8 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
         </Link>
       </div>
 
-      {/* Options Container */}
-      <div className="container mx-auto px-4 relative z-10">
+      {/* Options Container (Desktop Accordion) */}
+      <div className="container mx-auto px-4 relative z-10 hidden md:block">
         <div className="options flex w-full h-[600px] items-stretch overflow-hidden relative shadow-2xl rounded-2xl">
           {matches.map((match, index) => {
             const bgImage = match.bgImage || DEFAULT_MATCHES.find(m => m.stadium === match.stadium)?.bgImage || DEFAULT_MATCHES[index % DEFAULT_MATCHES.length].bgImage;
@@ -276,6 +276,71 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
           )})}
         </div>
       </div>
+
+      {/* Mobile Snap Carousel */}
+      <div className="md:hidden relative z-10 w-full overflow-hidden mt-6">
+        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-4 pb-8 hide-scrollbar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+          {matches.map((match, index) => {
+            const bgImage = match.bgImage || DEFAULT_MATCHES.find(m => m.stadium === match.stadium)?.bgImage || DEFAULT_MATCHES[index % DEFAULT_MATCHES.length].bgImage;
+            return (
+              <div 
+                key={match.id} 
+                className="flex-none w-[85vw] max-w-[340px] h-[480px] relative rounded-3xl overflow-hidden snap-center shadow-2xl flex flex-col justify-end group border border-white/10"
+              >
+                <div 
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                  style={{ backgroundImage: `url('${bgImage}')` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0D2137] via-[#0D2137]/80 to-transparent" />
+                
+                <div className="relative z-10 p-6 flex flex-col gap-5">
+                  <div className="flex items-center gap-2">
+                    <span className="bg-[#E8532A] text-white text-[11px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-lg">
+                      {match.date}
+                    </span>
+                  </div>
+                  
+                  <div className="flex items-center gap-4 bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+                    <div className="flex flex-col items-center w-16">
+                      <div className="w-12 h-12 relative rounded-full overflow-hidden border-2 border-white/20 shadow-inner bg-white mb-2">
+                        <Image src={match.homeFlagUrl} alt={match.homeTeam} fill className="object-cover" />
+                      </div>
+                      <span className="text-white font-bold text-xs text-center truncate w-full">{match.homeTeam}</span>
+                    </div>
+                    <span className="text-[#E8532A] font-black italic text-xl flex-1 text-center">VS</span>
+                    <div className="flex flex-col items-center w-16">
+                      <div className="w-12 h-12 relative rounded-full overflow-hidden border-2 border-white/20 shadow-inner bg-white mb-2">
+                        <Image src={match.awayFlagUrl} alt={match.awayTeam} fill className="object-cover" />
+                      </div>
+                      <span className="text-white font-bold text-xs text-center truncate w-full">{match.awayTeam}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-white/80 text-xs font-medium">
+                    <MapPin size={14} className="flex-shrink-0 text-[#E8532A]" /> 
+                    <span className="truncate">{match.stadium}, {match.city}</span>
+                  </div>
+
+                  <div className="flex items-center justify-between mt-2 pt-5 border-t border-white/10">
+                    <div>
+                      <p className="text-white/60 text-[10px] uppercase font-bold tracking-wider mb-0.5">Starting From</p>
+                      <p className="text-white font-black text-3xl flex items-start gap-0.5">
+                        <span className="text-lg mt-1 text-[#E8532A]">$</span>{match.priceFrom}
+                      </p>
+                    </div>
+                    <Link
+                      href={`/matches/${match.id}`}
+                      className="bg-[#E8532A] hover:bg-[#d64a23] text-white p-3.5 rounded-xl transition-all shadow-lg flex-shrink-0"
+                    >
+                      <ArrowRight size={20} />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
       
       {/* Custom animations */}
       <style>{`
@@ -304,22 +369,8 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
           animation-delay: 0.6s;
         }
 
-        /* Responsive override for mobile */
-        @media (max-width: 768px) {
-          .options {
-            flex-direction: column !important;
-            height: 800px !important;
-          }
-          .option {
-            min-height: 80px !important;
-            min-width: 100% !important;
-            border-radius: 0 !important;
-            border-right-width: 0 !important;
-            border-bottom-width: 1px !important;
-          }
-          .option:last-child {
-            border-bottom-width: 0 !important;
-          }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
         }
       `}</style>
     </section>
