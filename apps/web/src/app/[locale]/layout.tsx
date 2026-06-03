@@ -5,6 +5,7 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { CookieBanner } from '@/components/CookieBanner';
 import { Analytics } from '@/components/Analytics';
+import Script from 'next/script';
 
 import { Providers } from '@/components/Providers';
 import { Metadata } from 'next';
@@ -50,6 +51,23 @@ export default function LocaleLayout({
 
   return (
     <html lang={locale} className={`${inter.variable} ${jetbrainsMono.variable}`}>
+      <head>
+        {/* Google tag (gtag.js) */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-8S6Z5BQMGC"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-8S6Z5BQMGC');
+          `}
+        </Script>
+      </head>
       <body className="font-sans antialiased text-brand-textblack bg-white">
           <NextIntlClientProvider locale={locale} messages={messages}>
             <Providers>
@@ -61,7 +79,7 @@ export default function LocaleLayout({
               <CookieBanner />
             </Providers>
           </NextIntlClientProvider>
-          <Analytics />
+          {/* <Analytics /> component was intentionally removed to favor the direct head injection */}
       </body>
     </html>
   );
