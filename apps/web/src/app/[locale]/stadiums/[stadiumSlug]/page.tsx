@@ -3,7 +3,7 @@ import { Link } from '@/navigation';
 import { notFound } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Ticket, Calendar, MapPin, Users, Eye, EyeOff, DollarSign, Gem } from 'lucide-react';
+import { ArrowLeft, Calendar, MapPin, Users, Eye, EyeOff, DollarSign, Gem } from 'lucide-react';
 import { format } from 'date-fns';
 import { stadiumInsights } from '@/data/stadium-insights';
 
@@ -109,7 +109,7 @@ export default async function StadiumDetailPage({ params }: { params: { locale: 
         {insights && (
           <section>
             <h2 className="text-2xl font-bold text-[#0a192f] mb-6 flex items-center gap-2">
-              <Ticket className="w-6 h-6 text-[#ff6b00]" />
+              <img src="/ticket.png" alt="Ticket" className="w-6 h-6 text-[#ff6b00] object-contain" />
               Official Seating Guide
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -221,7 +221,7 @@ export default async function StadiumDetailPage({ params }: { params: { locale: 
                     <div className="p-6 sm:w-48 flex items-center justify-center border-t sm:border-t-0 sm:border-l border-slate-100 h-full w-full">
                       <Button asChild className="w-full rounded-xl bg-[#ff6b00] hover:bg-[#e66000] text-white font-semibold">
                         <Link href={`/matches/${match.id}`} className="w-full flex items-center justify-center">
-                          <Ticket className="w-4 h-4 mr-2" />
+                          <img src="/ticket.png" alt="Ticket" className="w-4 h-4 mr-2 object-contain" />
                           Tickets
                         </Link>
                       </Button>

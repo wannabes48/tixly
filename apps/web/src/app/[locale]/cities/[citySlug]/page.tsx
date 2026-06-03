@@ -3,7 +3,7 @@ import { Link } from '@/navigation';
 import { notFound } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Ticket, Calendar, MapPin } from 'lucide-react';
+import { ArrowLeft, Calendar, MapPin } from 'lucide-react';
 import { format } from 'date-fns';
 
 import Image from 'next/image';
@@ -196,7 +196,7 @@ export default async function CityDetailPage({ params }: { params: { locale: str
                     <div className="p-6 sm:w-48 flex items-center justify-center border-t sm:border-t-0 sm:border-l border-slate-100 h-full w-full">
                       <Link href={`/matches/${match.id}`} className="w-full">
                         <Button className="w-full rounded-xl bg-[#ff6b00] hover:bg-[#e66000] text-white font-semibold">
-                          <Ticket className="w-4 h-4 mr-2" />
+                          <img src="/ticket.png" alt="Ticket" className="w-4 h-4 mr-2 object-contain" />
                           Tickets
                         </Button>
                       </Link>

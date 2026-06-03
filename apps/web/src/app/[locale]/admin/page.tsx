@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import { redirect } from 'next/navigation';
 import { prisma } from '@tixly/database';
-import { Users, Ticket, CheckCircle2, DollarSign, Activity, AlertCircle } from 'lucide-react';
+import { Users, CheckCircle2, DollarSign, Activity, AlertCircle } from 'lucide-react';
 
 export default async function AdminDashboardPage({ params }: { params: { locale: string } }) {
   const session = await getServerSession(authOptions);
@@ -72,7 +72,7 @@ export default async function AdminDashboardPage({ params }: { params: { locale:
         
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
           <div className="w-12 h-12 bg-blue-50 text-brand-navy rounded-xl flex items-center justify-center mb-4">
-            <Ticket className="w-6 h-6" />
+            <img src="/ticket.png" alt="Ticket" className="w-6 h-6 object-contain" />
           </div>
           <div className="text-slate-500 text-sm font-semibold mb-1">Total Tickets Sold</div>
           <div className="text-3xl font-black text-brand-navy">{ticketsSold.toLocaleString()}</div>

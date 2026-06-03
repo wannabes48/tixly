@@ -1,4 +1,4 @@
-import { ShieldCheck, Search, CreditCard, Ticket, Tag, Users, Wallet, ArrowRight } from "lucide-react";
+import { ShieldCheck, Search, CreditCard, Tag, Users, Wallet, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Link } from '@/navigation';
@@ -57,7 +57,7 @@ export default function HowItWorksPage() {
 
               <div className="flex gap-6">
                 <div className="flex-shrink-0 w-16 h-16 rounded-full bg-brand-orange/10 flex items-center justify-center">
-                  <Ticket className="w-8 h-8 text-brand-orange" />
+                  <img src="/ticket.png" alt="Ticket" className="w-8 h-8 text-brand-orange object-contain" />
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-brand-navy mb-2">3. Receive Tickets</h3>

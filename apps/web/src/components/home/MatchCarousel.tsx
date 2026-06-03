@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocale } from "next-intl";
 import { Link } from '@/navigation';
 import Image from 'next/image';
-import { MapPin, ArrowRight, Ticket } from 'lucide-react';
+import { MapPin, ArrowRight } from 'lucide-react';
 
 interface Match {
   id: string;
@@ -268,7 +268,7 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
                       href={`/matches/${match.id}`}
                       className="w-full inline-flex items-center justify-center gap-2 bg-[#E8532A] hover:bg-[#d64a23] text-white font-bold py-3.5 px-8 rounded-xl transition-colors shadow-[0_0_20px_rgba(232,83,42,0.4)] hover:shadow-[0_0_25px_rgba(232,83,42,0.6)] text-lg"
                     >
-                      <Ticket size={20} /> Buy Tickets
+                      <Image src="/ticket.png" alt="Ticket" width={20} height={20} className="w-5 h-5 object-contain" /> Buy Tickets
                     </Link>
                   </div>
 

@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@tixly/database";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "@/navigation";
-import { Banknote, Ticket, Clock, Star, Edit, Trash2 } from "lucide-react";
+import { Banknote, Clock, Star, Edit, Trash2 } from "lucide-react";
 
 export const revalidate = 0;
 
@@ -55,7 +55,7 @@ export default async function SellerDashboardPage() {
             <p className="text-slate-500">Manage your ticket listings and payouts.</p>
           </div>
           <Link href="/sell/list" className="bg-brand-orange hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl inline-flex items-center text-sm shadow-md transition-all">
-            <Ticket className="w-4 h-4 mr-2" /> List New Tickets
+            <img src="/ticket.png" alt="Ticket" className="w-4 h-4 mr-2 object-contain" /> List New Tickets
           </Link>
         </div>
 
@@ -73,7 +73,7 @@ export default async function SellerDashboardPage() {
           <Card className="rounded-2xl border-none shadow-sm">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
-                <div className="w-10 h-10 bg-blue-50 text-brand-midblue rounded-full flex items-center justify-center"><Ticket className="w-5 h-5" /></div>
+                <div className="w-10 h-10 bg-blue-50 text-brand-midblue rounded-full flex items-center justify-center"><img src="/ticket.png" alt="Ticket" className="w-5 h-5 object-contain" /></div>
               </div>
               <p className="text-sm font-semibold text-slate-500">Active Listings</p>
               <h3 className="text-2xl font-black text-brand-navy">{activeListings.length}</h3>
@@ -113,7 +113,7 @@ export default async function SellerDashboardPage() {
           <div className="p-6">
             {activeListings.length === 0 ? (
               <div className="text-center py-12">
-                <div className="w-16 h-16 bg-slate-50 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-4"><Ticket className="w-8 h-8" /></div>
+                <div className="w-16 h-16 bg-slate-50 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-4"><img src="/ticket.png" alt="Ticket" className="w-8 h-8 object-contain" /></div>
                 <h3 className="text-lg font-bold text-brand-navy mb-2">No active listings</h3>
                 <p className="text-slate-500 mb-6">You don't have any tickets listed for sale right now.</p>
                 <Link href="/sell/list" className="text-brand-orange font-semibold hover:underline">Create a listing →</Link>

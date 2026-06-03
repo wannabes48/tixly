@@ -1,5 +1,5 @@
 import { Link } from '@/navigation';
-import { Calendar, MapPin, ChevronRight, Trophy, Ticket } from 'lucide-react';
+import { Calendar, MapPin, ChevronRight, Trophy } from 'lucide-react';
 import { prisma, Prisma } from '@tixly/database';
 import { MatchesFilterSidebar } from '@/components/matches/MatchesFilterSidebar';
 import { MatchesFilterSheet } from '@/components/matches/MatchesFilterSheet';
@@ -464,7 +464,7 @@ function MatchCard({
               </span>
             </div>
             <div className="flex items-center gap-2 text-slate-600 text-sm">
-              <Ticket size={16} className="text-tixGreen shrink-0" />
+              <img src="/ticket.png" alt="Ticket" className="text-tixGreen shrink-0 object-contain" width={16} height={16} />
               <span className="font-bold text-tixNavy">{numListings}</span>
               <span className="text-slate-500">tickets available</span>
             </div>

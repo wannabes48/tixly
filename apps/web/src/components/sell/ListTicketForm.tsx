@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { CldUploadWidget } from 'next-cloudinary';
-import { Loader2, UploadCloud, CheckCircle2, Ticket } from 'lucide-react';
+import { Loader2, UploadCloud, CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
 
 const schema = z.object({
@@ -204,7 +204,7 @@ export default function ListTicketForm({ matches }: { matches: any[] }) {
             <div className="flex justify-between pt-8 border-t border-slate-100">
               <Button type="button" variant="outline" onClick={() => setStep(2)} className="rounded-xl px-8 h-12" disabled={loading}>Back</Button>
               <Button type="submit" className="bg-brand-orange hover:bg-orange-600 text-white rounded-xl px-8 h-12 shadow-md" disabled={loading}>
-                {loading ? <Loader2 className="w-5 h-5 animate-spin mr-2" /> : <Ticket className="w-5 h-5 mr-2" />}
+                {loading ? <Loader2 className="w-5 h-5 animate-spin mr-2" /> : <img src="/ticket.png" alt="Ticket" className="w-5 h-5 mr-2 object-contain" />}
                 Publish Listing
               </Button>
             </div>

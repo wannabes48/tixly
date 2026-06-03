@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Download, Ticket } from "lucide-react";
+import { Download } from "lucide-react";
 import { Link } from '@/navigation';
 import { AnimatedTicket } from "@/components/ui/ticket-confirmation-card";
 
@@ -41,7 +41,7 @@ export default function CheckoutConfirmationPage() {
           </Button>
           <Button asChild className="w-full sm:w-auto bg-brand-navy hover:bg-slate-800 text-white rounded-xl">
             <Link href="/">
-              <Ticket className="w-4 h-4 mr-2" />
+              <img src="/ticket.png" alt="Ticket" className="w-4 h-4 mr-2 object-contain" />
               Return to Homepage
             </Link>
           </Button>
