@@ -1,10 +1,9 @@
 'use client';
+import React, { useState, useEffect } from 'react';
 import { useLocale } from "next-intl";
-
-import { useRef } from 'react';
-import { ChevronLeft, ChevronRight, MapPin, ArrowRight } from 'lucide-react';
 import { Link } from '@/navigation';
 import Image from 'next/image';
+import { MapPin, ArrowRight, Ticket } from 'lucide-react';
 
 interface Match {
   id: string;
@@ -17,9 +16,10 @@ interface Match {
   stadium: string;
   city: string;
   priceFrom: number;
+  bgImage?: string;
 }
 
-const MATCHES: Match[] = [
+const DEFAULT_MATCHES: Match[] = [
   {
     id: 'match-1',
     date: 'JUN 11 · THU',
@@ -31,6 +31,7 @@ const MATCHES: Match[] = [
     stadium: 'Estadio Azteca',
     city: 'Mexico City',
     priceFrom: 150,
+    bgImage: "https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307185/Estadio_Azteca_-_2026_-_02_jpevn0.jpg"
   },
   {
     id: 'match-2',
@@ -43,6 +44,7 @@ const MATCHES: Match[] = [
     stadium: 'MetLife Stadium',
     city: 'New York / New Jersey',
     priceFrom: 450,
+    bgImage: "https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307182/Metlife_stadium__Aerial_view_ozywne.jpg"
   },
   {
     id: 'match-3',
@@ -55,6 +57,7 @@ const MATCHES: Match[] = [
     stadium: 'SoFi Stadium',
     city: 'Los Angeles',
     priceFrom: 380,
+    bgImage: "https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307236/SoFi_Stadium_2023_fzzuuc.jpg"
   },
   {
     id: 'match-4',
@@ -67,6 +70,7 @@ const MATCHES: Match[] = [
     stadium: 'Hard Rock Stadium',
     city: 'Miami',
     priceFrom: 320,
+    bgImage: "https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307062/hard-rock-stadium-hero_kxq0ml.jpg"
   },
   {
     id: 'match-5',
@@ -79,6 +83,7 @@ const MATCHES: Match[] = [
     stadium: 'AT&T Stadium',
     city: 'Dallas',
     priceFrom: 290,
+    bgImage: "https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307180/ATT_economic-1_jqbqoh.jpg"
   },
   {
     id: 'match-6',
@@ -91,186 +96,232 @@ const MATCHES: Match[] = [
     stadium: 'BMO Field',
     city: 'Toronto',
     priceFrom: 180,
-  },
+    bgImage: "https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307178/bmo_field_ngoycc.avif"
+  }
 ];
 
-export default function MatchCarousel({ matches = MATCHES }: { matches?: Match[] }) {
+export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?: Match[] }) {
   const locale = useLocale();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [animatedOptions, setAnimatedOptions] = useState<number[]>([]);
 
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (direction: 'left' | 'right') => {
-    if (!scrollRef.current) return;
-    const amount = 340;
-    scrollRef.current.scrollBy({
-      left: direction === 'left' ? -amount : amount,
-      behavior: 'smooth',
-    });
+  const handleOptionClick = (index: number) => {
+    if (index !== activeIndex) {
+      setActiveIndex(index);
+    }
   };
 
+  useEffect(() => {
+    const timers: NodeJS.Timeout[] = [];
+    
+    matches.forEach((_, i) => {
+      const timer = setTimeout(() => {
+        setAnimatedOptions(prev => [...prev, i]);
+      }, 180 * i);
+      timers.push(timer);
+    });
+    
+    return () => {
+      timers.forEach(timer => clearTimeout(timer));
+    };
+  }, [matches]);
+
   return (
-    <section
-      className="py-16 bg-[#f9fafb] relative overflow-hidden"
-    >
-      {/* Subtle football pitch pattern */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          opacity: 0.02,
-          backgroundImage: `
-            linear-gradient(rgba(13,33,55,0.3) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(13,33,55,0.3) 1px, transparent 1px),
-            radial-gradient(circle at 50% 50%, rgba(13,33,55,0.4) 60px, transparent 60px),
-            radial-gradient(circle at 50% 50%, transparent 58px, rgba(13,33,55,0.4) 58px, rgba(13,33,55,0.4) 60px, transparent 60px)
-          `,
-          backgroundSize: '80px 80px, 80px 80px, 160px 160px, 160px 160px',
-          backgroundPosition: 'center center',
-        }}
-      />
+    <section className="py-20 bg-[#0D2137] relative overflow-hidden font-sans">
+      {/* Background Subtle Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#1A3C5E] to-[#0D2137] opacity-50 z-0 pointer-events-none" />
 
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
-        <div className="flex items-end justify-between mb-8">
-          <div>
-            {/* Orange accent bar */}
-            <div className="w-12 h-1 bg-[#E8532A] rounded-full mb-3" />
-            <h2 className="text-3xl md:text-4xl font-black text-[#0D2137] mb-1">
-              Upcoming Matches
-            </h2>
-            <p className="text-gray-500 text-sm">320,000+ tickets available</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => scroll('left')}
-              className="w-10 h-10 rounded-full bg-[#0D2137] hover:bg-[#E8532A] flex items-center justify-center text-white transition-colors duration-200 shadow-sm"
-              aria-label="Scroll left"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={() => scroll('right')}
-              className="w-10 h-10 rounded-full bg-[#0D2137] hover:bg-[#E8532A] flex items-center justify-center text-white transition-colors duration-200 shadow-sm"
-              aria-label="Scroll right"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-            <Link
-              href="/matches"
-              className="hidden md:flex items-center gap-1.5 text-[#E8532A] font-semibold text-sm hover:underline ml-2"
-            >
-              View All Matches
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
+      {/* Header Section */}
+      <div className="container mx-auto px-4 mb-10 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between relative z-10 gap-6">
+        <div>
+          <div className="w-12 h-1 bg-[#E8532A] rounded-full mb-4 mx-auto md:mx-0" />
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-2 tracking-tight drop-shadow-lg animate-fadeInTop delay-300">
+            Upcoming Matches
+          </h2>
+          <p className="text-lg text-gray-300 font-medium max-w-xl animate-fadeInTop delay-600">
+            Secure your seats for the most anticipated games of the tournament. 320,000+ tickets available.
+          </p>
         </div>
-
-        {/* Carousel */}
-        <div
-          ref={scrollRef}
-          className="flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        
+        <Link
+          href="/matches"
+          className="inline-flex items-center justify-center gap-1.5 text-white bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md px-6 py-3 rounded-full font-bold transition-all shadow-lg hover:shadow-xl group"
         >
-          {matches.map((match) => (
+          View All Matches
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        </Link>
+      </div>
+
+      {/* Options Container */}
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="options flex w-full h-[600px] items-stretch overflow-hidden relative shadow-2xl rounded-2xl">
+          {matches.map((match, index) => {
+            const bgImage = match.bgImage || DEFAULT_MATCHES.find(m => m.stadium === match.stadium)?.bgImage || DEFAULT_MATCHES[index % DEFAULT_MATCHES.length].bgImage;
+            return (
             <div
               key={match.id}
-              className="min-w-[320px] max-w-[340px] bg-white rounded-2xl border border-gray-100 flex flex-col hover:scale-[1.02] transition-all duration-300 snap-start"
+              className={`
+                option relative flex flex-col justify-end overflow-hidden transition-all duration-700 ease-in-out
+                ${activeIndex === index ? 'active' : ''}
+              `}
               style={{
-                boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+                backgroundImage: `url('${bgImage}')`,
+                backgroundSize: activeIndex === index ? 'auto 100%' : 'auto 120%',
+                backgroundPosition: 'center',
+                backfaceVisibility: 'hidden',
+                opacity: animatedOptions.includes(index) ? 1 : 0,
+                transform: animatedOptions.includes(index) ? 'translateX(0)' : 'translateX(-60px)',
+                minWidth: '70px',
+                minHeight: '100px',
+                margin: 0,
+                borderWidth: '0 1px 0 0',
+                borderStyle: 'solid',
+                borderColor: '#1a2c42',
+                cursor: 'pointer',
+                backgroundColor: '#0D2137',
+                flex: activeIndex === index ? '10 1 0%' : '1 1 0%',
+                zIndex: activeIndex === index ? 10 : 1,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-end',
+                position: 'relative',
+                overflow: 'hidden',
+                willChange: 'flex-grow, box-shadow, background-size, background-position'
               }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLDivElement).style.boxShadow =
-                  '0 16px 40px rgba(0,0,0,0.14)';
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLDivElement).style.boxShadow =
-                  '0 2px 12px rgba(0,0,0,0.06)';
-              }}
+              onClick={() => handleOptionClick(index)}
             >
-              {/* Gradient top bar */}
-              <div
-                className="h-1 rounded-t-2xl"
+              {/* Shadow effect */}
+              <div 
+                className="shadow absolute left-0 right-0 pointer-events-none transition-all duration-700 ease-in-out z-[1]"
                 style={{
-                  background: 'linear-gradient(to right, #E8532A, #2F6B9A)',
+                  bottom: activeIndex === index ? '0' : '-40px',
+                  height: '100%',
+                  background: activeIndex === index 
+                    ? 'linear-gradient(to top, rgba(13,33,55,1) 0%, rgba(13,33,55,0.7) 30%, transparent 60%)'
+                    : 'linear-gradient(to top, rgba(13,33,55,1) 0%, transparent 50%)'
                 }}
-              />
-
-              {/* Card Top */}
-              <div className="p-5 pb-0">
-                {/* Date Badge */}
-                <span className="inline-block text-xs font-bold text-white bg-[#0D2137] px-2.5 py-1 rounded-full mb-4">
-                  {match.date}
-                </span>
-
-                {/* Team Matchup */}
-                <div className="flex items-center justify-between gap-3 mb-4">
-                  <div className="flex flex-col items-center flex-1 min-w-0">
-                    <div className="w-10 h-10 mb-1.5 relative rounded-full overflow-hidden border border-gray-100 shadow-sm bg-gray-50">
-                      <Image src={match.homeFlagUrl} alt={`${match.homeTeam} flag`} fill className="object-cover" />
-                    </div>
-                    <span className="text-sm font-black text-[#0D2137] text-center truncate w-full">
-                      {match.homeTeam}
-                    </span>
-                  </div>
-
-                  <span className="flex-shrink-0 bg-[#E8532A] text-white text-[10px] font-black px-2.5 py-1 rounded-full tracking-wider">
-                    VS
-                  </span>
-
-                  <div className="flex flex-col items-center flex-1 min-w-0">
-                    <div className="w-10 h-10 mb-1.5 relative rounded-full overflow-hidden border border-gray-100 shadow-sm bg-gray-50">
-                      <Image src={match.awayFlagUrl} alt={`${match.awayTeam} flag`} fill className="object-cover" />
-                    </div>
-                    <span className="text-sm font-black text-[#0D2137] text-center truncate w-full">
-                      {match.awayTeam}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Venue */}
-                <div className="flex items-center gap-1.5 text-gray-400 mb-4">
-                  <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
-                  <span className="text-xs truncate">
-                    {match.stadium}, {match.city}
-                  </span>
-                </div>
-              </div>
-
-              {/* Divider */}
-              <div className="border-t border-dashed border-gray-200 mx-5" />
-
-              {/* Bottom: Price + CTA */}
-              <div className="p-5 pt-4 flex items-center justify-between mt-auto">
-                <div>
-                  <p className="text-[11px] text-gray-400 uppercase tracking-wide font-medium">
-                    From
-                  </p>
-                  <p className="text-2xl font-black text-[#0D2137]">
-                    ${match.priceFrom}
-                  </p>
-                </div>
-                <Link
-                  href={`matches/${match.id}`}
-                  prefetch={false}
-                  className="bg-[#E8532A] hover:bg-[#c74823] text-white text-sm font-bold px-6 py-3 rounded-xl transition-colors duration-200"
+              ></div>
+              
+              {/* Label Content */}
+              <div className="label absolute left-0 right-0 bottom-6 flex items-end justify-start z-[2] pointer-events-none px-4 md:px-8 w-full">
+                
+                {/* Closed State Vertical Text */}
+                <div 
+                  className="absolute bottom-10 left-1/2 -translate-x-1/2 font-bold text-white tracking-widest whitespace-nowrap transition-all duration-500 origin-bottom-left"
+                  style={{
+                    transform: 'rotate(-90deg) translateX(0)',
+                    opacity: activeIndex === index ? 0 : 1,
+                    width: '300px', 
+                  }}
                 >
-                  Buy Tickets
-                </Link>
+                  <div className="flex items-center gap-3">
+                    <span className="text-[#E8532A] opacity-80">{match.date.split('·')[0].trim()}</span>
+                    <span>{match.homeTeam} vs {match.awayTeam}</span>
+                  </div>
+                </div>
+
+                {/* Expanded Content */}
+                <div 
+                  className="info text-white w-full flex flex-col md:flex-row md:items-end justify-between gap-6 transition-all duration-700 ease-in-out pointer-events-auto pb-4"
+                  style={{
+                    opacity: activeIndex === index ? 1 : 0,
+                    transform: activeIndex === index ? 'translateX(0)' : 'translateX(25px)',
+                    display: activeIndex === index ? 'flex' : 'none'
+                  }}
+                >
+                  <div className="flex-1 min-w-0 pr-4">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="inline-flex items-center justify-center bg-[#E8532A] text-white text-sm font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-lg">
+                        {match.date}
+                      </span>
+                      <div className="flex items-center gap-2 text-white text-sm font-semibold bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-md border border-white/10 shadow-lg">
+                        <MapPin size={16} /> {match.stadium}, {match.city}
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-6 mb-2 flex-wrap">
+                      <div className="flex items-center gap-4 bg-black/30 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/10 shadow-2xl">
+                        <div className="w-14 h-14 relative rounded-full overflow-hidden border-2 border-white/20 shadow-inner bg-white">
+                          <Image src={match.homeFlagUrl} alt={match.homeTeam} fill className="object-cover" />
+                        </div>
+                        <span className="text-3xl lg:text-4xl font-black tracking-tight">{match.homeTeam}</span>
+                        
+                        <span className="text-xl font-black text-[#E8532A] mx-2 italic">VS</span>
+                        
+                        <span className="text-3xl lg:text-4xl font-black tracking-tight">{match.awayTeam}</span>
+                        <div className="w-14 h-14 relative rounded-full overflow-hidden border-2 border-white/20 shadow-inner bg-white">
+                          <Image src={match.awayFlagUrl} alt={match.awayTeam} fill className="object-cover" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col items-start md:items-end flex-shrink-0 bg-black/40 backdrop-blur-md p-6 rounded-2xl border border-white/10 shadow-2xl">
+                    <p className="text-sm text-gray-300 uppercase tracking-wider font-bold mb-1">Starting From</p>
+                    <p className="text-5xl font-black text-white mb-4 flex items-start gap-1">
+                      <span className="text-2xl mt-1 text-[#E8532A]">$</span>
+                      {match.priceFrom}
+                    </p>
+                    <Link
+                      href={`/matches/${match.id}`}
+                      className="w-full inline-flex items-center justify-center gap-2 bg-[#E8532A] hover:bg-[#d64a23] text-white font-bold py-3.5 px-8 rounded-xl transition-colors shadow-[0_0_20px_rgba(232,83,42,0.4)] hover:shadow-[0_0_25px_rgba(232,83,42,0.6)] text-lg"
+                    >
+                      <Ticket size={20} /> Buy Tickets
+                    </Link>
+                  </div>
+
+                </div>
               </div>
             </div>
-          ))}
-        </div>
-
-        {/* Mobile View All link */}
-        <div className="flex md:hidden justify-center mt-6">
-          <Link
-            href="/matches"
-            className="flex items-center gap-1.5 text-[#E8532A] font-semibold text-sm hover:underline"
-          >
-            View All Matches
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+          )})}
         </div>
       </div>
+      
+      {/* Custom animations */}
+      <style>{`
+        @keyframes fadeInFromTop {
+          0% {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .animate-fadeInTop {
+          opacity: 0;
+          transform: translateY(-20px);
+          animation: fadeInFromTop 0.8s ease-in-out forwards;
+        }
+        
+        .delay-300 {
+          animation-delay: 0.3s;
+        }
+        
+        .delay-600 {
+          animation-delay: 0.6s;
+        }
+
+        /* Responsive override for mobile */
+        @media (max-width: 768px) {
+          .options {
+            flex-direction: column !important;
+            height: 800px !important;
+          }
+          .option {
+            min-height: 80px !important;
+            min-width: 100% !important;
+            border-radius: 0 !important;
+            border-right-width: 0 !important;
+            border-bottom-width: 1px !important;
+          }
+          .option:last-child {
+            border-bottom-width: 0 !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
