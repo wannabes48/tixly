@@ -14,12 +14,12 @@ export default function SellLandingPage({ params }: { params: { locale: string }
           <p className="text-xl md:text-2xl mb-10 text-slate-300 max-w-3xl mx-auto font-light">
             Join thousands of fans selling tickets securely on Tixly. No hidden fees, instant payouts, and guaranteed buyer protection.
           </p>
-          <Link 
-            href="/api/auth/signin"
+          <a 
+            href="/api/auth/signin?callbackUrl=/en/sell/list"
             className="inline-block bg-brand-orange hover:bg-orange-600 text-white font-bold text-lg py-4 px-10 rounded-2xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
           >
             Start Selling Now
-          </Link>
+          </a>
         </div>
       </section>
 
@@ -80,12 +80,12 @@ export default function SellLandingPage({ params }: { params: { locale: string }
           <p className="text-slate-300 mb-8 max-w-2xl mx-auto relative z-10">
             It takes less than 2 minutes to create a listing. Join the community and help other fans experience the magic of the World Cup.
           </p>
-          <Link 
-            href="/api/auth/signin"
+          <a 
+            href="/api/auth/signin?callbackUrl=/en/sell/list"
             className="inline-block bg-brand-orange hover:bg-orange-600 text-white font-bold text-lg py-4 px-10 rounded-2xl transition-all shadow-lg relative z-10"
           >
             Start Selling
-          </Link>
+          </a>
         </div>
       </section>
     </div>

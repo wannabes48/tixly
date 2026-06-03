@@ -1,10 +1,9 @@
-import { Loader2 } from "lucide-react";
+import SqueezeLoader from "@/components/ui/loading-indicator";
 
 export default function Loading() {
   return (
-    <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4">
-      <Loader2 className="w-12 h-12 animate-spin text-brand-orange" />
-      <p className="text-brand-navy font-semibold text-lg animate-pulse">Loading...</p>
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm">
+      <SqueezeLoader size={60} containerClassName="min-h-full" />
     </div>
   );
 }

@@ -907,9 +907,9 @@ export function CheckoutFlow({
                   <div>
                     <h3 className="font-bold text-tixNavy text-sm">Want to track this order?</h3>
                     <p className="text-xs text-gray-600 mt-1 mb-3">Create a free account using your email to easily manage your tickets.</p>
-                    <button className="text-xs font-bold text-tixOrange bg-white border border-orange-200 px-4 py-2 rounded-lg hover:bg-orange-100 transition-colors">
+                    <a href="/api/auth/signin" className="inline-block text-center text-xs font-bold text-tixOrange bg-white border border-orange-200 px-4 py-2 rounded-lg hover:bg-orange-100 transition-colors">
                       Create Account
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>
