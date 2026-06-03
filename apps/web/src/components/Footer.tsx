@@ -7,6 +7,7 @@ const footerColumns = [
   {
     title: 'Buyer Info',
     links: [
+      { href: '/about', label: 'About Us' },
       { href: '/how-it-works', label: 'How it Works' },
       { href: '/buyer-protection', label: 'Buyer Protection' },
       { href: '/track-order', label: 'Track My Order' },
