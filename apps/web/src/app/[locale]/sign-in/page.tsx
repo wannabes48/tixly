@@ -70,7 +70,7 @@ export default function SignInPage() {
             <div className="space-y-4">
               {/* Google Button */}
               <button 
-                onClick={() => signIn('google', { callbackUrl: '/' })}
+                onClick={() => signIn('google', { callbackUrl })}
                 className="w-full flex items-center justify-center gap-3 border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors bg-white rounded-md py-3.5 px-4"
               >
                 {/* Google "G" logo */}
