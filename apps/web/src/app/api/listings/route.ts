@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     console.error("Listing Creation Error:", error);
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: "Invalid data", details: error.errors }, { status: 400 });
+      return NextResponse.json({ error: "Invalid data", details: error.flatten().fieldErrors }, { status: 400 });
     }
     return NextResponse.json(
       { error: "Internal Server Error" },

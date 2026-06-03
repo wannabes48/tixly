@@ -89,7 +89,7 @@ export default function BuyerProtectionPage() {
           </div>
           <div className="w-full md:w-1/3 relative h-[300px] rounded-2xl overflow-hidden shadow-2xl">
             <Image 
-              src="https://images.unsplash.com/photo-1574629810360-7efbb1925846?auto=format&fit=crop&q=80"
+              src="https://res.cloudinary.com/dm12f7lnc/image/upload/v1780465132/ball_s8bnqa.jpg"
               alt="Soccer ball on field"
               fill
               className="object-cover"
