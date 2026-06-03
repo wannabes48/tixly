@@ -20,10 +20,10 @@ export function Analytics() {
 
   return (
     <>
-      {/* Example: Google Analytics (Placeholder) */}
+      {/* Google Analytics */}
       <Script
         strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX`}
+        src={`https://www.googletagmanager.com/gtag/js?id=G-8S6Z5BQMGC`}
       />
       <Script
         id="google-analytics"
@@ -33,7 +33,7 @@ export function Analytics() {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-XXXXXXXXXX', {
+            gtag('config', 'G-8S6Z5BQMGC', {
               page_path: window.location.pathname,
             });
           `,
