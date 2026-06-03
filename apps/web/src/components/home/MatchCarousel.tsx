@@ -134,11 +134,13 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
       {/* Header Section */}
       <div className="container mx-auto px-4 mb-10 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between relative z-10 gap-6">
         <div>
-          <div className="w-12 h-1 bg-[#E8532A] rounded-full mb-4 mx-auto md:mx-0" />
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-2 tracking-tight drop-shadow-lg animate-fadeInTop delay-300">
+          <p className="text-[13px] font-medium text-[#E8532A] uppercase tracking-editorial mb-3 mx-auto md:mx-0 animate-fadeInTop">
+            Featured
+          </p>
+          <h2 className="text-3xl md:text-4xl font-semibold text-white mb-3 drop-shadow-lg animate-fadeInTop delay-300">
             Upcoming Matches
           </h2>
-          <p className="text-lg text-gray-300 font-medium max-w-xl animate-fadeInTop delay-600">
+          <p className="text-base text-gray-300 font-normal max-w-xl animate-fadeInTop delay-600 leading-relaxed">
             Secure your seats for the most anticipated games of the tournament. 320,000+ tickets available.
           </p>
         </div>
@@ -207,7 +209,7 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
                 
                 {/* Closed State Vertical Text */}
                 <div 
-                  className="absolute bottom-10 left-1/2 -translate-x-1/2 font-bold text-white tracking-widest whitespace-nowrap transition-all duration-500 origin-bottom-left"
+                  className="absolute bottom-10 left-1/2 -translate-x-1/2 font-medium text-white tracking-editorial uppercase whitespace-nowrap transition-all duration-500 origin-bottom-left"
                   style={{
                     transform: 'rotate(-90deg) translateX(0)',
                     opacity: activeIndex === index ? 0 : 1,
@@ -231,7 +233,7 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
                 >
                   <div className="flex-1 min-w-0 pr-4">
                     <div className="flex items-center gap-3 mb-4">
-                      <span className="inline-flex items-center justify-center bg-[#E8532A] text-white text-sm font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-lg">
+                      <span className="inline-flex items-center justify-center bg-[#E8532A] text-white text-[12px] font-medium px-4 py-1.5 rounded-full uppercase tracking-editorial shadow-lg">
                         {match.date}
                       </span>
                       <div className="flex items-center gap-2 text-white text-sm font-semibold bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-md border border-white/10 shadow-lg">
@@ -257,7 +259,7 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
                   </div>
 
                   <div className="flex flex-col items-start md:items-end flex-shrink-0 bg-black/40 backdrop-blur-md p-6 rounded-2xl border border-white/10 shadow-2xl">
-                    <p className="text-sm text-gray-300 uppercase tracking-wider font-bold mb-1">Starting From</p>
+                    <p className="text-[11px] font-medium text-gray-300 uppercase tracking-editorial mb-1">Starting From</p>
                     <p className="text-5xl font-black text-white mb-4 flex items-start gap-1">
                       <span className="text-2xl mt-1 text-[#E8532A]">$</span>
                       {match.priceFrom}
@@ -295,7 +297,7 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
                 
                 <div className="relative z-10 p-6 flex flex-col gap-5">
                   <div className="flex items-center gap-2">
-                    <span className="bg-[#E8532A] text-white text-[11px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-lg">
+                    <span className="bg-[#E8532A] text-white text-[11px] font-medium px-3 py-1.5 rounded-full uppercase tracking-editorial shadow-lg">
                       {match.date}
                     </span>
                   </div>
@@ -323,7 +325,7 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
 
                   <div className="flex items-center justify-between mt-2 pt-5 border-t border-white/10">
                     <div>
-                      <p className="text-white/60 text-[10px] uppercase font-bold tracking-wider mb-0.5">Starting From</p>
+                      <p className="text-white/60 text-[10px] uppercase font-medium tracking-editorial mb-0.5">Starting From</p>
                       <p className="text-white font-black text-3xl flex items-start gap-0.5">
                         <span className="text-lg mt-1 text-[#E8532A]">$</span>{match.priceFrom}
                       </p>

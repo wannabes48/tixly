@@ -258,7 +258,7 @@ export default function Hero() {
                 >
                   {unit.value}
                 </div>
-                <span className="text-[9px] sm:text-[11px] uppercase tracking-widest text-white/50 mt-1.5 sm:mt-2 font-semibold">
+                <span className="text-[10px] sm:text-[12px] uppercase tracking-editorial text-white/60 mt-1.5 sm:mt-2 font-medium">
                   {unit.label}
                 </span>
               </div>
@@ -275,9 +275,9 @@ export default function Hero() {
         <div className="relative max-w-4xl mx-auto mb-10 w-full">
           <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 flex flex-col md:flex-row flex-wrap gap-4 border border-slate-100 z-10 relative mt-4">
             <div className="flex-1 min-w-[200px]">
-              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5 text-left">Team or City</label>
+              <label className="block text-[11px] font-medium text-slate-500 uppercase tracking-editorial mb-1.5 text-left">Team or City</label>
               <Select value={query} onValueChange={setQuery}>
-                <SelectTrigger className="w-full h-11 bg-slate-50 border-slate-200 text-slate-800 font-semibold focus:ring-1 focus:ring-tixOrange focus:border-tixOrange">
+                <SelectTrigger className="w-full h-11 bg-slate-50 border-slate-200 text-slate-800 font-normal focus:ring-1 focus:ring-tixOrange focus:border-tixOrange">
                   <SelectValue placeholder="Any Team or City" />
                 </SelectTrigger>
                 <SelectContent>
@@ -294,9 +294,9 @@ export default function Hero() {
             </div>
             
             <div className="flex-1 min-w-[200px]">
-              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5 text-left">Tournament Round</label>
+              <label className="block text-[11px] font-medium text-slate-500 uppercase tracking-editorial mb-1.5 text-left">Tournament Round</label>
               <Select value={matchRound} onValueChange={setMatchRound}>
-                <SelectTrigger className="w-full h-11 bg-slate-50 border-slate-200 text-slate-800 font-semibold focus:ring-1 focus:ring-tixOrange focus:border-tixOrange">
+                <SelectTrigger className="w-full h-11 bg-slate-50 border-slate-200 text-slate-800 font-normal focus:ring-1 focus:ring-tixOrange focus:border-tixOrange">
                   <SelectValue placeholder="Any Round" />
                 </SelectTrigger>
                 <SelectContent>
@@ -312,9 +312,9 @@ export default function Hero() {
             </div>
             
             <div className="w-full md:w-32">
-              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5 text-left">Quantity</label>
+              <label className="block text-[11px] font-medium text-slate-500 uppercase tracking-editorial mb-1.5 text-left">Quantity</label>
               <Select value={matchQuantity} onValueChange={setMatchQuantity}>
-                <SelectTrigger className="w-full h-11 bg-slate-50 border-slate-200 text-slate-800 font-semibold focus:ring-1 focus:ring-tixOrange focus:border-tixOrange">
+                <SelectTrigger className="w-full h-11 bg-slate-50 border-slate-200 text-slate-800 font-normal focus:ring-1 focus:ring-tixOrange focus:border-tixOrange">
                   <SelectValue placeholder="1 Ticket" />
                 </SelectTrigger>
                 <SelectContent>
@@ -330,7 +330,7 @@ export default function Hero() {
             <div className="w-full md:w-auto flex items-end">
               <button
                 type="submit"
-                className="w-full md:w-auto flex items-center justify-center gap-2 bg-tixOrange hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-xl transition-all duration-300 hover:-translate-y-0.5 shadow-md"
+                className="w-full md:w-auto flex items-center justify-center gap-2 bg-tixOrange hover:bg-orange-600 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-300 hover:-translate-y-0.5 shadow-md"
               >
                 Search Matches
                 <ChevronRight className="w-4 h-4" />
@@ -361,7 +361,7 @@ export default function Hero() {
           ].map((c) => (
             <div key={c.name} className="flex flex-col items-center gap-1.5">
               <span className="text-5xl">{c.flag}</span>
-              <span className="text-xs text-white/60 font-medium tracking-[0.3em] uppercase">
+              <span className="text-xs text-white/60 font-medium tracking-editorial uppercase">
                 {c.name}
               </span>
             </div>

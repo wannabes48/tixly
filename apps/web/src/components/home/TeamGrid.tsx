@@ -77,10 +77,10 @@ export default function TeamGrid() {
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-12 text-center">
-          <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-brand-orange">
+          <p className="mb-2 text-[13px] font-medium uppercase tracking-editorial text-brand-orange">
             48 Nations
           </p>
-          <h2 className="text-3xl font-extrabold text-brand-navy md:text-4xl">
+          <h2 className="text-3xl font-semibold text-brand-navy md:text-4xl">
             Browse by Team
           </h2>
         </div>
@@ -89,7 +89,7 @@ export default function TeamGrid() {
         <div className="space-y-10">
           {confederationOrder.map((conf) => (
             <div key={conf}>
-              <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-gray-500">
+              <h3 className="mb-4 text-[12px] font-medium uppercase tracking-editorial text-gray-500">
                 {confederationLabels[conf]}
               </h3>
 
@@ -107,12 +107,12 @@ export default function TeamGrid() {
                     <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/40 to-brand-navy/20 group-hover:from-brand-orange/90 group-hover:via-brand-orange/40 transition-all duration-300 rounded-2xl" />
 
                     {/* Team name */}
-                    <span className="absolute bottom-8 left-0 right-0 text-center text-sm font-black text-white drop-shadow-md">
+                    <span className="absolute bottom-8 left-0 right-0 text-center text-sm font-semibold text-white drop-shadow-md">
                       {team.name}
                     </span>
 
                     {/* Match count badge */}
-                    <span className="absolute bottom-2 left-0 right-0 text-center text-[10px] font-semibold text-white/80">
+                    <span className="absolute bottom-2 left-0 right-0 text-center text-[10px] font-medium text-white/80">
                       {team.matches} matches
                     </span>
                   </Link>

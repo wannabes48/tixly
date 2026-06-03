@@ -1,5 +1,6 @@
 import {NextIntlClientProvider, useMessages} from 'next-intl';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 import '../../globals.css';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
@@ -9,9 +10,6 @@ import Script from 'next/script';
 
 import { Providers } from '@/components/Providers';
 import { Metadata } from 'next';
-
-const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-sans' });
-const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], display: 'swap', variable: '--font-mono' });
 
 const baseUrl = 'https://www.tixlyonline.com';
 const locales = ['en', 'es', 'fr', 'pt', 'ar', 'de'];
@@ -50,7 +48,7 @@ export default function LocaleLayout({
   const messages = useMessages();
 
   return (
-    <html lang={locale} className={`${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang={locale} className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <head>
         {/* Google tag (gtag.js) */}
         <Script

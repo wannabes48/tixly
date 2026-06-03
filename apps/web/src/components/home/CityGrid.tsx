@@ -60,10 +60,10 @@ export default function CityGrid() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-12 text-center">
-          <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-brand-orange">
+          <p className="mb-2 text-[13px] font-medium uppercase tracking-editorial text-brand-orange">
             16 Venues · 3 Countries
           </p>
-          <h2 className="text-3xl font-extrabold text-brand-navy md:text-4xl">
+          <h2 className="text-3xl font-semibold text-brand-navy md:text-4xl">
             Host Cities
           </h2>
         </div>
@@ -75,7 +75,7 @@ export default function CityGrid() {
               {/* Country header */}
               <div className="mb-5 flex items-center gap-3">
                 <span className="text-3xl">{group.flag}</span>
-                <h3 className="text-xl font-bold text-brand-navy">
+                <h3 className="text-xl font-semibold text-brand-navy">
                   {group.country}
                   <span className="ml-2 text-sm font-normal text-gray-400">
                     {group.cities.length} {group.cities.length === 1 ? "city" : "cities"}
@@ -112,10 +112,10 @@ export default function CityGrid() {
 
                     {/* City name overlay */}
                     <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <h4 className="text-base font-bold text-white drop-shadow-md md:text-lg">
+                      <h4 className="text-base font-semibold text-white drop-shadow-md md:text-lg">
                         {city.name}
                       </h4>
-                      <span className="mt-1 inline-flex items-center rounded-full bg-white/20 px-2.5 py-0.5 text-xs font-semibold text-white backdrop-blur-sm">
+                      <span className="mt-1 inline-flex items-center rounded-full bg-white/20 px-2.5 py-0.5 text-[11px] font-medium text-white backdrop-blur-sm tracking-wide">
                         {city.matches} matches
                       </span>
                     </div>

@@ -59,6 +59,10 @@ const config = {
         '36': '144px',
         '40': '160px',
       },
+      letterSpacing: {
+        'editorial': '0.15em',
+        'editorial-wide': '0.2em',
+      },
       maxWidth: {
         'content': '1280px',
       },

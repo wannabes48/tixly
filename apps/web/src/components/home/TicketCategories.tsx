@@ -65,10 +65,10 @@ export default function TicketCategories() {
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-12 text-center">
-          <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-brand-orange">
+          <p className="mb-2 text-[13px] font-medium uppercase tracking-editorial text-brand-orange">
             Choose the right category for your budget and view
           </p>
-          <h2 className="text-3xl font-extrabold text-white md:text-4xl">
+          <h2 className="text-3xl font-semibold text-white md:text-4xl">
             Ticket Categories
           </h2>
         </div>
@@ -104,9 +104,9 @@ export default function TicketCategories() {
                 <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl ${cat.iconBg}`}>
                   <Icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-lg font-bold">{cat.title}</h3>
-                <p className="mt-1 text-sm opacity-80">{cat.description}</p>
-                <p className="mt-4 text-xl font-extrabold">{cat.priceRange}</p>
+                <h3 className="text-lg font-semibold">{cat.title}</h3>
+                <p className="mt-1 text-base font-normal opacity-80">{cat.description}</p>
+                <p className="mt-4 text-xl font-semibold">{cat.priceRange}</p>
               </div>
             );
           })}

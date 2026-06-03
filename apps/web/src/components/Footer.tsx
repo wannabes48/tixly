@@ -65,7 +65,7 @@ export function Footer() {
             <Link href="/" className="flex items-center mb-4">
               <Logo size="md" variant="light" showText={true} />
             </Link>
-            <p className="text-brand-mutedgrey text-sm leading-relaxed mb-6 max-w-xs">
+            <p className="text-brand-mutedgrey text-[13px] leading-relaxed font-normal mb-6 max-w-xs">
               The official secondary marketplace for FIFA World Cup 2026™
             </p>
             {/* Social icons */}
@@ -86,7 +86,7 @@ export function Footer() {
           {/* Link columns */}
           {footerColumns.map(({ title, links }) => (
             <div key={title}>
-              <h4 className="text-brand-navy font-bold text-sm mb-4">
+              <h4 className="text-brand-navy font-semibold text-[13px] uppercase tracking-editorial mb-4">
                 {title}
               </h4>
               <ul className="space-y-3">
@@ -94,7 +94,7 @@ export function Footer() {
                   <li key={href}>
                     <Link
                       href={href}
-                      className="text-brand-mutedgrey hover:text-brand-orange text-sm transition-colors font-medium"
+                      className="text-brand-mutedgrey hover:text-brand-orange text-[13px] transition-colors font-normal"
                     >
                       {label}
                     </Link>
@@ -126,7 +126,7 @@ export function Footer() {
           </div>
 
           {/* Copyright */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-xs text-gray-400">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-[12px] text-gray-400 font-normal">
             <p>© {year} Tixly LLC. All rights reserved. | Business Reg: TXL-2026-9081</p>
             <p>
               Tixly is a secondary marketplace. Prices may differ from face

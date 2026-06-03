@@ -52,10 +52,10 @@ export default function HowItWorks() {
         {/* Header */}
         <div className="mb-14 text-center">
           <div className="w-12 h-1 bg-brand-orange rounded-full mx-auto mb-4" />
-          <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-brand-orange">
+          <p className="mb-2 text-[13px] font-medium uppercase tracking-editorial text-brand-orange">
             Get your tickets in 3 simple steps
           </p>
-          <h2 className="text-3xl font-extrabold text-brand-navy md:text-4xl">
+          <h2 className="text-3xl font-semibold text-brand-navy md:text-4xl">
             How It Works
           </h2>
         </div>
@@ -97,8 +97,8 @@ export default function HowItWorks() {
                 </div>
 
                 {/* Text */}
-                <h3 className="mb-2 text-lg font-bold text-brand-navy">{step.title}</h3>
-                <p className="mx-auto max-w-xs text-sm leading-relaxed text-brand-mutedgrey">
+                <h3 className="mb-2 text-lg font-semibold text-brand-navy">{step.title}</h3>
+                <p className="mx-auto max-w-xs text-base font-normal leading-relaxed text-brand-mutedgrey">
                   {step.description}
                 </p>
               </div>
