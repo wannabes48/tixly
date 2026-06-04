@@ -400,7 +400,11 @@ export function CheckoutFlow({
         setClientSecret(data.clientSecret);
         goTo('PAYMENT');
       } else {
-        alert("Payment initialization failed: " + (data.error || "Unknown error"));
+        let errMessage = data.error || "Unknown error";
+        if (errMessage.toLowerCase().includes('test')) {
+           errMessage = "We could not process the payment request at this time. Please try again.";
+        }
+        alert("Payment initialization failed: " + errMessage);
       }
     } catch (e) {
       console.error("Failed to init payment:", e);
