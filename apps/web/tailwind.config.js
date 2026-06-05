@@ -17,8 +17,8 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-sans)', 'sans-serif'],
-        mono: ['var(--font-mono)', 'monospace'],
+        sans: ['var(--font-geist-sans)', 'sans-serif'],
+        mono: ['var(--font-geist-mono)', 'monospace'],
       },
       fontSize: {
         'xs': ['12px', { lineHeight: '1.5' }],
