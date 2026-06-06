@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calendar, MapPin } from 'lucide-react';
 import { format } from 'date-fns';
+import { LocalTime } from '@/components/LocalTime';
 
 import Image from 'next/image';
 const MOCK_TEAMS: Record<string, any> = {
@@ -130,9 +131,7 @@ export default async function SchedulePage({
                             <span className="text-sm text-gray-500 font-medium mb-1">
                               {match.round} {match.group ? `- Group ${match.group}` : ''}
                             </span>
-                            <span className="text-2xl font-bold text-brand-navy">
-                              {format(matchDate, 'h:mm a')}
-                            </span>
+                            <LocalTime date={match.kickoffUtc} format="time" className="text-2xl font-bold text-brand-navy" />
                           </div>
 
                           <div className="flex-1 p-6 flex flex-col justify-center">

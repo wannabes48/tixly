@@ -379,17 +379,7 @@ function MatchCard({
   const lowestPrice = match.listings[0]?.pricePerTicket ?? null;
   const numListings = match._count?.listings ?? 0;
 
-  const dateStr = new Date(match.kickoffUtc).toLocaleDateString('en-US', {
-    weekday: 'short',
-    month: 'short',
-    day: 'numeric',
-  });
-
-  const timeStr = new Date(match.kickoffUtc).toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-    timeZone: 'UTC'
-  });
+  // dateStr and timeStr removed in favor of LocalTime components
 
   const roundLabelColor =
     accentColor === 'orange' ? 'text-tixOrange' : 'text-tixNavy';
@@ -450,9 +440,9 @@ function MatchCard({
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-slate-600 text-sm">
               <Calendar size={16} className="text-slate-400 shrink-0" />
-              <span className="font-semibold text-slate-700">{dateStr}</span>
+              <LocalTime date={match.kickoffUtc} format="date" className="font-semibold text-slate-700" />
               <span className="text-slate-300">·</span>
-              <span className="text-slate-500">{timeStr}</span>
+              <LocalTime date={match.kickoffUtc} format="time" className="text-slate-500" />
             </div>
             <div className="flex items-center gap-2 text-slate-600 text-sm">
               <MapPin size={16} className="text-slate-400 shrink-0" />
