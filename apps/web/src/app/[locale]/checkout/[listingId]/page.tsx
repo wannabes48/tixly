@@ -33,6 +33,25 @@ export default async function CheckoutPage({
     notFound();
   }
 
+  const isUpcoming = new Date(listing.match.kickoffUtc).getTime() > Date.now();
+
+  if (!isUpcoming) {
+    return (
+      <main className="min-h-screen bg-gray-50 pt-32 pb-20">
+        <div className="container mx-auto px-4 max-w-2xl text-center">
+          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-12">
+            <div className="text-6xl mb-6 opacity-50">⏳</div>
+            <h1 className="text-3xl font-bold text-tixNavy mb-4">Match Has Started</h1>
+            <p className="text-gray-500 mb-8">Tickets for this match are no longer available for purchase.</p>
+            <a href="/matches" className="bg-tixNavy text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-900 transition-colors">
+              Browse Upcoming Matches
+            </a>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   // Pass down serialized listing data to the Client Component
   const listingData = {
     id: listing.id,

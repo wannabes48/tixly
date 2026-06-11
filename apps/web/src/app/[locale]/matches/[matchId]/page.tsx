@@ -241,7 +241,15 @@ export default async function MatchDetailPage({
 
           {/* ─── Ticket List (Right) ─── */}
           <div className="flex-1 min-w-0 w-full">
-            <ListingsTable matchId={match.id} initialQuantity={initialQuantity} />
+            {isUpcoming ? (
+              <ListingsTable matchId={match.id} initialQuantity={initialQuantity} />
+            ) : (
+              <div className="bg-white rounded-3xl shadow-soft border border-gray-100 p-12 text-center">
+                <div className="text-5xl mb-4 opacity-50">🏟️</div>
+                <h3 className="text-xl font-bold text-tixNavy mb-2">Match Started</h3>
+                <p className="text-gray-500">Tickets for this match are no longer available for purchase.</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

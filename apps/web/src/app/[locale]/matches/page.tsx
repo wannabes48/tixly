@@ -376,8 +376,9 @@ function MatchCard({
   };
   accentColor: 'orange' | 'midblue';
 }) {
-  const lowestPrice = match.listings[0]?.pricePerTicket ?? null;
-  const numListings = match._count?.listings ?? 0;
+  const isUpcoming = match.kickoffUtc.getTime() > Date.now();
+  const lowestPrice = isUpcoming ? (match.listings[0]?.pricePerTicket ?? null) : null;
+  const numListings = isUpcoming ? (match._count?.listings ?? 0) : 0;
 
   // dateStr and timeStr removed in favor of LocalTime components
 
@@ -470,15 +471,24 @@ function MatchCard({
                   </span>
                 </>
               ) : (
-                <span className="text-sm text-slate-400 italic">No tickets yet</span>
+                <span className="text-sm text-slate-400 italic">{isUpcoming ? 'No tickets yet' : 'Tickets unavailable'}</span>
               )}
             </div>
-            <Link
-              href={`/matches/${match.id}`}
-              className={`${ctaBg} text-white text-sm font-bold px-6 py-3 rounded-xl transition-colors active:scale-95 whitespace-nowrap shadow-sm hover:shadow-md block text-center`}
-            >
-              Select Seats
-            </Link>
+            {isUpcoming ? (
+              <Link
+                href={`/matches/${match.id}`}
+                className={`${ctaBg} text-white text-sm font-bold px-6 py-3 rounded-xl transition-colors active:scale-95 whitespace-nowrap shadow-sm hover:shadow-md block text-center`}
+              >
+                Select Seats
+              </Link>
+            ) : (
+              <button
+                disabled
+                className="bg-slate-200 text-slate-500 text-sm font-bold px-6 py-3 rounded-xl cursor-not-allowed whitespace-nowrap block text-center"
+              >
+                Unavailable
+              </button>
+            )}
           </div>
         </div>
       </div>

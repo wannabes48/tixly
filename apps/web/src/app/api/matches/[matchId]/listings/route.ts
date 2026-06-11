@@ -14,6 +14,18 @@ export async function GET(
   const quantity = quantityParam ? parseInt(quantityParam) : 1;
 
   try {
+    const match = await prisma.match.findUnique({
+      where: { id: params.matchId },
+      select: { kickoffUtc: true }
+    });
+
+    if (!match || new Date(match.kickoffUtc).getTime() <= Date.now()) {
+      return NextResponse.json({
+        listings: [],
+        categoryCounts: { 'CAT1': 0, 'CAT2': 0, 'CAT3': 0, 'CAT4': 0, 'ACCESSIBILITY': 0 }
+      });
+    }
+
     // Determine which categories are valid
     const allListings = await prisma.ticketListing.findMany({
       where: {

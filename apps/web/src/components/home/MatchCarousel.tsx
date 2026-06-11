@@ -17,6 +17,7 @@ interface Match {
   city: string;
   priceFrom: number;
   bgImage?: string;
+  kickoffUtc: string;
 }
 
 const DEFAULT_MATCHES: Match[] = [
@@ -31,7 +32,8 @@ const DEFAULT_MATCHES: Match[] = [
     stadium: 'Estadio Azteca',
     city: 'Mexico City',
     priceFrom: 150,
-    bgImage: "https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307185/Estadio_Azteca_-_2026_-_02_jpevn0.jpg"
+    bgImage: "https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307185/Estadio_Azteca_-_2026_-_02_jpevn0.jpg",
+    kickoffUtc: '2026-06-11T20:00:00Z'
   },
   {
     id: 'match-2',
@@ -44,7 +46,8 @@ const DEFAULT_MATCHES: Match[] = [
     stadium: 'MetLife Stadium',
     city: 'New York / New Jersey',
     priceFrom: 450,
-    bgImage: "https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307182/Metlife_stadium__Aerial_view_ozywne.jpg"
+    bgImage: "https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307182/Metlife_stadium__Aerial_view_ozywne.jpg",
+    kickoffUtc: '2026-06-12T20:00:00Z'
   },
   {
     id: 'match-3',
@@ -57,7 +60,8 @@ const DEFAULT_MATCHES: Match[] = [
     stadium: 'SoFi Stadium',
     city: 'Los Angeles',
     priceFrom: 380,
-    bgImage: "https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307236/SoFi_Stadium_2023_fzzuuc.jpg"
+    bgImage: "https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307236/SoFi_Stadium_2023_fzzuuc.jpg",
+    kickoffUtc: '2026-06-13T20:00:00Z'
   },
   {
     id: 'match-4',
@@ -70,7 +74,8 @@ const DEFAULT_MATCHES: Match[] = [
     stadium: 'Hard Rock Stadium',
     city: 'Miami',
     priceFrom: 320,
-    bgImage: "https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307062/hard-rock-stadium-hero_kxq0ml.jpg"
+    bgImage: "https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307062/hard-rock-stadium-hero_kxq0ml.jpg",
+    kickoffUtc: '2026-06-14T20:00:00Z'
   },
   {
     id: 'match-5',
@@ -83,7 +88,8 @@ const DEFAULT_MATCHES: Match[] = [
     stadium: 'AT&T Stadium',
     city: 'Dallas',
     priceFrom: 290,
-    bgImage: "https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307180/ATT_economic-1_jqbqoh.jpg"
+    bgImage: "https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307180/ATT_economic-1_jqbqoh.jpg",
+    kickoffUtc: '2026-06-15T20:00:00Z'
   },
   {
     id: 'match-6',
@@ -96,7 +102,8 @@ const DEFAULT_MATCHES: Match[] = [
     stadium: 'BMO Field',
     city: 'Toronto',
     priceFrom: 180,
-    bgImage: "https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307178/bmo_field_ngoycc.avif"
+    bgImage: "https://res.cloudinary.com/dm12f7lnc/image/upload/v1780307178/bmo_field_ngoycc.avif",
+    kickoffUtc: '2026-06-16T20:00:00Z'
   }
 ];
 
@@ -159,6 +166,7 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
         <div className="options flex w-full h-[600px] items-stretch overflow-hidden relative shadow-2xl rounded-2xl">
           {matches.map((match, index) => {
             const bgImage = match.bgImage || DEFAULT_MATCHES.find(m => m.stadium === match.stadium)?.bgImage || DEFAULT_MATCHES[index % DEFAULT_MATCHES.length].bgImage;
+            const isUpcoming = match.kickoffUtc ? new Date(match.kickoffUtc).getTime() > Date.now() : true;
             return (
             <div
               key={match.id}
@@ -259,17 +267,34 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
                   </div>
 
                   <div className="flex flex-col items-start md:items-end flex-shrink-0 bg-black/40 backdrop-blur-md p-6 rounded-2xl border border-white/10 shadow-2xl">
-                    <p className="text-[11px] font-medium text-gray-300 uppercase tracking-editorial mb-1">Starting From</p>
-                    <p className="text-5xl font-black text-white mb-4 flex items-start gap-1">
-                      <span className="text-2xl mt-1 text-[#E8532A]">$</span>
-                      {match.priceFrom}
-                    </p>
-                    <Link
-                      href={`/matches/${match.id}`}
-                      className="w-full inline-flex items-center justify-center gap-2 bg-[#E8532A] hover:bg-[#d64a23] text-white font-bold py-3.5 px-8 rounded-xl transition-colors shadow-[0_0_20px_rgba(232,83,42,0.4)] hover:shadow-[0_0_25px_rgba(232,83,42,0.6)] text-lg"
-                    >
-                      <Image src="/ticket.png" alt="Ticket" width={20} height={20} className="w-5 h-5 object-contain" /> Buy Tickets
-                    </Link>
+                    {isUpcoming ? (
+                      <>
+                        <p className="text-[11px] font-medium text-gray-300 uppercase tracking-editorial mb-1">Starting From</p>
+                        <p className="text-5xl font-black text-white mb-4 flex items-start gap-1">
+                          <span className="text-2xl mt-1 text-[#E8532A]">$</span>
+                          {match.priceFrom}
+                        </p>
+                        <Link
+                          href={`/matches/${match.id}`}
+                          className="w-full inline-flex items-center justify-center gap-2 bg-[#E8532A] hover:bg-[#d64a23] text-white font-bold py-3.5 px-8 rounded-xl transition-colors shadow-[0_0_20px_rgba(232,83,42,0.4)] hover:shadow-[0_0_25px_rgba(232,83,42,0.6)] text-lg"
+                        >
+                          <Image src="/ticket.png" alt="Ticket" width={20} height={20} className="w-5 h-5 object-contain" /> Buy Tickets
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-[11px] font-medium text-gray-300 uppercase tracking-editorial mb-1">Status</p>
+                        <p className="text-3xl font-black text-gray-400 mb-4 flex items-start gap-1 mt-2">
+                          Match Started
+                        </p>
+                        <button
+                          disabled
+                          className="w-full inline-flex items-center justify-center gap-2 bg-gray-500/50 text-gray-300 font-bold py-3.5 px-8 rounded-xl cursor-not-allowed text-lg border border-gray-400/30"
+                        >
+                          Unavailable
+                        </button>
+                      </>
+                    )}
                   </div>
 
                 </div>
@@ -284,6 +309,7 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
         <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-4 pb-8 hide-scrollbar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {matches.map((match, index) => {
             const bgImage = match.bgImage || DEFAULT_MATCHES.find(m => m.stadium === match.stadium)?.bgImage || DEFAULT_MATCHES[index % DEFAULT_MATCHES.length].bgImage;
+            const isUpcoming = match.kickoffUtc ? new Date(match.kickoffUtc).getTime() > Date.now() : true;
             return (
               <div 
                 key={match.id} 
@@ -324,18 +350,37 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
                   </div>
 
                   <div className="flex items-center justify-between mt-2 pt-5 border-t border-white/10">
-                    <div>
-                      <p className="text-white/60 text-[10px] uppercase font-medium tracking-editorial mb-0.5">Starting From</p>
-                      <p className="text-white font-black text-3xl flex items-start gap-0.5">
-                        <span className="text-lg mt-1 text-[#E8532A]">$</span>{match.priceFrom}
-                      </p>
-                    </div>
-                    <Link
-                      href={`/matches/${match.id}`}
-                      className="bg-[#E8532A] hover:bg-[#d64a23] text-white p-3.5 rounded-xl transition-all shadow-lg flex-shrink-0"
-                    >
-                      <ArrowRight size={20} />
-                    </Link>
+                    {isUpcoming ? (
+                      <>
+                        <div>
+                          <p className="text-white/60 text-[10px] uppercase font-medium tracking-editorial mb-0.5">Starting From</p>
+                          <p className="text-white font-black text-3xl flex items-start gap-0.5">
+                            <span className="text-lg mt-1 text-[#E8532A]">$</span>{match.priceFrom}
+                          </p>
+                        </div>
+                        <Link
+                          href={`/matches/${match.id}`}
+                          className="bg-[#E8532A] hover:bg-[#d64a23] text-white p-3.5 rounded-xl transition-all shadow-lg flex-shrink-0"
+                        >
+                          <ArrowRight size={20} />
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        <div>
+                          <p className="text-white/60 text-[10px] uppercase font-medium tracking-editorial mb-0.5">Status</p>
+                          <p className="text-gray-400 font-black text-xl flex items-start gap-0.5 mt-1">
+                            Started
+                          </p>
+                        </div>
+                        <button
+                          disabled
+                          className="bg-gray-600/50 text-gray-400 p-3.5 rounded-xl cursor-not-allowed flex-shrink-0 border border-gray-500/30"
+                        >
+                          Unavailable
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
