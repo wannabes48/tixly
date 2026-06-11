@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const WORLD_CUP_START = new Date('2026-06-11T00:00:00Z').getTime();
+const WORLD_CUP_END = new Date('2026-07-19T23:59:59Z').getTime();
 
 const POPULAR_SEARCHES = [
   'Argentina',
@@ -70,7 +70,7 @@ export default function Hero() {
   const [matchQuantity, setMatchQuantity] = useState('1');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const blurTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const { days, hours, minutes, seconds, mounted } = useCountdown(WORLD_CUP_START);
+  const { days, hours, minutes, seconds, mounted } = useCountdown(WORLD_CUP_END);
 
   const filtered = POPULAR_SEARCHES.filter((s) =>
     s.toLowerCase().includes(query.toLowerCase())
