@@ -37,6 +37,7 @@ export default async function HomePage() {
     stadium: m.stadium?.name || 'TBA',
     city: m.stadium?.city || 'TBA',
     priceFrom: m.listings?.[0]?.pricePerTicket || 150,
+    kickoffUtc: m.kickoffUtc.toISOString(),
   }));
 
   return (
