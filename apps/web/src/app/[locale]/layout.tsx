@@ -15,11 +15,6 @@ const baseUrl = 'https://www.tixlyonline.com';
 const locales = ['en', 'es', 'fr', 'pt', 'ar', 'de'];
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
-  const languages: Record<string, string> = {};
-  locales.forEach((l) => {
-    languages[l] = `/${l}`; // Relative paths for alternates
-  });
-
   return {
     title: {
       template: '%s | Tixly',
@@ -27,10 +22,6 @@ export async function generateMetadata({ params: { locale } }: { params: { local
     },
     description: 'Buy and sell tickets for the FIFA World Cup 2026 securely on Tixly.',
     metadataBase: new URL(baseUrl),
-    alternates: {
-      canonical: `/${locale}`,
-      languages: languages,
-    },
     robots: {
       index: true,
       follow: true,

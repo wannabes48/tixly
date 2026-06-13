@@ -1,0 +1,834 @@
+[
+  {
+    "date": "Fri 12 Jun",
+    "time": "03:00",
+    "round": "Group Stage",
+    "group": "A",
+    "fixture": "MEX vs RSA",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Fri 12 Jun",
+    "time": "10:00",
+    "round": "Group Stage",
+    "group": "A",
+    "fixture": "KOR vs CZE",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Sat 13 Jun",
+    "time": "03:00",
+    "round": "Group Stage",
+    "group": "B",
+    "fixture": "CAN vs BIH",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Sat 13 Jun",
+    "time": "09:00",
+    "round": "Group Stage",
+    "group": "D",
+    "fixture": "USA vs PAR",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Sun 14 Jun",
+    "time": "03:00",
+    "round": "Group Stage",
+    "group": "B",
+    "fixture": "QAT vs SUI",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Sun 14 Jun",
+    "time": "06:00",
+    "round": "Group Stage",
+    "group": "C",
+    "fixture": "BRA vs MAR",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Sun 14 Jun",
+    "time": "09:00",
+    "round": "Group Stage",
+    "group": "C",
+    "fixture": "HAI vs SCO",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Sun 14 Jun",
+    "time": "12:00",
+    "round": "Group Stage",
+    "group": "D",
+    "fixture": "AUS vs TUR",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Mon 15 Jun",
+    "time": "01:00",
+    "round": "Group Stage",
+    "group": "E",
+    "fixture": "GER vs CUW",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Mon 15 Jun",
+    "time": "04:00",
+    "round": "Group Stage",
+    "group": "F",
+    "fixture": "NED vs JPN",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Mon 15 Jun",
+    "time": "07:00",
+    "round": "Group Stage",
+    "group": "E",
+    "fixture": "CIV vs ECU",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Mon 15 Jun",
+    "time": "10:00",
+    "round": "Group Stage",
+    "group": "F",
+    "fixture": "SWE vs TUN",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Tue 16 Jun",
+    "time": "00:00",
+    "round": "Group Stage",
+    "group": "H",
+    "fixture": "ESP vs CPV",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Tue 16 Jun",
+    "time": "03:00",
+    "round": "Group Stage",
+    "group": "G",
+    "fixture": "BEL vs EGY",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Tue 16 Jun",
+    "time": "06:00",
+    "round": "Group Stage",
+    "group": "H",
+    "fixture": "KSA vs URU",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Tue 16 Jun",
+    "time": "09:00",
+    "round": "Group Stage",
+    "group": "G",
+    "fixture": "IRN vs NZL",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Wed 17 Jun",
+    "time": "03:00",
+    "round": "Group Stage",
+    "group": " ",
+    "fixture": "FRA vs SEN",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Wed 17 Jun",
+    "time": "06:00",
+    "round": "Group Stage",
+    "group": null,
+    "fixture": "IRQ vs NOR",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Wed 17 Jun",
+    "time": "09:00",
+    "round": "Group Stage",
+    "group": "J",
+    "fixture": "ARG vs ALG",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Wed 17 Jun",
+    "time": "12:00",
+    "round": "Group Stage",
+    "group": "J",
+    "fixture": "AUT vs JOR",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Thu 18 Jun",
+    "time": "01:00",
+    "round": "Group Stage",
+    "group": "K",
+    "fixture": "POR vs COD",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Thu 18 Jun",
+    "time": "04:00",
+    "round": "Group Stage",
+    "group": "L",
+    "fixture": "ENG vs CRO",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Thu 18 Jun",
+    "time": "07:00",
+    "round": "Group Stage",
+    "group": "L",
+    "fixture": "GHA vs PAN",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Thu 18 Jun",
+    "time": "10:00",
+    "round": "Group Stage",
+    "group": "K",
+    "fixture": "UZB vs COL",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Fri 19 Jun",
+    "time": "00:00",
+    "round": "Group Stage",
+    "group": "A",
+    "fixture": "CZE vs RSA",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Fri 19 Jun",
+    "time": "03:00",
+    "round": "Group Stage",
+    "group": "B",
+    "fixture": "SUI vs BIH",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Fri 19 Jun",
+    "time": "06:00",
+    "round": "Group Stage",
+    "group": "B",
+    "fixture": "CAN vs QAT",
+    "source": "[cite: 2]"
+  },
+  {
+    "date": "Fri 19 Jun",
+    "time": "09:00",
+    "round": "Group Stage",
+    "group": "A",
+    "fixture": "MEX vs KOR",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Sat 20 Jun",
+    "time": "03:00",
+    "round": "Group Stage",
+    "group": "D",
+    "fixture": "USA vs AUS",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Sat 20 Jun",
+    "time": "06:00",
+    "round": "Group Stage",
+    "group": "C",
+    "fixture": "SCO vs MAR",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Sat 20 Jun",
+    "time": "09:00",
+    "round": "Group Stage",
+    "group": "C",
+    "fixture": "BRA vs HAI",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Sat 20 Jun",
+    "time": "12:00",
+    "round": "Group Stage",
+    "group": "D",
+    "fixture": "TUR vs PAR",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Sun 21 Jun",
+    "time": "01:00",
+    "round": "Group Stage",
+    "group": "F",
+    "fixture": "NED vs SWE",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Sun 21 Jun",
+    "time": "04:00",
+    "round": "Group Stage",
+    "group": "E",
+    "fixture": "GER vs CIV",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Sun 21 Jun",
+    "time": "08:00",
+    "round": "Group Stage",
+    "group": "E",
+    "fixture": "ECU vs CUW",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Sun 21 Jun",
+    "time": "12:00",
+    "round": "Group Stage",
+    "group": "F",
+    "fixture": "TUN vs JPN",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Mon 22 Jun",
+    "time": "00:00",
+    "round": "Group Stage",
+    "group": "H",
+    "fixture": "ESP vs KSA",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Mon 22 Jun",
+    "time": "03:00",
+    "round": "Group Stage",
+    "group": "G",
+    "fixture": "BEL vs IRN",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Mon 22 Jun",
+    "time": "06:00",
+    "round": "Group Stage",
+    "group": "H",
+    "fixture": "URU vs CPV",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Mon 22 Jun",
+    "time": "09:00",
+    "round": "Group Stage",
+    "group": "G",
+    "fixture": "NZL vs EGY",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Tue 23 Jun",
+    "time": "01:00",
+    "round": "Group Stage",
+    "group": "J",
+    "fixture": "ARG vs AUT",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Tue 23 Jun",
+    "time": "05:00",
+    "round": "Group Stage",
+    "group": "1",
+    "fixture": "FRA vs IRQ",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Tue 23 Jun",
+    "time": "08:00",
+    "round": "Group Stage",
+    "group": null,
+    "fixture": "NOR vs SEN",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Tue 23 Jun",
+    "time": "11:00",
+    "round": "Group Stage",
+    "group": "J",
+    "fixture": "JOR vs ALG",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Wed 24 Jun",
+    "time": "01:00",
+    "round": "Group Stage",
+    "group": "K",
+    "fixture": "POR vs UZB",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Wed 24 Jun",
+    "time": "04:00",
+    "round": "Group Stage",
+    "group": "L",
+    "fixture": "ENG vs GHA",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Wed 24 Jun",
+    "time": "07:00",
+    "round": "Group Stage",
+    "group": "L",
+    "fixture": "PAN vs CRO",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Wed 24 Jun",
+    "time": "10:00",
+    "round": "Group Stage",
+    "group": "K",
+    "fixture": "COL vs COD",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Thu 25 Jun",
+    "time": "03:00",
+    "round": "Group Stage",
+    "group": "B",
+    "fixture": "SUI vs CAN",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Thu 25 Jun",
+    "time": "03:00",
+    "round": "Group Stage",
+    "group": "B",
+    "fixture": "BIH vs QAT",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Thu 25 Jun",
+    "time": "06:00",
+    "round": "Group Stage",
+    "group": "C",
+    "fixture": "SCO vs BRA",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Thu 25 Jun",
+    "time": "06:00",
+    "round": "Group Stage",
+    "group": "C",
+    "fixture": "MAR vs HAI",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Thu 25 Jun",
+    "time": "09:00",
+    "round": "Group Stage",
+    "group": "A",
+    "fixture": "CZE vs MEX",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Thu 25 Jun",
+    "time": "09:00",
+    "round": "Group Stage",
+    "group": "A",
+    "fixture": "RSA vs KOR",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Fri 26 Jun",
+    "time": "04:00",
+    "round": "Group Stage",
+    "group": "E",
+    "fixture": "CUW vs CIV",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Fri 26 Jun",
+    "time": "04:00",
+    "round": "Group Stage",
+    "group": "E",
+    "fixture": "ECU vs GER",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Fri 26 Jun",
+    "time": "07:00",
+    "round": "Group Stage",
+    "group": "F",
+    "fixture": "JPN vs SWE",
+    "source": "[cite: 3]"
+  },
+  {
+    "date": "Fri 26 Jun",
+    "time": "07:00",
+    "round": "Group Stage",
+    "group": "F",
+    "fixture": "TUN vs NED",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Fri 26 Jun",
+    "time": "10:00",
+    "round": "Group Stage",
+    "group": "D",
+    "fixture": "TUR vs USA",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Fri 26 Jun",
+    "time": "10:00",
+    "round": "Group Stage",
+    "group": "D",
+    "fixture": "PAR vs AUS",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Sat 27 Jun",
+    "time": "03:00",
+    "round": "Group Stage",
+    "group": "1",
+    "fixture": "NOR vs FRA",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Sat 27 Jun",
+    "time": "03:00",
+    "round": "Group Stage",
+    "group": " ",
+    "fixture": "SEN vs IRQ",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Sat 27 Jun",
+    "time": "08:00",
+    "round": "Group Stage",
+    "group": "H",
+    "fixture": "URU vs ESP",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Sat 27 Jun",
+    "time": "08:00",
+    "round": "Group Stage",
+    "group": "H",
+    "fixture": "CPV vs KSA",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Sat 27 Jun",
+    "time": "11:00",
+    "round": "Group Stage",
+    "group": "G",
+    "fixture": "NZL vs BEL",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Sat 27 Jun",
+    "time": "11:00",
+    "round": "Group Stage",
+    "group": "G",
+    "fixture": "EGY vs IRN",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Sun 28 Jun",
+    "time": "05:00",
+    "round": "Group Stage",
+    "group": "L",
+    "fixture": "PAN vs ENG",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Sun 28 Jun",
+    "time": "05:00",
+    "round": "Group Stage",
+    "group": "L",
+    "fixture": "CRO vs GHA",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Sun 28 Jun",
+    "time": "07:30",
+    "round": "Group Stage",
+    "group": "K",
+    "fixture": "COL vs POR",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Sun 28 Jun",
+    "time": "07:30",
+    "round": "Group Stage",
+    "group": "K",
+    "fixture": "COD vs UZB",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Sun 28 Jun",
+    "time": "10:00",
+    "round": "Group Stage",
+    "group": "J",
+    "fixture": "JOR vs ARG",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Sun 28 Jun",
+    "time": "10:00",
+    "round": "Group Stage",
+    "group": "J",
+    "fixture": "ALG vs AUT",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Mon 29 Jun",
+    "time": "03:00",
+    "round": "Round of 32",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Tue 30 Jun",
+    "time": "01:00",
+    "round": "Round of 32",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Tue 30 Jun",
+    "time": "04:30",
+    "round": "Round of 32",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Tue 30 Jun",
+    "time": "09:00",
+    "round": "Round of 32",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Wed 01 Jul",
+    "time": "01:00",
+    "round": "Round of 32",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Wed 01 Jul",
+    "time": "05:00",
+    "round": "Round of 32",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Wed 01 Jul",
+    "time": "09:00",
+    "round": "Round of 32",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Thu 02 Jul",
+    "time": "00:00",
+    "round": "Round of 32",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Thu 02 Jul",
+    "time": "04:00",
+    "round": "Round of 32",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Thu 02 Jul",
+    "time": "08:00",
+    "round": "Round of 32",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Fri 03 Jul",
+    "time": "03:00",
+    "round": "Round of 32",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Fri 03 Jul",
+    "time": "07:00",
+    "round": "Round of 32",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Fri 03 Jul",
+    "time": "11:00",
+    "round": "Round of 32",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Sat 04 Jul",
+    "time": "02:00",
+    "round": "Round of 32",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 4]"
+  },
+  {
+    "date": "Sat 04 Jul",
+    "time": "06:00",
+    "round": "Round of 32",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 5]"
+  },
+  {
+    "date": "Sat 04 Jul",
+    "time": "09:30",
+    "round": "Round of 32",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 5]"
+  },
+  {
+    "date": "Sun 05 Jul",
+    "time": "01:00",
+    "round": "Round of 16",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 5]"
+  },
+  {
+    "date": "Sun 05 Jul",
+    "time": "05:00",
+    "round": "Round of 16",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 5]"
+  },
+  {
+    "date": "Mon 06 Jul",
+    "time": "04:00",
+    "round": "Round of 16",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 5]"
+  },
+  {
+    "date": "Mon 06 Jul",
+    "time": "08:00",
+    "round": "Round of 16",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 5]"
+  },
+  {
+    "date": "Tue 07 Jul",
+    "time": "03:00",
+    "round": "Round of 16",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 5]"
+  },
+  {
+    "date": "Tue 07 Jul",
+    "time": "08:00",
+    "round": "Round of 16",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 5]"
+  },
+  {
+    "date": "Wed 08 Jul",
+    "time": "00:00",
+    "round": "Round of 16",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 5]"
+  },
+  {
+    "date": "Wed 08 Jul",
+    "time": "04:00",
+    "round": "Round of 16",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 5]"
+  },
+  {
+    "date": "Fri 10 Jul",
+    "time": "04:00",
+    "round": "Quarter-Finals",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 5]"
+  },
+  {
+    "date": "Sat 11 Jul",
+    "time": "03:00",
+    "round": "Quarter-Finals",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 5]"
+  },
+  {
+    "date": "Sun 12 Jul",
+    "time": "05:00",
+    "round": "Quarter-Finals",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 5]"
+  },
+  {
+    "date": "Sun 12 Jul",
+    "time": "09:00",
+    "round": "Quarter-Finals",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 5]"
+  },
+  {
+    "date": "Wed 15 Jul",
+    "time": "03:00",
+    "round": "Semi-Finals",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 5]"
+  },
+  {
+    "date": "Thu 16 Jul",
+    "time": "03:00",
+    "round": "Semi-Finals",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 5]"
+  },
+  {
+    "date": "Sun 19 Jul",
+    "time": "05:00",
+    "round": "Bronze Final",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 5]"
+  },
+  {
+    "date": "Mon 20 Jul",
+    "time": "03:00",
+    "round": "Final",
+    "group": null,
+    "fixture": "TBC vs TBC",
+    "source": "[cite: 5]"
+  }
+]

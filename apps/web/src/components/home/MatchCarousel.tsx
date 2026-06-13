@@ -4,6 +4,7 @@ import { useLocale } from "next-intl";
 import { Link } from '@/navigation';
 import Image from 'next/image';
 import { MapPin, ArrowRight } from 'lucide-react';
+import { LocalTime } from '@/components/LocalTime';
 
 interface Match {
   id: string;
@@ -242,7 +243,7 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
                   <div className="flex-1 min-w-0 pr-4">
                     <div className="flex items-center gap-3 mb-4">
                       <span className="inline-flex items-center justify-center bg-[#E8532A] text-white text-[12px] font-medium px-4 py-1.5 rounded-full uppercase tracking-editorial shadow-lg">
-                        {match.date}
+                        {match.kickoffUtc ? <LocalTime date={match.kickoffUtc} format="datetime" /> : match.date}
                       </span>
                       <div className="flex items-center gap-2 text-white text-sm font-semibold bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-md border border-white/10 shadow-lg">
                         <MapPin size={16} /> {match.stadium}, {match.city}
@@ -324,7 +325,7 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
                 <div className="relative z-10 p-6 flex flex-col gap-5">
                   <div className="flex items-center gap-2">
                     <span className="bg-[#E8532A] text-white text-[11px] font-medium px-3 py-1.5 rounded-full uppercase tracking-editorial shadow-lg">
-                      {match.date}
+                      {match.kickoffUtc ? <LocalTime date={match.kickoffUtc} format="datetime" /> : match.date}
                     </span>
                   </div>
                   

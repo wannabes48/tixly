@@ -240,35 +240,38 @@ export default function Hero() {
         </p>
 
         {/* Countdown Timer */}
-        <div className="flex items-center justify-center gap-1.5 sm:gap-3 mb-10 md:mb-12">
-          {countdownUnits.map((unit, i) => (
-            <div key={unit.label} className="flex items-center gap-1.5 sm:gap-3">
-              <div className="flex flex-col items-center">
-                <div
-                  className="w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 flex items-center justify-center rounded-xl sm:rounded-2xl text-2xl sm:text-4xl md:text-5xl font-black text-white tabular-nums transition-all duration-500"
-                  style={{
-                    background: 'rgba(255,255,255,0.1)',
-                    backdropFilter: 'blur(12px)',
-                    WebkitBackdropFilter: 'blur(12px)',
-                    border: '1px solid rgba(255,255,255,0.2)',
-                    ...(unit.label === 'Seconds'
-                      ? { animation: 'pulse-ring 2s ease-in-out infinite' }
-                      : {}),
-                  }}
-                >
-                  {unit.value}
+        <div className="flex flex-col items-center justify-center mb-10 md:mb-12">
+          <p className="text-white/80 uppercase tracking-widest text-[11px] sm:text-xs font-bold mb-5 tracking-editorial">Time Remaining Until Tournament Ends</p>
+          <div className="flex items-center justify-center gap-1.5 sm:gap-3">
+            {countdownUnits.map((unit, i) => (
+              <div key={unit.label} className="flex items-center gap-1.5 sm:gap-3">
+                <div className="flex flex-col items-center">
+                  <div
+                    className="w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 flex items-center justify-center rounded-xl sm:rounded-2xl text-2xl sm:text-4xl md:text-5xl font-black text-white tabular-nums transition-all duration-500"
+                    style={{
+                      background: 'rgba(255,255,255,0.1)',
+                      backdropFilter: 'blur(12px)',
+                      WebkitBackdropFilter: 'blur(12px)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      ...(unit.label === 'Seconds'
+                        ? { animation: 'pulse-ring 2s ease-in-out infinite' }
+                        : {}),
+                    }}
+                  >
+                    {unit.value}
+                  </div>
+                  <span className="text-[10px] sm:text-[12px] uppercase tracking-editorial text-white/60 mt-1.5 sm:mt-2 font-medium">
+                    {unit.label}
+                  </span>
                 </div>
-                <span className="text-[10px] sm:text-[12px] uppercase tracking-editorial text-white/60 mt-1.5 sm:mt-2 font-medium">
-                  {unit.label}
-                </span>
+                {i < countdownUnits.length - 1 && (
+                  <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white/30 -mt-5 sm:-mt-6">
+                    :
+                  </span>
+                )}
               </div>
-              {i < countdownUnits.length - 1 && (
-                <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white/30 -mt-5 sm:-mt-6">
-                  :
-                </span>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* Match Finder Widget (Flight Booking Style) */}

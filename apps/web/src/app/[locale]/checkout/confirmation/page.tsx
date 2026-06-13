@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import { Link } from '@/navigation';
 import { AnimatedTicket } from "@/components/ui/ticket-confirmation-card";
@@ -33,18 +33,14 @@ export default function CheckoutConfirmationPage() {
           We've sent a confirmation email to your provided email address with your order details and instructions on how to access your tickets.
         </p>
         <div className="flex flex-col gap-3 sm:flex-row justify-center">
-          <Button asChild variant="outline" className="w-full sm:w-auto rounded-xl">
-            <Link href="#">
-              <Download className="w-4 h-4 mr-2" />
-              Download Receipt
-            </Link>
-          </Button>
-          <Button asChild className="w-full sm:w-auto bg-brand-navy hover:bg-slate-800 text-white rounded-xl">
-            <Link href="/">
-              <img src="/ticket.png" alt="Ticket" className="w-4 h-4 mr-2 object-contain" />
-              Return to Homepage
-            </Link>
-          </Button>
+          <Link href="#" className={buttonVariants({ variant: "outline", className: "w-full sm:w-auto rounded-xl" })}>
+            <Download className="w-4 h-4 mr-2" />
+            Download Receipt
+          </Link>
+          <Link href="/" className={buttonVariants({ className: "w-full sm:w-auto bg-brand-navy hover:bg-slate-800 text-white rounded-xl" })}>
+            <img src="/ticket.png" alt="Ticket" className="w-4 h-4 mr-2 object-contain" />
+            Return to Homepage
+          </Link>
         </div>
       </div>
     </div>

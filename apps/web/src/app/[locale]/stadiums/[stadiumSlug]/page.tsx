@@ -2,7 +2,7 @@ import { prisma } from '@tixly/database';
 import { Link } from '@/navigation';
 import { notFound } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { ArrowLeft, Calendar, MapPin, Users, Eye, EyeOff, DollarSign, Gem } from 'lucide-react';
 import { format } from 'date-fns';
 import { stadiumInsights } from '@/data/stadium-insights';
@@ -219,12 +219,10 @@ export default async function StadiumDetailPage({ params }: { params: { locale: 
                     </div>
 
                     <div className="p-6 sm:w-48 flex items-center justify-center border-t sm:border-t-0 sm:border-l border-slate-100 h-full w-full">
-                      <Button asChild className="w-full rounded-xl bg-[#ff6b00] hover:bg-[#e66000] text-white font-semibold">
-                        <Link href={`/matches/${match.id}`} className="w-full flex items-center justify-center">
-                          <img src="/ticket.png" alt="Ticket" className="w-4 h-4 mr-2 object-contain" />
-                          Tickets
-                        </Link>
-                      </Button>
+                      <Link href={`/matches/${match.id}`} className={buttonVariants({ className: "w-full rounded-xl bg-[#ff6b00] hover:bg-[#e66000] text-white font-semibold flex items-center justify-center" })}>
+                        <img src="/ticket.png" alt="Ticket" className="w-4 h-4 mr-2 object-contain" />
+                        Tickets
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>
