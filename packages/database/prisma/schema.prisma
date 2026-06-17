@@ -110,6 +110,19 @@ model Order {
   
   listing               TicketListing @relation(fields: [listingId], references: [id])
   disputes              Dispute[]
+  logs                  OrderLog[]
+}
+
+model OrderLog {
+  id          String   @id @default(cuid())
+  orderId     String
+  action      String   // e.g. CREATED, PAID, REFUNDED, DELIVERED, DISPUTE_OPENED, NOTE_ADDED
+  description String?  @db.Text
+  createdAt   DateTime @default(now())
+
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
 }
 
 model User {

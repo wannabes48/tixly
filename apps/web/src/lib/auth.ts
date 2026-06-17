@@ -33,6 +33,12 @@ export const authOptions: NextAuthOptions = {
               kycStatus: 'VERIFIED'
             }
           });
+        } else if (credentials.role && user.role !== credentials.role) {
+          // Update role if changed (useful for demo environment switching roles)
+          user = await prisma.user.update({
+            where: { id: user.id },
+            data: { role: credentials.role as any }
+          });
         }
         
         return user;

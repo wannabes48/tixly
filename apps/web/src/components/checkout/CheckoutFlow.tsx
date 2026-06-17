@@ -24,7 +24,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY 
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type Step = 'QUANTITY' | 'DETAILS' | 'PROTECTION' | 'PAYMENT' | 'WHATSAPP_PENDING' | 'CONFIRMATION';
+type Step = 'QUANTITY' | 'DETAILS' | 'PROTECTION' | 'PAYMENT' | 'PROCESSING' | 'WHATSAPP_PENDING' | 'CONFIRMATION';
 
 interface ListingData {
   id: string;
@@ -260,9 +260,11 @@ export function CheckoutFlow({
   initialData?: { qty: number, firstName: string, lastName: string, email: string, redirectStatus?: string | null } 
 }) {
   const [step, setStep] = useState<Step>(
-    initialData?.redirectStatus === 'succeeded' || initialData?.redirectStatus === 'processing' 
+    initialData?.redirectStatus === 'succeeded' 
       ? 'CONFIRMATION' 
-      : (initialData?.qty ? 'DETAILS' : 'QUANTITY')
+      : initialData?.redirectStatus === 'processing'
+        ? 'PROCESSING'
+        : (initialData?.qty ? 'DETAILS' : 'QUANTITY')
   );
   const [quantity, setQuantity] = useState(initialData?.qty || 1);
   const [refundProtection, setRefundProtection] = useState(true);
@@ -817,6 +819,7 @@ export function CheckoutFlow({
                       buyerEmail={buyer.email}
                       buyerPhone={`${buyer.dialCode} ${buyer.phone}`.trim()}
                       onSuccess={() => goTo('CONFIRMATION')} 
+                      onProcessing={() => goTo('PROCESSING')}
                       onBack={() => goTo('PROTECTION')} 
                     />
                   </Elements>
@@ -855,6 +858,26 @@ export function CheckoutFlow({
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-tixOrange"></div>
               </div>
             )}
+          </div>
+        )}
+
+        {/* ── STEP 4.25: Processing ────────────────────────────────────────── */}
+        {step === 'PROCESSING' && (
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 text-center animate-in zoom-in-95 duration-500">
+            <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg className="w-10 h-10 text-tixNavy animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </div>
+            <h2 className="text-3xl font-extrabold text-tixNavy mb-2">Processing Payment</h2>
+            <p className="text-gray-500 text-sm mb-6 max-w-sm mx-auto">
+              Your payment is currently processing. This can sometimes take a few moments. We will notify you once it completes.
+            </p>
+            <div className="inline-block bg-gray-50 border border-gray-100 rounded-xl px-8 py-4 mb-6 shadow-inner">
+              <p className="text-xs text-gray-500 mb-1 uppercase tracking-wider font-bold">Order Reference</p>
+              <p className="font-mono font-bold text-tixNavy text-2xl tracking-widest">{orderRef}</p>
+            </div>
           </div>
         )}
 

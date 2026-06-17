@@ -10,6 +10,7 @@ export function PaymentForm({
   buyerEmail,
   buyerPhone,
   onSuccess, 
+  onProcessing,
   onBack 
 }: { 
   total: number,
@@ -17,6 +18,7 @@ export function PaymentForm({
   buyerEmail: string,
   buyerPhone: string,
   onSuccess: () => void, 
+  onProcessing: () => void,
   onBack: () => void 
 }) {
   const stripe = useStripe();
@@ -71,7 +73,7 @@ export function PaymentForm({
         onSuccess();
       } else if (paymentIntent && paymentIntent.status === 'processing') {
         // Processing (e.g. SEPA, iDEAL async)
-        onSuccess(); 
+        onProcessing(); 
       } else {
         setError('Payment was canceled or failed. Please try again.');
       }
