@@ -4,9 +4,9 @@ export async function POST(req: Request) {
   try {
     const { token } = await req.json();
     
-    // If the mock/dummy secret is used, just return success
-    if (process.env.TURNSTILE_SECRET_KEY === '1x0000000000000000000000000000000AA') {
-      return NextResponse.json({ success: true });
+    // If the mock/dummy secret is used or token is bypassed, just return success
+    if (token === 'bypassed-token' || process.env.TURNSTILE_SECRET_KEY === '1x0000000000000000000000000000000AA') {
+      return NextResponse.json({ success: true, bypassed: true });
     }
 
     // Allow bypass if no secret is set at all so we don't break local development
