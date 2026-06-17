@@ -70,6 +70,7 @@ export default async function CheckoutPage({
     firstName: typeof searchParams.fn === 'string' ? searchParams.fn : '',
     lastName: typeof searchParams.ln === 'string' ? searchParams.ln : '',
     email: typeof searchParams.em === 'string' ? searchParams.em : '',
+    redirectStatus: typeof searchParams.redirect_status === 'string' ? searchParams.redirect_status : null,
   };
 
   return (

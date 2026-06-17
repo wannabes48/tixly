@@ -56,7 +56,7 @@ export function PaymentForm({
       }
       
       // 2. Confirm payment with Stripe
-      const { error: stripeError } = await stripe.confirmPayment({
+      const { error: stripeError, paymentIntent } = await stripe.confirmPayment({
         elements,
         confirmParams: {
           return_url: window.location.href, // Required by some payment methods, but we handle redirect: 'if_required' below
@@ -66,9 +66,14 @@ export function PaymentForm({
 
       if (stripeError) {
         setError(stripeError.message ?? 'An error occurred processing your payment.');
-      } else {
+      } else if (paymentIntent && paymentIntent.status === 'succeeded') {
         // Payment succeeded
         onSuccess();
+      } else if (paymentIntent && paymentIntent.status === 'processing') {
+        // Processing (e.g. SEPA, iDEAL async)
+        onSuccess(); 
+      } else {
+        setError('Payment was canceled or failed. Please try again.');
       }
     } catch (err) {
       console.error(err);

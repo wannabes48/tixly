@@ -257,9 +257,13 @@ export function CheckoutFlow({
   initialData 
 }: { 
   listing: ListingData, 
-  initialData?: { qty: number, firstName: string, lastName: string, email: string } 
+  initialData?: { qty: number, firstName: string, lastName: string, email: string, redirectStatus?: string | null } 
 }) {
-  const [step, setStep] = useState<Step>(initialData?.qty ? 'DETAILS' : 'QUANTITY');
+  const [step, setStep] = useState<Step>(
+    initialData?.redirectStatus === 'succeeded' || initialData?.redirectStatus === 'processing' 
+      ? 'CONFIRMATION' 
+      : (initialData?.qty ? 'DETAILS' : 'QUANTITY')
+  );
   const [quantity, setQuantity] = useState(initialData?.qty || 1);
   const [refundProtection, setRefundProtection] = useState(true);
   const [orderRef] = useState(() => 'TIX-2026-' + Math.random().toString(36).substring(2, 8).toUpperCase());
