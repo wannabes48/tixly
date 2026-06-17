@@ -6,10 +6,6 @@ import {
   User, Mail, Phone, Globe, AlertCircle, Ticket, MapPin, Calendar, Download, DownloadCloud, Timer
 } from 'lucide-react';
 import { Link } from '@/navigation';
-// Stripe completely bypassed for WhatsApp manual checkout
-import { InvoiceReceipt } from './InvoiceReceipt';
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
 import {
   Select,
   SelectContent,
@@ -17,8 +13,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { InvoiceReceipt } from './InvoiceReceipt';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import { PaymentForm } from './PaymentForm';
 
-// Stripe variables removed
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -378,8 +380,27 @@ export function CheckoutFlow({
     if (validateDetails()) goTo('PROTECTION');
   };
 
-  const handleProceedToPayment = () => {
-    goTo('PAYMENT');
+  const handleProceedToPayment = async () => {
+    setIsCreatingIntent(true);
+    try {
+      const res = await fetch('/api/create-payment-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ listingId: listing.id, quantity, refundProtection, buyerInfo: buyer }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setClientSecret(data.clientSecret);
+        goTo('PAYMENT');
+      } else {
+        let errMessage = data.error || "Unknown error";
+        alert("Payment initialization failed: " + errMessage);
+      }
+    } catch (e) {
+      console.error("Failed to init payment:", e);
+      alert("Network error. Please try again.");
+    }
+    setIsCreatingIntent(false);
   };
 
   const availableQuantities = Array.from(
@@ -730,9 +751,13 @@ export function CheckoutFlow({
               <button onClick={() => goTo('DETAILS')} className="px-5 py-3.5 rounded-xl font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 transition-colors text-sm">
                 ← Back
               </button>
-              <button onClick={handleProceedToPayment}
-                className="flex-1 bg-tixOrange hover:bg-orange-600 text-white py-3.5 rounded-xl font-bold text-base transition-all duration-200 shadow-md shadow-orange-100 hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                <CreditCard size={18} /> Proceed to Payment →
+              <button onClick={handleProceedToPayment} disabled={isCreatingIntent}
+                className="flex-1 bg-tixOrange hover:bg-orange-600 disabled:bg-orange-400 text-white py-3.5 rounded-xl font-bold text-base transition-all duration-200 shadow-md shadow-orange-100 hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                {isCreatingIntent ? (
+                  <><svg className="animate-spin h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Preparing Payment...</>
+                ) : (
+                  <><CreditCard size={18} /> Proceed to Payment →</>
+                )}
               </button>
             </div>
           </div>
@@ -778,36 +803,29 @@ export function CheckoutFlow({
               </button>
             </div>
 
-            <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 text-center max-w-lg mx-auto mb-6">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+            {clientSecret ? (
+              stripePromise ? (
+                <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: 'stripe' } }}>
+                  <PaymentForm 
+                    total={total} 
+                    buyerName={`${buyer.firstName} ${buyer.lastName}`.trim()}
+                    buyerEmail={buyer.email}
+                    buyerPhone={`${buyer.dialCode} ${buyer.phone}`.trim()}
+                    onSuccess={() => goTo('CONFIRMATION')} 
+                    onBack={() => goTo('PROTECTION')} 
+                  />
+                </Elements>
+              ) : (
+                <div className="bg-red-50 text-red-700 p-6 rounded-xl text-center font-medium border border-red-200">
+                  <p>Stripe API Key is missing.</p>
+                  <p className="text-sm mt-2">Please ensure NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is set in your .env and you have restarted the Next.js dev server.</p>
+                </div>
+              )
+            ) : (
+              <div className="flex justify-center p-12">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-tixOrange"></div>
               </div>
-              <h3 className="text-xl font-bold text-tixNavy mb-2">Finalize Payment via WhatsApp</h3>
-              <p className="text-gray-600 mb-6 text-sm">
-                To ensure a guarantee in the delivery of your tickets and to finalize your secure purchase of <strong>${total.toFixed(2)}</strong>, please proceed to communicate with our agent on WhatsApp. Our support team will provide you with payment instructions and instantly confirm your tickets.
-              </p>
-              <a 
-                href={`https://wa.me/16176740104?text=${encodeURIComponent(`Hi, I would like to complete my payment of $${total.toFixed(2)} for ${quantity}x tickets to ${listing.matchName}. Order Ref: ${orderRef}`)}`}
-                target="_blank" 
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setTimeout(() => goTo('CONFIRMATION'), 500);
-                }}
-                className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-4 px-8 rounded-xl transition-all shadow-lg hover:-translate-y-1 w-full text-lg"
-              >
-                Proceed to WhatsApp
-              </a>
-            </div>
-            
-            <div className="flex gap-3">
-              <button 
-                type="button" 
-                onClick={() => goTo('PROTECTION')} 
-                className="px-5 py-3.5 rounded-xl font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 transition-colors text-sm w-full"
-              >
-                ← Back
-              </button>
-            </div>
+            )}
           </div>
         )}
 
