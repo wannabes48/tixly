@@ -37,7 +37,7 @@ export default function TrustBar() {
                 </span>
               </div>
               {i < TRUST_ITEMS.length - 1 && (
-                <div className="hidden md:block w-px h-6 bg-white/20" />
+                <div className="hidden md:block w-px h-6 bg-white/10 backdrop-blur-md/20" />
               )}
             </div>
           ))}

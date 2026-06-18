@@ -18,7 +18,7 @@ const categories: Category[] = [
     icon: Crown,
     bgColor: "bg-[#1A3C5E]",
     textColor: "text-white",
-    iconBg: "bg-white/15",
+    iconBg: "bg-white/10 backdrop-blur-md/15",
   },
   {
     title: "Excellent View",
@@ -27,7 +27,7 @@ const categories: Category[] = [
     icon: Eye,
     bgColor: "bg-[#2F6B9A]",
     textColor: "text-white",
-    iconBg: "bg-white/15",
+    iconBg: "bg-white/10 backdrop-blur-md/15",
   },
   {
     title: "Behind Goal",
@@ -92,7 +92,7 @@ export default function TicketCategories() {
               textColor = "text-brand-navy";
             }
             if (isGray) {
-              glassBg = "bg-white/90 backdrop-blur-md border border-white/20";
+              glassBg = "bg-white/10 backdrop-blur-md/90 backdrop-blur-md border border-white/20";
               textColor = "text-brand-navy";
             }
 

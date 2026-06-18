@@ -48,7 +48,7 @@ export function FAQ() {
   };
 
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-white/10 backdrop-blur-md py-16 md:py-24">
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="text-center mb-12">
           <div className="w-12 h-1 bg-brand-orange rounded-full mx-auto mb-4" />
@@ -61,7 +61,7 @@ export function FAQ() {
           {faqItems.map((item, index) => (
             <div
               key={index}
-              className="rounded-xl bg-[#f9fafb] hover:bg-brand-paleblue mb-3 overflow-hidden transition-colors duration-200"
+              className="rounded-xl bg-transparent hover:bg-brand-paleblue mb-3 overflow-hidden transition-colors duration-200"
             >
               <button
                 onClick={() => toggleItem(index)}

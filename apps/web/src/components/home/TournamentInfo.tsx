@@ -42,7 +42,7 @@ export function TournamentInfo() {
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl px-6 py-5 text-center transition-all duration-300 hover:bg-white/15 hover:scale-105"
+              className="bg-white/10 backdrop-blur-md/10 backdrop-blur-sm border border-white/10 rounded-2xl px-6 py-5 text-center transition-all duration-300 hover:bg-white/10 backdrop-blur-md/15 hover:scale-105"
             >
               <div className="text-5xl font-black text-brand-orange">
                 {stat.number}
@@ -55,14 +55,14 @@ export function TournamentInfo() {
         </div>
 
         {/* Tournament format */}
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8">
+        <div className="bg-white/10 backdrop-blur-md/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8">
           <h3 className="text-lg font-semibold text-white mb-6 text-center">
             Tournament Format
           </h3>
           <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3">
             {formatStages.map((stage, index) => (
               <span key={index} className="flex items-center gap-2 md:gap-3">
-                <span className="bg-white/10 rounded-full px-4 py-2 text-white font-medium text-sm md:text-base whitespace-nowrap transition-colors duration-200 hover:bg-white/20">
+                <span className="bg-white/10 backdrop-blur-md/10 rounded-full px-4 py-2 text-white font-medium text-sm md:text-base whitespace-nowrap transition-colors duration-200 hover:bg-white/10 backdrop-blur-md/20">
                   {stage}
                 </span>
                 {index < formatStages.length - 1 && (

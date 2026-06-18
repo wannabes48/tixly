@@ -151,26 +151,10 @@ export default function Hero() {
         }
       `}</style>
 
-      {/* Background Image — packed stadium */}
-      <div className="absolute inset-0">
-        <Image
-          src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1920&q=80"
-          alt="Packed Stadium Hero"
-          fill
-          priority
-          className="object-cover object-center"
-        />
-      </div>
-
-      {/* Gradient overlay: tixNavy top to tixNavy bottom */}
+      {/* Background Image removed to show global gradient */}
       <div
-        className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(to bottom, rgba(10,25,47,0.92) 0%, rgba(10,25,47,0.75) 100%)',
-        }}
-      />
-
-      {/* Diagonal stripe pattern overlay */}
+        className="absolute inset-0 pointer-events-none bg-brand-navy/30"
+      />      {/* Diagonal stripe pattern overlay */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -276,7 +260,7 @@ export default function Hero() {
 
         {/* Match Finder Widget (Flight Booking Style) */}
         <div className="relative max-w-4xl mx-auto mb-10 w-full">
-          <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 flex flex-col md:flex-row flex-wrap gap-4 border border-slate-100 z-10 relative mt-4">
+          <form onSubmit={handleSubmit} className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-4 sm:p-6 flex flex-col md:flex-row flex-wrap gap-4 border border-slate-100 z-10 relative mt-4">
             <div className="flex-1 min-w-[200px]">
               <label className="block text-[11px] font-medium text-slate-500 uppercase tracking-editorial mb-1.5 text-left">Team or City</label>
               <Select value={query} onValueChange={setQuery}>
@@ -348,7 +332,7 @@ export default function Hero() {
             <Link
               key={f.label}
               href={f.round ? `/matches?round=${f.round}` : '/matches'}
-              className="rounded-full bg-white/10 border border-white/15 text-white/80 hover:bg-tixOrange hover:border-tixOrange hover:text-white px-5 py-2 text-sm font-medium transition-all duration-200"
+              className="rounded-full bg-white/10 backdrop-blur-md/10 border border-white/15 text-white/80 hover:bg-tixOrange hover:border-tixOrange hover:text-white px-5 py-2 text-sm font-medium transition-all duration-200"
             >
               {f.label}
             </Link>

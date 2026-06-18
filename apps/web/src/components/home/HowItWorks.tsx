@@ -46,7 +46,7 @@ export default function HowItWorks() {
         }}
       />
       {/* Heavy white overlay */}
-      <div className="absolute inset-0 bg-white/95" />
+      <div className="absolute inset-0 bg-white/10 backdrop-blur-md/95" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -84,7 +84,7 @@ export default function HowItWorks() {
             return (
               <div
                 key={step.number}
-                className="relative flex flex-col items-center text-center bg-white rounded-2xl shadow-card p-8 transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1"
+                className="relative flex flex-col items-center text-center bg-white/10 backdrop-blur-md rounded-2xl shadow-card p-8 transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1"
               >
                 {/* Number badge */}
                 <span className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-brand-orange text-base font-bold text-white shadow-md">

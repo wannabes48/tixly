@@ -56,7 +56,7 @@ export default function CityGrid() {
   const locale = useLocale();
 
   return (
-    <section className="bg-[#f9fafb] py-16 md:py-24">
+    <section className="bg-transparent py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-12 text-center">
@@ -115,7 +115,7 @@ export default function CityGrid() {
                       <h4 className="text-base font-semibold text-white drop-shadow-md md:text-lg">
                         {city.name}
                       </h4>
-                      <span className="mt-1 inline-flex items-center rounded-full bg-white/20 px-2.5 py-0.5 text-[11px] font-medium text-white backdrop-blur-sm tracking-wide">
+                      <span className="mt-1 inline-flex items-center rounded-full bg-white/10 backdrop-blur-md/20 px-2.5 py-0.5 text-[11px] font-medium text-white backdrop-blur-sm tracking-wide">
                         {city.matches} matches
                       </span>
                     </div>

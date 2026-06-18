@@ -29,6 +29,8 @@ export async function generateMetadata({ params: { locale } }: { params: { local
   };
 }
 
+import AnimatedGradientBackground from '@/components/ui/animated-gradient-background';
+
 export default function LocaleLayout({
   children,
   params: {locale}
@@ -57,11 +59,12 @@ export default function LocaleLayout({
           `}
         </Script>
       </head>
-      <body className="font-sans antialiased text-brand-textblack bg-white">
+      <body className="font-sans antialiased text-brand-textblack bg-transparent">
           <NextIntlClientProvider locale={locale} messages={messages}>
             <Providers>
+              <AnimatedGradientBackground Breathing={true} containerClassName="fixed w-screen h-screen z-[-1]" />
               <Navbar />
-              <main>
+              <main className="relative z-0">
                 {children}
               </main>
               <Footer />

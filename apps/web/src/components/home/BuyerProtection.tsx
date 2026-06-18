@@ -16,7 +16,7 @@ export function BuyerProtection() {
   const locale = useLocale();
 
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-white/10 backdrop-blur-md py-16 md:py-24">
       <div className="container mx-auto px-4">
         <div className="relative rounded-3xl overflow-hidden">
           {/* Stadium background image */}
@@ -62,7 +62,7 @@ export function BuyerProtection() {
                   {guaranteePoints.map((point, index) => (
                     <li
                       key={index}
-                      className="flex items-center gap-4 bg-white/5 rounded-xl px-4 py-3 border border-white/10 transition-colors duration-200 hover:bg-white/10"
+                      className="flex items-center gap-4 bg-white/10 backdrop-blur-md/5 rounded-xl px-4 py-3 border border-white/10 transition-colors duration-200 hover:bg-white/10 backdrop-blur-md/10"
                     >
                       <ShieldCheck className="h-6 w-6 text-brand-orange flex-shrink-0" />
                       <span className="text-white text-base md:text-lg">{point}</span>

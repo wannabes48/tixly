@@ -155,7 +155,7 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
         
         <Link
           href="/matches"
-          className="inline-flex items-center justify-center gap-1.5 text-white bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md px-6 py-3 rounded-full font-bold transition-all shadow-lg hover:shadow-xl group"
+          className="inline-flex items-center justify-center gap-1.5 text-white bg-white/10 backdrop-blur-md/10 hover:bg-white/10 backdrop-blur-md/20 border border-white/20 backdrop-blur-md px-6 py-3 rounded-full font-bold transition-all shadow-lg hover:shadow-xl group"
         >
           View All Matches
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -245,14 +245,14 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
                       <span className="inline-flex items-center justify-center bg-[#E8532A] text-white text-[12px] font-medium px-4 py-1.5 rounded-full uppercase tracking-editorial shadow-lg">
                         {match.kickoffUtc ? <LocalTime date={match.kickoffUtc} format="datetime" /> : match.date}
                       </span>
-                      <div className="flex items-center gap-2 text-white text-sm font-semibold bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-md border border-white/10 shadow-lg">
+                      <div className="flex items-center gap-2 text-white text-sm font-semibold bg-white/10 backdrop-blur-md/10 px-4 py-1.5 rounded-full backdrop-blur-md border border-white/10 shadow-lg">
                         <MapPin size={16} /> {match.stadium}, {match.city}
                       </div>
                     </div>
                     
                     <div className="flex items-center gap-6 mb-2 flex-wrap">
                       <div className="flex items-center gap-4 bg-black/30 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/10 shadow-2xl">
-                        <div className="w-14 h-14 relative rounded-full overflow-hidden border-2 border-white/20 shadow-inner bg-white">
+                        <div className="w-14 h-14 relative rounded-full overflow-hidden border-2 border-white/20 shadow-inner bg-white/10 backdrop-blur-md">
                           <Image src={match.homeFlagUrl} alt={match.homeTeam} fill className="object-cover" />
                         </div>
                         <span className="text-3xl lg:text-4xl font-black tracking-tight">{match.homeTeam}</span>
@@ -260,7 +260,7 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
                         <span className="text-xl font-black text-[#E8532A] mx-2 italic">VS</span>
                         
                         <span className="text-3xl lg:text-4xl font-black tracking-tight">{match.awayTeam}</span>
-                        <div className="w-14 h-14 relative rounded-full overflow-hidden border-2 border-white/20 shadow-inner bg-white">
+                        <div className="w-14 h-14 relative rounded-full overflow-hidden border-2 border-white/20 shadow-inner bg-white/10 backdrop-blur-md">
                           <Image src={match.awayFlagUrl} alt={match.awayTeam} fill className="object-cover" />
                         </div>
                       </div>
@@ -329,16 +329,16 @@ export default function MatchCarousel({ matches = DEFAULT_MATCHES }: { matches?:
                     </span>
                   </div>
                   
-                  <div className="flex items-center gap-4 bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+                  <div className="flex items-center gap-4 bg-white/10 backdrop-blur-md/5 backdrop-blur-md p-4 rounded-2xl border border-white/10">
                     <div className="flex flex-col items-center w-16">
-                      <div className="w-12 h-12 relative rounded-full overflow-hidden border-2 border-white/20 shadow-inner bg-white mb-2">
+                      <div className="w-12 h-12 relative rounded-full overflow-hidden border-2 border-white/20 shadow-inner bg-white/10 backdrop-blur-md mb-2">
                         <Image src={match.homeFlagUrl} alt={match.homeTeam} fill className="object-cover" />
                       </div>
                       <span className="text-white font-bold text-xs text-center truncate w-full">{match.homeTeam}</span>
                     </div>
                     <span className="text-[#E8532A] font-black italic text-xl flex-1 text-center">VS</span>
                     <div className="flex flex-col items-center w-16">
-                      <div className="w-12 h-12 relative rounded-full overflow-hidden border-2 border-white/20 shadow-inner bg-white mb-2">
+                      <div className="w-12 h-12 relative rounded-full overflow-hidden border-2 border-white/20 shadow-inner bg-white/10 backdrop-blur-md mb-2">
                         <Image src={match.awayFlagUrl} alt={match.awayTeam} fill className="object-cover" />
                       </div>
                       <span className="text-white font-bold text-xs text-center truncate w-full">{match.awayTeam}</span>
