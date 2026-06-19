@@ -35,6 +35,33 @@ export default async function CheckoutPage({
 
   const isUpcoming = new Date(listing.match.kickoffUtc).getTime() > Date.now();
 
+  // If user provided a session ID and their details, update the TicketHold
+  const sid = typeof searchParams.sid === 'string' ? searchParams.sid : null;
+  const fn = typeof searchParams.fn === 'string' ? searchParams.fn : '';
+  const ln = typeof searchParams.ln === 'string' ? searchParams.ln : '';
+  const em = typeof searchParams.em === 'string' ? searchParams.em : '';
+
+  if (sid && (fn || ln || em)) {
+    try {
+      // Find the hold by session id first
+      const hold = await prisma.ticketHold.findFirst({
+        where: { sessionId: sid }
+      });
+      if (hold) {
+        await prisma.ticketHold.update({
+          where: { id: hold.id },
+          data: {
+            buyerFirstName: fn,
+            buyerLastName: ln,
+            buyerEmail: em
+          }
+        });
+      }
+    } catch (e) {
+      console.error("Failed to update ticket hold details:", e);
+    }
+  }
+
   if (!isUpcoming) {
     return (
       <main className="min-h-screen bg-gray-50 pt-32 pb-20">

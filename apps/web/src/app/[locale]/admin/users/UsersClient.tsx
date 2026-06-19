@@ -22,6 +22,9 @@ type UserData = {
 type HoldData = {
   id: string;
   sessionId: string;
+  buyerFirstName: string | null;
+  buyerLastName: string | null;
+  buyerEmail: string | null;
   quantity: number;
   expiresAt: string;
   createdAt: string;
@@ -55,6 +58,8 @@ export default function UsersClient({ users, holds }: UsersClientProps) {
   const filteredHolds = holds.filter(hold => 
     hold.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
     hold.sessionId.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (hold.buyerEmail?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+    (hold.buyerFirstName?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
     hold.listing.match.homeTeam.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     hold.listing.match.awayTeam.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -92,7 +97,7 @@ export default function UsersClient({ users, holds }: UsersClientProps) {
           <Search className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input 
             type="text" 
-            placeholder={activeTab === 'USERS' ? "Search users by name, email..." : "Search holds by ID, session, team..."}
+            placeholder={activeTab === 'USERS' ? "Search users by name, email..." : "Search holds by ID, email, team..."}
             className="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -155,10 +160,10 @@ export default function UsersClient({ users, holds }: UsersClientProps) {
           <table className="w-full text-left text-sm whitespace-nowrap">
             <thead className="bg-slate-50 text-slate-500 font-semibold uppercase text-xs tracking-wider">
               <tr>
+                <th className="px-6 py-4">Customer Details</th>
                 <th className="px-6 py-4">Match & Category</th>
-                <th className="px-6 py-4">Hold Info</th>
+                <th className="px-6 py-4">Hold Timeline</th>
                 <th className="px-6 py-4">Quantity / Price</th>
-                <th className="px-6 py-4">Session ID</th>
                 <th className="px-6 py-4">Status</th>
               </tr>
             </thead>
@@ -170,6 +175,21 @@ export default function UsersClient({ users, holds }: UsersClientProps) {
                 
                 return (
                   <tr key={hold.id} className="hover:bg-slate-50/50 transition-colors">
+                    <td className="px-6 py-4">
+                      {hold.buyerFirstName || hold.buyerEmail ? (
+                        <>
+                          <div className="font-semibold text-brand-navy">
+                            {hold.buyerFirstName} {hold.buyerLastName}
+                          </div>
+                          <div className="text-xs text-slate-500 mt-0.5">{hold.buyerEmail}</div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="font-semibold text-slate-400 italic">Anonymous Guest</div>
+                          <div className="text-xs text-slate-400 mt-0.5 font-mono" title="Session ID">{hold.sessionId.substring(0, 16)}...</div>
+                        </>
+                      )}
+                    </td>
                     <td className="px-6 py-4">
                       <div className="font-semibold text-brand-navy">
                         {hold.listing.match.homeTeam.name} vs {hold.listing.match.awayTeam.name}
@@ -183,9 +203,6 @@ export default function UsersClient({ users, holds }: UsersClientProps) {
                     <td className="px-6 py-4">
                       <div className="font-semibold text-brand-navy">{hold.quantity} Tickets</div>
                       <div className="text-xs text-slate-500">${hold.listing.pricePerTicket} ea</div>
-                    </td>
-                    <td className="px-6 py-4 text-xs font-mono text-slate-500">
-                      {hold.sessionId.substring(0, 16)}...
                     </td>
                     <td className="px-6 py-4">
                       {isExpired ? (

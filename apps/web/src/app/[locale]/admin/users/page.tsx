@@ -64,6 +64,9 @@ export default async function AdminUsersPage() {
         holds={holds.map(h => ({
           id: h.id,
           sessionId: h.sessionId,
+          buyerFirstName: h.buyerFirstName,
+          buyerLastName: h.buyerLastName,
+          buyerEmail: h.buyerEmail,
           quantity: h.quantity,
           createdAt: h.createdAt.toISOString(),
           expiresAt: h.expiresAt.toISOString(),

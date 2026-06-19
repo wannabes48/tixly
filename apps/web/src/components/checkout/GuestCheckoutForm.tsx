@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-export function GuestCheckoutForm({ listingId, qty }: { listingId: string, qty: number }) {
+export function GuestCheckoutForm({ listingId, qty, sessionId }: { listingId: string, qty: number, sessionId: string }) {
   const router = useRouter();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -15,7 +15,8 @@ export function GuestCheckoutForm({ listingId, qty }: { listingId: string, qty: 
       qty: qty.toString(),
       fn: firstName,
       ln: lastName,
-      em: email
+      em: email,
+      sid: sessionId
     });
     router.push(`/checkout/${listingId}?${params.toString()}`);
   };

@@ -82,6 +82,10 @@ model TicketHold {
   quantity  Int
   expiresAt DateTime
   createdAt DateTime @default(now())
+  
+  buyerFirstName String?
+  buyerLastName  String?
+  buyerEmail     String?
 
   listing   TicketListing @relation(fields: [listingId], references: [id])
 

@@ -68,7 +68,7 @@ export default async function CheckoutPage({
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="flex-1 bg-white rounded-3xl p-8 border border-gray-100 shadow-soft">
             <h2 className="text-xl font-bold text-tixNavy mb-6">Guest Information</h2>
-            <GuestCheckoutForm listingId={listing.id} qty={qty} />
+            <GuestCheckoutForm listingId={listing.id} qty={qty} sessionId={sessionId} />
           </div>
 
           <aside className="w-full lg:w-96 shrink-0">
