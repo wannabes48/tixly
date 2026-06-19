@@ -14,6 +14,7 @@ export default function AdminLayoutPage({ children }: { children: React.ReactNod
     { name: 'Listings', href: '/admin/listings', icon: ListChecks },
     { name: 'Sellers', href: '/admin/sellers', icon: Users },
     { name: 'Inventory', href: '/admin/inventory', icon: Package },
+    { name: 'Users & Holds', href: '/admin/users', icon: Users },
   ];
 
   return (
