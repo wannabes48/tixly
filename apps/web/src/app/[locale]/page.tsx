@@ -11,10 +11,17 @@ import { FAQ } from '@/components/home/FAQ';
 import { prisma } from '@tixly/database';
 import { format } from 'date-fns';
 
+export const revalidate = 60;
+
 export default async function HomePage() {
   const dbMatches = await prisma.match.findMany({
+    where: {
+      kickoffUtc: {
+        gt: new Date(Date.now() - 2 * 60 * 60 * 1000) // Keep visible for 2 hours after kickoff
+      }
+    },
     orderBy: { kickoffUtc: 'asc' },
-    take: 6,
+    take: 8,
     include: {
       homeTeam: true,
       awayTeam: true,
