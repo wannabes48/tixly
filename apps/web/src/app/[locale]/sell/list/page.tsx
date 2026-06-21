@@ -20,6 +20,7 @@ export default async function ListTicketPage() {
   }
 
   const matches = await prisma.match.findMany({
+    where: { kickoffUtc: { gt: new Date() } },
     include: {
       homeTeam: true,
       awayTeam: true,

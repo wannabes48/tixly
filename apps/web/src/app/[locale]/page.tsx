@@ -17,7 +17,7 @@ export default async function HomePage() {
   const dbMatches = await prisma.match.findMany({
     where: {
       kickoffUtc: {
-        gt: new Date(Date.now() - 2 * 60 * 60 * 1000) // Keep visible for 2 hours after kickoff
+        gt: new Date() // Disappear exactly at kickoff
       }
     },
     orderBy: { kickoffUtc: 'asc' },

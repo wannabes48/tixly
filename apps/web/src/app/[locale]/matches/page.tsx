@@ -27,7 +27,11 @@ export default async function MatchesPage({
     emoji: t.flagUrl || undefined,
   }));
 
-  const where: Prisma.MatchWhereInput = {};
+  const where: Prisma.MatchWhereInput = {
+    kickoffUtc: {
+      gt: new Date()
+    }
+  };
 
   if (searchParams.dateFrom) {
     where.kickoffUtc = {

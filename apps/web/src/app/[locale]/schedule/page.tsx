@@ -40,7 +40,11 @@ export default async function SchedulePage({
 }) {
   let matches: any[] = [];
   
-  const where: Prisma.MatchWhereInput = {};
+  const where: Prisma.MatchWhereInput = {
+    kickoffUtc: {
+      gt: new Date()
+    }
+  };
   
   if (searchParams.round) {
     where.round = searchParams.round as string;

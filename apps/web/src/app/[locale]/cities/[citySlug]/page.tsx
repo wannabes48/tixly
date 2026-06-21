@@ -41,7 +41,10 @@ const getCityData = cache(async (citySlug: string) => {
     let matches: any[] = [];
     if (stadiums.length > 0) {
       matches = await prisma.match.findMany({
-        where: { stadiumId: { in: stadiums.map(s => s.id) } },
+        where: { 
+          stadiumId: { in: stadiums.map(s => s.id) },
+          kickoffUtc: { gt: new Date() }
+        },
         include: { homeTeam: true, awayTeam: true, stadium: true },
         orderBy: { kickoffUtc: 'asc' }
       });
