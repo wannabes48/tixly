@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { prisma } from "@tixly/database";
+import { getPostHogClient } from "@/lib/posthog";
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
@@ -29,6 +30,14 @@ export async function POST(req: NextRequest) {
           where: { stripeConnectId: account.id },
           data: { kycStatus: "VERIFIED" },
         });
+
+        const posthog = getPostHogClient();
+        posthog.capture({
+          distinctId: account.id,
+          event: "seller_kyc_verified",
+          properties: { stripe_account_id: account.id },
+        });
+        await posthog.flush();
       }
       break;
     default:
