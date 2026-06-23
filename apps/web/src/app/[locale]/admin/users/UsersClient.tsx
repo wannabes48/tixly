@@ -25,6 +25,7 @@ type HoldData = {
   buyerFirstName: string | null;
   buyerLastName: string | null;
   buyerEmail: string | null;
+  buyerPhone: string | null;
   quantity: number;
   expiresAt: string;
   createdAt: string;
@@ -182,6 +183,9 @@ export default function UsersClient({ users, holds }: UsersClientProps) {
                             {hold.buyerFirstName} {hold.buyerLastName}
                           </div>
                           <div className="text-xs text-slate-500 mt-0.5">{hold.buyerEmail}</div>
+                          {hold.buyerPhone && (
+                            <div className="text-xs text-slate-500 mt-0.5">{hold.buyerPhone}</div>
+                          )}
                         </>
                       ) : (
                         <>

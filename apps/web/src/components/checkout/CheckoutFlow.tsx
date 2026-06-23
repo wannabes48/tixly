@@ -257,7 +257,7 @@ export function CheckoutFlow({
   initialData 
 }: { 
   listing: ListingData, 
-  initialData?: { qty: number, firstName: string, lastName: string, email: string, redirectStatus?: string | null } 
+  initialData?: { qty: number, firstName: string, lastName: string, email: string, phone: string, redirectStatus?: string | null } 
 }) {
   const [step, setStep] = useState<Step>(
     initialData?.redirectStatus === 'succeeded' 
@@ -275,7 +275,7 @@ export function CheckoutFlow({
     lastName: initialData?.lastName || '', 
     email: initialData?.email || '', 
     emailConfirm: initialData?.email || '',
-    dialCode: '+1', phone: '', country: '', createAccount: false,
+    dialCode: '+1', phone: initialData?.phone || '', country: '', createAccount: false,
     holders: Array.from({ length: initialData?.qty || 1 }, () => ({ firstName: '', lastName: '' })),
   });
   const [errors, setErrors] = useState<Partial<Record<keyof BuyerDetails | string, string>>>({});
@@ -392,7 +392,13 @@ export function CheckoutFlow({
       const res = await fetch('/api/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ listingId: listing.id, quantity, refundProtection, buyerInfo: buyer }),
+        body: JSON.stringify({ 
+          listingId: listing.id, 
+          quantity, 
+          refundProtection, 
+          buyerInfo: buyer,
+          sessionId: new URLSearchParams(window.location.search).get('sid') || ''
+        }),
       });
       const data = await res.json();
       if (res.ok) {

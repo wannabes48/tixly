@@ -7,6 +7,7 @@ export function GuestCheckoutForm({ listingId, qty, sessionId }: { listingId: st
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleContinue = () => {
@@ -16,6 +17,7 @@ export function GuestCheckoutForm({ listingId, qty, sessionId }: { listingId: st
       fn: firstName,
       ln: lastName,
       em: email,
+      ph: phone,
       sid: sessionId
     });
     router.push(`/checkout/${listingId}?${params.toString()}`);
@@ -55,6 +57,17 @@ export function GuestCheckoutForm({ listingId, qty, sessionId }: { listingId: st
           className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-tixNavy disabled:opacity-50" 
         />
         <p className="text-xs text-gray-400 mt-1">Your tickets will be transferred to this email.</p>
+      </div>
+      <div>
+        <label className="block text-sm font-bold text-gray-700 mb-1">Phone Number</label>
+        <input 
+          type="tel" 
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          disabled={isTransitioning}
+          placeholder="+1 234 567 890"
+          className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-tixNavy disabled:opacity-50" 
+        />
       </div>
       <button 
         onClick={handleContinue}

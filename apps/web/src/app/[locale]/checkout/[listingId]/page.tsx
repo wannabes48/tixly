@@ -40,8 +40,9 @@ export default async function CheckoutPage({
   const fn = typeof searchParams.fn === 'string' ? searchParams.fn : '';
   const ln = typeof searchParams.ln === 'string' ? searchParams.ln : '';
   const em = typeof searchParams.em === 'string' ? searchParams.em : '';
+  const ph = typeof searchParams.ph === 'string' ? searchParams.ph : '';
 
-  if (sid && (fn || ln || em)) {
+  if (sid && (fn || ln || em || ph)) {
     try {
       // Find the hold by session id first
       const hold = await prisma.ticketHold.findFirst({
@@ -53,7 +54,8 @@ export default async function CheckoutPage({
           data: {
             buyerFirstName: fn,
             buyerLastName: ln,
-            buyerEmail: em
+            buyerEmail: em,
+            buyerPhone: ph
           }
         });
       }
@@ -97,6 +99,7 @@ export default async function CheckoutPage({
     firstName: typeof searchParams.fn === 'string' ? searchParams.fn : '',
     lastName: typeof searchParams.ln === 'string' ? searchParams.ln : '',
     email: typeof searchParams.em === 'string' ? searchParams.em : '',
+    phone: typeof searchParams.ph === 'string' ? searchParams.ph : '',
     redirectStatus: typeof searchParams.redirect_status === 'string' ? searchParams.redirect_status : null,
   };
 

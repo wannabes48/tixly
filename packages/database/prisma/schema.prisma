@@ -86,6 +86,7 @@ model TicketHold {
   buyerFirstName String?
   buyerLastName  String?
   buyerEmail     String?
+  buyerPhone     String?
 
   listing   TicketListing @relation(fields: [listingId], references: [id])
 

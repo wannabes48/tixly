@@ -32,6 +32,11 @@ export async function POST(req: Request) {
       const buyerEmail = paymentIntent.metadata.buyerEmail;
       const refundProtection = paymentIntent.metadata.refundProtection === 'true';
 
+      const buyerFirstName = paymentIntent.metadata.buyerFirstName || '';
+      const buyerLastName = paymentIntent.metadata.buyerLastName || '';
+      const buyerPhone = paymentIntent.metadata.buyerPhone || '';
+      const buyerName = `${buyerFirstName} ${buyerLastName}`.trim() || 'Guest Buyer';
+
       // Mark the order as paid in the database and reduce ticket inventory
       // (Simplified logic for now)
       
@@ -53,8 +58,8 @@ export async function POST(req: Request) {
             reference: `TIX-2026-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
             listingId,
             buyerEmail,
-            buyerName: 'Guest Buyer', // From metadata in real app
-            buyerPhone: '',
+            buyerName,
+            buyerPhone,
             quantity,
             subtotal: paymentIntent.amount / 100, // Roughly
             serviceFee: 0,

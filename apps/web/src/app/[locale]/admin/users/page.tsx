@@ -67,6 +67,7 @@ export default async function AdminUsersPage() {
           buyerFirstName: h.buyerFirstName,
           buyerLastName: h.buyerLastName,
           buyerEmail: h.buyerEmail,
+          buyerPhone: h.buyerPhone,
           quantity: h.quantity,
           createdAt: h.createdAt.toISOString(),
           expiresAt: h.expiresAt.toISOString(),

@@ -10,7 +10,25 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { listingId, quantity, refundProtection, buyerInfo } = body;
+    const { listingId, quantity, refundProtection, buyerInfo, sessionId } = body;
+
+    const buyerPhone = `${buyerInfo.dialCode} ${buyerInfo.phone}`.trim();
+
+    if (sessionId) {
+      // Update TicketHold with latest info including phone
+      const hold = await prisma.ticketHold.findFirst({ where: { sessionId } });
+      if (hold) {
+        await prisma.ticketHold.update({
+          where: { id: hold.id },
+          data: {
+            buyerFirstName: buyerInfo.firstName,
+            buyerLastName: buyerInfo.lastName,
+            buyerEmail: buyerInfo.email,
+            buyerPhone: buyerPhone
+          }
+        });
+      }
+    }
 
     // Validate listing exists
     const listing = await prisma.ticketListing.findUnique({
@@ -37,6 +55,7 @@ export async function POST(req: Request) {
     // Convert to cents for Stripe
     const amountInCents = Math.round(totalAmount * 100);
 
+
     // Create PaymentIntent
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amountInCents,
@@ -48,8 +67,10 @@ export async function POST(req: Request) {
         listingId,
         quantity: quantity.toString(),
         buyerEmail: buyerInfo.email,
+        buyerFirstName: buyerInfo.firstName,
+        buyerLastName: buyerInfo.lastName,
+        buyerPhone: buyerPhone,
         refundProtection: refundProtection ? 'true' : 'false',
-        // In a real app we might store buyerName and phone too, or create an Order as PENDING first
       },
     });
 
