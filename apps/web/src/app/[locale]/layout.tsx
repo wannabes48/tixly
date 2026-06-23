@@ -10,6 +10,8 @@ import Script from 'next/script';
 
 import { Providers } from '@/components/Providers';
 import { Metadata } from 'next';
+import { PostHogProvider } from '@/providers/PostHogProvider';
+import PostHogPageView from '@/components/PostHogPageView';
 
 const baseUrl = 'https://www.tixlyonline.com';
 const locales = ['en', 'es', 'fr', 'pt', 'ar', 'de'];
@@ -60,6 +62,8 @@ export default function LocaleLayout({
         </Script>
       </head>
       <body className="font-sans antialiased text-brand-textblack bg-transparent">
+        <PostHogProvider>
+          <PostHogPageView />
           <NextIntlClientProvider locale={locale} messages={messages}>
             <Providers>
               <AnimatedGradientBackground Breathing={true} containerClassName="fixed w-screen h-screen z-[-1]" />
@@ -71,7 +75,8 @@ export default function LocaleLayout({
               <CookieBanner />
             </Providers>
           </NextIntlClientProvider>
-          {/* <Analytics /> component was intentionally removed to favor the direct head injection */}
+        </PostHogProvider>
+        {/* <Analytics /> component was intentionally removed to favor the direct head injection */}
       </body>
     </html>
   );
