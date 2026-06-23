@@ -2,9 +2,12 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function main() {
-  // Find an upcoming match
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  // Find an upcoming match that is at least tomorrow
   const match = await prisma.match.findFirst({
-    where: { kickoffUtc: { gt: new Date() } },
+    where: { kickoffUtc: { gt: tomorrow } },
     orderBy: { kickoffUtc: 'asc' }
   });
 
