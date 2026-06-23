@@ -52,22 +52,47 @@ export async function POST(req: Request) {
           }
         });
 
-        // Create the Order record
-        await prisma.order.create({
-          data: {
-            reference: `TIX-2026-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
-            listingId,
-            buyerEmail,
-            buyerName,
-            buyerPhone,
-            quantity,
-            subtotal: paymentIntent.amount / 100, // Roughly
-            serviceFee: 0,
-            total: paymentIntent.amount / 100,
-            stripePaymentIntentId: paymentIntent.id,
-            refundProtection,
-            status: 'PAID',
-            ticketHolders: [], // Populate from metadata in real app
+        // Update the PENDING Order to PAID
+        const order = await prisma.order.findUnique({
+          where: { stripePaymentIntentId: paymentIntent.id }
+        });
+
+        if (order) {
+          await prisma.order.update({
+            where: { id: order.id },
+            data: { status: 'PAID' }
+          });
+        } else {
+          // Fallback if the create-payment-intent didn't successfully create it
+          await prisma.order.create({
+            data: {
+              reference: `TIX-2026-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
+              listingId,
+              buyerEmail,
+              buyerName,
+              buyerPhone,
+              quantity,
+              subtotal: paymentIntent.amount / 100, // Roughly
+              serviceFee: 0,
+              total: paymentIntent.amount / 100,
+              stripePaymentIntentId: paymentIntent.id,
+              refundProtection,
+              status: 'PAID',
+              ticketHolders: [],
+            }
+          });
+        }
+      }
+    } else if (event.type === 'payment_intent.payment_failed' || event.type === 'payment_intent.canceled') {
+      const paymentIntent = event.data.object as Stripe.PaymentIntent;
+      const order = await prisma.order.findUnique({
+        where: { stripePaymentIntentId: paymentIntent.id }
+      });
+      if (order && order.status === 'PENDING') {
+        await prisma.order.update({
+          where: { id: order.id },
+          data: { 
+            status: event.type === 'payment_intent.canceled' ? 'CANCELLED' : 'FAILED' 
           }
         });
       }

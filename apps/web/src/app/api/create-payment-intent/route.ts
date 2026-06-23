@@ -74,6 +74,33 @@ export async function POST(req: Request) {
       },
     });
 
+    const buyerName = `${buyerInfo.firstName} ${buyerInfo.lastName}`.trim() || 'Guest Buyer';
+
+    // Check if an order already exists for this payment intent (rare edge case, but good for idempotency)
+    let order = await prisma.order.findUnique({
+      where: { stripePaymentIntentId: paymentIntent.id }
+    });
+
+    if (!order) {
+      order = await prisma.order.create({
+        data: {
+          reference: `TIX-2026-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
+          listingId,
+          buyerEmail: buyerInfo.email,
+          buyerName,
+          buyerPhone,
+          quantity,
+          subtotal,
+          serviceFee,
+          total: totalAmount,
+          stripePaymentIntentId: paymentIntent.id,
+          refundProtection,
+          status: 'PENDING',
+          ticketHolders: [], // Populate if needed
+        }
+      });
+    }
+
     return NextResponse.json({
       clientSecret: paymentIntent.client_secret,
     });
