@@ -11,45 +11,69 @@ interface Team {
 }
 
 const teams: Team[] = [
-  // UEFA (16)
-  { name: "France", slug: "france", flag: "🇫🇷", matches: 4, confederation: "UEFA", countryCode: "fr" },
-  { name: "Germany", slug: "germany", flag: "🇩🇪", matches: 4, confederation: "UEFA", countryCode: "de" },
-  { name: "England", slug: "england", flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", matches: 4, confederation: "UEFA", countryCode: "gb-eng" },
-  { name: "Spain", slug: "spain", flag: "🇪🇸", matches: 4, confederation: "UEFA", countryCode: "es" },
-  { name: "Portugal", slug: "portugal", flag: "🇵🇹", matches: 4, confederation: "UEFA", countryCode: "pt" },
-  { name: "Netherlands", slug: "netherlands", flag: "🇳🇱", matches: 4, confederation: "UEFA", countryCode: "nl" },
-  { name: "Croatia", slug: "croatia", flag: "🇭🇷", matches: 3, confederation: "UEFA", countryCode: "hr" },
+  // UEFA
+  { name: "Austria", slug: "austria", flag: "🇦🇹", matches: 3, confederation: "UEFA", countryCode: "at" },
   { name: "Belgium", slug: "belgium", flag: "🇧🇪", matches: 3, confederation: "UEFA", countryCode: "be" },
-  { name: "Denmark", slug: "denmark", flag: "🇩🇰", matches: 3, confederation: "UEFA", countryCode: "dk" },
-  // CONMEBOL (6)
-  { name: "Argentina", slug: "argentina", flag: "🇦🇷", matches: 5, confederation: "CONMEBOL", countryCode: "ar" },
-  { name: "Brazil", slug: "brazil", flag: "🇧🇷", matches: 4, confederation: "CONMEBOL", countryCode: "br" },
-  { name: "Uruguay", slug: "uruguay", flag: "🇺🇾", matches: 3, confederation: "CONMEBOL", countryCode: "uy" },
+  { name: "Bosnia and Herzegovina", slug: "bosnia-and-herzegovina", flag: "🇧🇦", matches: 3, confederation: "UEFA", countryCode: "ba" },
+  { name: "Croatia", slug: "croatia", flag: "🇭🇷", matches: 3, confederation: "UEFA", countryCode: "hr" },
+  { name: "Czech Republic", slug: "czech-republic", flag: "🇨🇿", matches: 3, confederation: "UEFA", countryCode: "cz" },
+  { name: "England", slug: "england", flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", matches: 3, confederation: "UEFA", countryCode: "gb-eng" },
+  { name: "France", slug: "france", flag: "🇫🇷", matches: 3, confederation: "UEFA", countryCode: "fr" },
+  { name: "Germany", slug: "germany", flag: "🇩🇪", matches: 3, confederation: "UEFA", countryCode: "de" },
+  { name: "Netherlands", slug: "netherlands", flag: "🇳🇱", matches: 3, confederation: "UEFA", countryCode: "nl" },
+  { name: "Norway", slug: "norway", flag: "🇳🇴", matches: 3, confederation: "UEFA", countryCode: "no" },
+  { name: "Portugal", slug: "portugal", flag: "🇵🇹", matches: 3, confederation: "UEFA", countryCode: "pt" },
+  { name: "Scotland", slug: "scotland", flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", matches: 3, confederation: "UEFA", countryCode: "gb-sct" },
+  { name: "Spain", slug: "spain", flag: "🇪🇸", matches: 3, confederation: "UEFA", countryCode: "es" },
+  { name: "Sweden", slug: "sweden", flag: "🇸🇪", matches: 3, confederation: "UEFA", countryCode: "se" },
+  { name: "Switzerland", slug: "switzerland", flag: "🇨🇭", matches: 3, confederation: "UEFA", countryCode: "ch" },
+  { name: "Turkey", slug: "turkey", flag: "🇹🇷", matches: 3, confederation: "UEFA", countryCode: "tr" },
+  // CONMEBOL
+  { name: "Argentina", slug: "argentina", flag: "🇦🇷", matches: 3, confederation: "CONMEBOL", countryCode: "ar" },
+  { name: "Brazil", slug: "brazil", flag: "🇧🇷", matches: 3, confederation: "CONMEBOL", countryCode: "br" },
   { name: "Colombia", slug: "colombia", flag: "🇨🇴", matches: 3, confederation: "CONMEBOL", countryCode: "co" },
   { name: "Ecuador", slug: "ecuador", flag: "🇪🇨", matches: 3, confederation: "CONMEBOL", countryCode: "ec" },
-  // CONCACAF (4 + hosts)
-  { name: "USA", slug: "usa", flag: "🇺🇸", matches: 5, confederation: "CONCACAF", countryCode: "us" },
-  { name: "Mexico", slug: "mexico", flag: "🇲🇽", matches: 5, confederation: "CONCACAF", countryCode: "mx" },
-  { name: "Canada", slug: "canada", flag: "🇨🇦", matches: 4, confederation: "CONCACAF", countryCode: "ca" },
-  // CAF (5+)
-  { name: "Morocco", slug: "morocco", flag: "🇲🇦", matches: 4, confederation: "CAF", countryCode: "ma" },
+  { name: "Paraguay", slug: "paraguay", flag: "🇵🇾", matches: 3, confederation: "CONMEBOL", countryCode: "py" },
+  { name: "Uruguay", slug: "uruguay", flag: "🇺🇾", matches: 3, confederation: "CONMEBOL", countryCode: "uy" },
+  // CAF
+  { name: "Algeria", slug: "algeria", flag: "🇩🇿", matches: 3, confederation: "CAF", countryCode: "dz" },
+  { name: "Cape Verde", slug: "cape-verde", flag: "🇨🇻", matches: 3, confederation: "CAF", countryCode: "cv" },
+  { name: "DR Congo", slug: "dr-congo", flag: "🇨🇩", matches: 3, confederation: "CAF", countryCode: "cd" },
+  { name: "Egypt", slug: "egypt", flag: "🇪🇬", matches: 3, confederation: "CAF", countryCode: "eg" },
+  { name: "Ghana", slug: "ghana", flag: "🇬🇭", matches: 3, confederation: "CAF", countryCode: "gh" },
+  { name: "Ivory Coast", slug: "ivory-coast", flag: "🇨🇮", matches: 3, confederation: "CAF", countryCode: "ci" },
+  { name: "Morocco", slug: "morocco", flag: "🇲🇦", matches: 3, confederation: "CAF", countryCode: "ma" },
   { name: "Senegal", slug: "senegal", flag: "🇸🇳", matches: 3, confederation: "CAF", countryCode: "sn" },
-  { name: "Nigeria", slug: "nigeria", flag: "🇳🇬", matches: 3, confederation: "CAF", countryCode: "ng" },
-  // AFC (5+)
+  { name: "South Africa", slug: "south-africa", flag: "🇿🇦", matches: 3, confederation: "CAF", countryCode: "za" },
+  { name: "Tunisia", slug: "tunisia", flag: "🇹🇳", matches: 3, confederation: "CAF", countryCode: "tn" },
+  // CONCACAF
+  { name: "Canada", slug: "canada", flag: "🇨🇦", matches: 3, confederation: "CONCACAF", countryCode: "ca" },
+  { name: "Curaçao", slug: "curacao", flag: "🇨🇼", matches: 3, confederation: "CONCACAF", countryCode: "cw" },
+  { name: "Haiti", slug: "haiti", flag: "🇭🇹", matches: 3, confederation: "CONCACAF", countryCode: "ht" },
+  { name: "Mexico", slug: "mexico", flag: "🇲🇽", matches: 3, confederation: "CONCACAF", countryCode: "mx" },
+  { name: "Panama", slug: "panama", flag: "🇵🇦", matches: 3, confederation: "CONCACAF", countryCode: "pa" },
+  { name: "USA", slug: "usa", flag: "🇺🇸", matches: 3, confederation: "CONCACAF", countryCode: "us" },
+  // AFC
+  { name: "Australia", slug: "australia", flag: "🇦🇺", matches: 3, confederation: "AFC", countryCode: "au" },
+  { name: "Iran", slug: "iran", flag: "🇮🇷", matches: 3, confederation: "AFC", countryCode: "ir" },
+  { name: "Iraq", slug: "iraq", flag: "🇮🇶", matches: 3, confederation: "AFC", countryCode: "iq" },
   { name: "Japan", slug: "japan", flag: "🇯🇵", matches: 3, confederation: "AFC", countryCode: "jp" },
-  { name: "South Korea", slug: "south-korea", flag: "🇰🇷", matches: 3, confederation: "AFC", countryCode: "kr" },
+  { name: "Jordan", slug: "jordan", flag: "🇯🇴", matches: 3, confederation: "AFC", countryCode: "jo" },
+  { name: "Qatar", slug: "qatar", flag: "🇶🇦", matches: 3, confederation: "AFC", countryCode: "qa" },
   { name: "Saudi Arabia", slug: "saudi-arabia", flag: "🇸🇦", matches: 3, confederation: "AFC", countryCode: "sa" },
-  // OFC (1+)
-  { name: "Australia", slug: "australia", flag: "🇦🇺", matches: 3, confederation: "OFC", countryCode: "au" },
+  { name: "South Korea", slug: "south-korea", flag: "🇰🇷", matches: 3, confederation: "AFC", countryCode: "kr" },
+  { name: "Uzbekistan", slug: "uzbekistan", flag: "🇺🇿", matches: 3, confederation: "AFC", countryCode: "uz" },
+  // OFC
+  { name: "New Zealand", slug: "new-zealand", flag: "🇳🇿", matches: 3, confederation: "OFC", countryCode: "nz" }
 ];
 
 const confederationLabels: Record<string, string> = {
   UEFA: "UEFA (16)",
   CONMEBOL: "CONMEBOL (6)",
-  CONCACAF: "CONCACAF (4 + hosts)",
-  CAF: "CAF (5+)",
-  AFC: "AFC (5+)",
-  OFC: "OFC (1+)",
+  CONCACAF: "CONCACAF (6)",
+  CAF: "CAF (10)",
+  AFC: "AFC (9)",
+  OFC: "OFC (1)",
 };
 
 const confederationOrder = ["UEFA", "CONMEBOL", "CONCACAF", "CAF", "AFC", "OFC"];
