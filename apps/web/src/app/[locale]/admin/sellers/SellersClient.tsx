@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useTransition } from 'react';
 import { Search, ShieldCheck, Ban, PauseCircle, Activity, Star } from 'lucide-react';
+import { verifyKyc, suspendSeller, banSeller } from './actions';
 
 export function SellersClient({ initialSellers }: { initialSellers: any[] }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [kycFilter, setKycFilter] = useState('ALL');
+  const [isPending, startTransition] = useTransition();
 
   const processedSellers = initialSellers.map(seller => {
     // Calculate total sales from completed orders on their listings
@@ -138,17 +140,26 @@ export function SellersClient({ initialSellers }: { initialSellers: any[] }) {
                   <td className="p-4 text-right">
                     <div className="flex justify-end gap-2">
                       {seller.kycStatus === 'PENDING' && (
-                        <button className="p-1.5 bg-slate-100 hover:bg-green-100 text-slate-400 hover:text-green-600 rounded-lg transition-colors" title="Verify KYC">
+                        <button 
+                          onClick={() => startTransition(async () => { await verifyKyc(seller.id); })}
+                          disabled={isPending}
+                          className="p-1.5 bg-slate-100 hover:bg-green-100 text-slate-400 hover:text-green-600 rounded-lg transition-colors disabled:opacity-50" title="Verify KYC">
                           <ShieldCheck className="w-5 h-5" />
                         </button>
                       )}
                       {!seller.isSuspended && !seller.isBanned && (
-                        <button className="p-1.5 bg-slate-100 hover:bg-orange-100 text-slate-400 hover:text-orange-600 rounded-lg transition-colors" title="Suspend Account">
+                        <button 
+                          onClick={() => startTransition(async () => { await suspendSeller(seller.id); })}
+                          disabled={isPending}
+                          className="p-1.5 bg-slate-100 hover:bg-orange-100 text-slate-400 hover:text-orange-600 rounded-lg transition-colors disabled:opacity-50" title="Suspend Account">
                           <PauseCircle className="w-5 h-5" />
                         </button>
                       )}
                       {!seller.isBanned && (
-                        <button className="p-1.5 bg-slate-100 hover:bg-red-100 text-slate-400 hover:text-red-600 rounded-lg transition-colors" title="Ban Account">
+                        <button 
+                          onClick={() => startTransition(async () => { await banSeller(seller.id); })}
+                          disabled={isPending}
+                          className="p-1.5 bg-slate-100 hover:bg-red-100 text-slate-400 hover:text-red-600 rounded-lg transition-colors disabled:opacity-50" title="Ban Account">
                           <Ban className="w-5 h-5" />
                         </button>
                       )}

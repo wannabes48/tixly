@@ -4,8 +4,9 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from 'next/navigation';
 import { prisma } from '@tixly/database';
 import { Users, CheckCircle2, DollarSign, Activity, AlertCircle } from 'lucide-react';
+import Link from 'next/link';
 
-export default async function AdminDashboardPage({ params }: { params: { locale: string } }) {
+export default async function AdminDashboardPage({ searchParams }: { searchParams: { timeframe?: string } }) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -15,6 +16,20 @@ export default async function AdminDashboardPage({ params }: { params: { locale:
   const user = session.user as any;
   if (user.role !== 'ADMIN') {
     redirect('/en/account');
+  }
+
+  const timeframe = searchParams.timeframe || 'all';
+
+  // Determine date filter for createdAt
+  let dateFilter = {};
+  if (timeframe === 'today') {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    dateFilter = { gte: today };
+  } else if (timeframe === 'week') {
+    const lastWeek = new Date();
+    lastWeek.setDate(lastWeek.getDate() - 7);
+    dateFilter = { gte: lastWeek };
   }
 
   // Fetch Real Database Metrics
@@ -28,11 +43,11 @@ export default async function AdminDashboardPage({ params }: { params: { locale:
   ] = await Promise.all([
     prisma.order.aggregate({
       _sum: { quantity: true },
-      where: { status: 'PAID' }
+      where: { status: 'PAID', ...(timeframe !== 'all' ? { createdAt: dateFilter } : {}) }
     }),
     prisma.order.aggregate({
       _sum: { total: true },
-      where: { status: 'PAID' }
+      where: { status: 'PAID', ...(timeframe !== 'all' ? { createdAt: dateFilter } : {}) }
     }),
     prisma.ticketListing.count({
       where: { status: 'ACTIVE' }
@@ -41,7 +56,7 @@ export default async function AdminDashboardPage({ params }: { params: { locale:
       where: { status: 'OPEN' }
     }),
     prisma.user.count({
-      where: { role: 'SELLER' }
+      where: { role: 'SELLER', ...(timeframe !== 'all' ? { createdAt: dateFilter } : {}) }
     }),
     prisma.order.findMany({
       take: 5,
@@ -62,9 +77,11 @@ export default async function AdminDashboardPage({ params }: { params: { locale:
           <h1 className="text-3xl font-bold text-brand-navy mb-2">Admin Overview</h1>
           <p className="text-slate-500">Live platform metrics from your database.</p>
         </div>
-        <button className="bg-brand-orange hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-md">
-          Download CSV Report
-        </button>
+        <div className="flex gap-2">
+          <Link href="?timeframe=today" className={`px-4 py-2 rounded-lg font-semibold text-sm ${timeframe === 'today' ? 'bg-brand-navy text-white' : 'bg-slate-200 text-slate-700 hover:bg-slate-300'}`}>Today</Link>
+          <Link href="?timeframe=week" className={`px-4 py-2 rounded-lg font-semibold text-sm ${timeframe === 'week' ? 'bg-brand-navy text-white' : 'bg-slate-200 text-slate-700 hover:bg-slate-300'}`}>This Week</Link>
+          <Link href="?timeframe=all" className={`px-4 py-2 rounded-lg font-semibold text-sm ${timeframe === 'all' ? 'bg-brand-navy text-white' : 'bg-slate-200 text-slate-700 hover:bg-slate-300'}`}>All Time</Link>
+        </div>
       </div>
 
       {/* Stats Grid */}
@@ -106,7 +123,7 @@ export default async function AdminDashboardPage({ params }: { params: { locale:
           <div className="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center mb-4">
             <Users className="w-6 h-6" />
           </div>
-          <div className="text-slate-500 text-sm font-semibold mb-1">Seller Accounts</div>
+          <div className="text-slate-500 text-sm font-semibold mb-1">New Sellers</div>
           <div className="text-3xl font-black text-brand-navy">{newSellersCount.toLocaleString()}</div>
         </div>
 
@@ -151,14 +168,13 @@ export default async function AdminDashboardPage({ params }: { params: { locale:
           <div className="bg-brand-navy rounded-3xl shadow-sm p-8 text-white">
             <h2 className="text-xl font-bold mb-6">Quick Actions</h2>
             <div className="space-y-3">
-              <button className="w-full bg-white/10 hover:bg-white/20 text-left px-5 py-3 rounded-xl transition-colors font-semibold flex items-center justify-between">
-                Review KYC Pending
-                <span className="bg-brand-orange text-white text-xs px-2 py-1 rounded-full">3</span>
-              </button>
-              <button className="w-full bg-white/10 hover:bg-white/20 text-left px-5 py-3 rounded-xl transition-colors font-semibold flex items-center justify-between">
+              <Link href="/admin/sellers" className="block w-full bg-white/10 hover:bg-white/20 text-left px-5 py-3 rounded-xl transition-colors font-semibold flex items-center justify-between">
+                Manage Sellers
+              </Link>
+              <Link href="/admin/orders" className="block w-full bg-white/10 hover:bg-white/20 text-left px-5 py-3 rounded-xl transition-colors font-semibold flex items-center justify-between">
                 Review Open Disputes
-                <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full">{openDisputesCount}</span>
-              </button>
+                {openDisputesCount > 0 && <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full">{openDisputesCount}</span>}
+              </Link>
             </div>
           </div>
 

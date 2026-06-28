@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useTransition } from 'react';
 import { Search, ShieldAlert, CheckCircle, XCircle, FileWarning } from 'lucide-react';
+import { setListingStatus } from './actions';
 
 export function ListingsClient({ initialListings }: { initialListings: any[] }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState('ALL');
+  const [isPending, startTransition] = useTransition();
 
   // Suspicious logic: price > 5000 or seller is unverified
   const getFlags = (listing: any) => {
@@ -125,13 +127,19 @@ export function ListingsClient({ initialListings }: { initialListings: any[] }) 
                     <td className="p-4 text-right whitespace-nowrap">
                       {listing.status === 'ACTIVE' ? (
                         <div className="flex justify-end gap-2">
-                          <button className="p-1.5 bg-slate-100 hover:bg-red-100 text-slate-400 hover:text-red-600 rounded-lg transition-colors" title="Reject/Cancel Listing">
+                          <button 
+                            onClick={() => startTransition(async () => { await setListingStatus(listing.id, 'CANCELLED'); })}
+                            disabled={isPending}
+                            className="p-1.5 bg-slate-100 hover:bg-red-100 text-slate-400 hover:text-red-600 rounded-lg transition-colors disabled:opacity-50" title="Reject/Cancel Listing">
                             <XCircle className="w-5 h-5" />
                           </button>
                         </div>
                       ) : (
                         <div className="flex justify-end gap-2">
-                          <button className="p-1.5 bg-slate-100 hover:bg-green-100 text-slate-400 hover:text-green-600 rounded-lg transition-colors" title="Approve/Reactivate Listing">
+                          <button 
+                            onClick={() => startTransition(async () => { await setListingStatus(listing.id, 'ACTIVE'); })}
+                            disabled={isPending}
+                            className="p-1.5 bg-slate-100 hover:bg-green-100 text-slate-400 hover:text-green-600 rounded-lg transition-colors disabled:opacity-50" title="Approve/Reactivate Listing">
                             <CheckCircle className="w-5 h-5" />
                           </button>
                         </div>
